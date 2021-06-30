@@ -31,7 +31,7 @@
                 variant="link"
                 id="dropdown-right"
                 no-caret
-                right
+                offset="100"
               >
               <template #button-content>
                 <b-button class="header__option-btn">
@@ -63,6 +63,7 @@ export default {
     &__search-group, &__options-group {
       display: flex;
       gap: 10px;
+      justify-content: center;
     }
     &__option-btn {
       background: none !important;

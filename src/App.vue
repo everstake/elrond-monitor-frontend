@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <header class="page-hader">
+    <header class="page-header">
       <AppHeader />
     </header>
-    <router-view/>
+    <main class="page-body">
+      <router-view/>
+    </main>
   </div>
 </template>
 
