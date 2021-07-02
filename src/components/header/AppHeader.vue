@@ -131,7 +131,7 @@ export default {
       gap: 45px;
     }
     &__link {
-      @include font($inter-font, 16px, #585757, 500);
+      @include font($inter-font, 16px, $font-black, 500);
       line-height: 24px;
 
       &:hover {
