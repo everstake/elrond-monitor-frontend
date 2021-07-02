@@ -14,40 +14,59 @@
       <nav class="header__navbar navbar">
         <ul class="navbar__list">
           <li class="navbar__item">
-            <router-link to="/calculator" class="navbar__link">
-              APR calculator
+            <router-link to="/blocks" class="navbar__link">
+              Blocks
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/guides" class="navbar__link">
-              Staking guides
+            <router-link to="/epoch" class="navbar__link"> Epoch </router-link>
+          </li>
+          <li class="navbar__item">
+            <router-link to="/transactions" class="navbar__link">
+              Transactions
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="web-wallet" class="navbar__link">
-              Web wallet
+            <router-link to="/accounts" class="navbar__link">
+              Accounts
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/maiar-wallet" class="navbar__link">
-              Maiar wallet
+            <router-link to="/validators" class="navbar__link">
+              Validators
             </router-link>
+          </li>
+          <li class="navbar__item">
+            <b-dropdown
+              variant="link"
+              toggle-class="text-decoration-none"
+              right
+            >
+              <template #button-content>
+                <a class="navbar__link"> Deep dive </a>
+              </template>
+              <b-dropdown-item href="#">Network</b-dropdown-item>
+              <b-dropdown-item href="#">APR calculator</b-dropdown-item>
+            </b-dropdown>
           </li>
         </ul>
       </nav>
 
       <div class="header__options">
         <button class="header__option-btn">
-          <img src="~@/assets/img/optionsIcon/moon.svg" alt="night mode">
+          <img src="~@/assets/img/optionsIcon/moon.svg" alt="night mode" />
         </button>
-        <b-dropdown variant="link" id="dropdown-right" no-caret offset="100">
+        <b-dropdown variant="link" right no-caret>
           <template #button-content>
             <button class="header__option-btn">
-              <img src="~@/assets/img/optionsIcon/menu.svg" alt="menu">
+              <img src="~@/assets/img/optionsIcon/menu.svg" alt="menu" />
             </button>
           </template>
           <b-dropdown-item href="#">Elrond website</b-dropdown-item>
           <b-dropdown-item href="#">Maiar exchange</b-dropdown-item>
+          <b-dropdown-item href="#">Web wallet</b-dropdown-item>
+          <b-dropdown-item href="#">Maiar wallet</b-dropdown-item>
+          <b-dropdown-item href="#">Staking guides</b-dropdown-item>
           <b-dropdown-item href="#">Whitepaper</b-dropdown-item>
           <b-dropdown-item href="#">Elrond blog</b-dropdown-item>
           <b-dropdown-item href="#">Elrond Docs</b-dropdown-item>
@@ -87,20 +106,21 @@ export default {
   }
   .logo {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
 
     &__subtitle {
-      font-size: 12px;
-      color: #1f95ff;
+      @include font($inter-font, 11px, #0085ff, 500);
     }
 
     &__title {
-      line-height: 16px;
+      line-height: 13px;
+      @include font($inter-font, 14px, #969696, 700);
     }
 
     &__img {
-      height: 40px;
+      height: 26px;
+      width: 26px;
     }
   }
 
@@ -109,6 +129,14 @@ export default {
       display: flex;
       align-items: center;
       gap: 45px;
+    }
+    &__link {
+      @include font($inter-font, 16px, #585757, 500);
+      line-height: 24px;
+
+      &:hover {
+        color: #0085ff;
+      }
     }
   }
 }
