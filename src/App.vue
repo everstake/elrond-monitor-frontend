@@ -2,6 +2,7 @@
   <div id="app">
     <header class="page-header">
       <AppHeader />
+      <SearchBar />
     </header>
 
     <main class="page-body">
@@ -17,12 +18,14 @@
 <script>
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppFooter from '@/components/footer/AppFooter.vue';
+import SearchBar from '@/components/header/SearchBar.vue';
 
 export default {
   name: 'App',
   components: {
     AppHeader,
     AppFooter,
+    SearchBar,
   },
 };
 </script>
