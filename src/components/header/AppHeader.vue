@@ -1,8 +1,25 @@
 <template>
-  <div class="header white-background">
+  <div
+    :class="{
+      'header': true,
+      'white-background': !darkModeOn,
+      'black-background': darkModeOn,
+    }"
+  >
     <div class="header__wrapper wrapper">
       <div class="header__logo logo">
-        <img src="~@/assets/img/elrondLogo.svg" alt="logo" class="logo__img" />
+        <img
+          v-if="!darkModeOn"
+          src="~@/assets/img/elrondLogo.svg"
+          alt="logo"
+          class="logo__img"
+        />
+        <img
+          v-else
+          src="~@/assets/img/elrondDarkLogo.svg"
+          alt="logo"
+          class="logo__img"
+        />
         <div class="logo__title-group">
           <p class="logo__title">
             Elrond monitor <br />
@@ -14,25 +31,62 @@
       <nav class="header__navbar navbar">
         <ul class="navbar__list">
           <li class="navbar__item">
-            <router-link to="/blocks" class="navbar__link">
+            <router-link
+              to="/blocks"
+              :class="{
+                'navbar__link': true,
+                'black-font': !darkModeOn,
+                'white-font': darkModeOn,
+              }"
+            >
               Blocks
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/epoch" class="navbar__link"> Epoch </router-link>
+            <router-link
+              to="/epoch"
+              :class="{
+                'navbar__link': true,
+                'black-font': !darkModeOn,
+                'white-font': darkModeOn,
+              }"
+            >
+              Epoch
+            </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/transactions" class="navbar__link">
+            <router-link
+              to="/transactions"
+              :class="{
+                'navbar__link': true,
+                'black-font': !darkModeOn,
+                'white-font': darkModeOn,
+              }"
+            >
               Transactions
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/accounts" class="navbar__link">
+            <router-link
+              to="/accounts"
+              :class="{
+                'navbar__link': true,
+                'black-font': !darkModeOn,
+                'white-font': darkModeOn,
+              }"
+            >
               Accounts
             </router-link>
           </li>
           <li class="navbar__item">
-            <router-link to="/validators" class="navbar__link">
+            <router-link
+              to="/validators"
+              :class="{
+                'navbar__link': true,
+                'black-font': !darkModeOn,
+                'white-font': darkModeOn,
+              }"
+            >
               Validators
             </router-link>
           </li>
@@ -43,7 +97,15 @@
               right
             >
               <template #button-content>
-                <a class="navbar__link"> Deep dive </a>
+                <a
+                  :class="{
+                  'navbar__link': true,
+                  'black-font': !darkModeOn,
+                  'white-font': darkModeOn,
+                  }"
+                >
+                  Deep dive
+                </a>
               </template>
               <b-dropdown-item href="#">Network</b-dropdown-item>
               <b-dropdown-item href="#">APR calculator</b-dropdown-item>
@@ -53,7 +115,7 @@
       </nav>
 
       <div class="header__options">
-        <button class="header__option-btn">
+        <button @click="this.changeMode" class="header__option-btn">
           <img src="~@/assets/img/optionsIcon/moon.svg" alt="night mode" />
         </button>
         <b-dropdown variant="link" right no-caret>
@@ -77,8 +139,20 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'AppHeader',
+  computed: {
+    ...mapGetters([
+      'darkModeOn',
+    ])
+  },
+  methods: {
+    ...mapActions({
+      changeMode: 'changeMode',
+    })
+  },
 };
 </script>
 
@@ -86,7 +160,6 @@ export default {
 .header {
   display: flex;
   justify-content: center;
-  border-bottom: 0.5px solid #e8e8e8;
   height: 60px;
 
   &__options {

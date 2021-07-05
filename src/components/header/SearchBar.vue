@@ -1,5 +1,11 @@
 <template>
-  <div class="search-bar light-blue-background">
+  <div
+    :class="{
+      'search-bar': true,
+      'light-blue-background': !darkModeOn,
+      'dark-blue-bakcground': darkModeOn,
+    }"
+  >
     <div class="search-bar__wrapper wrapper">
       <button class="search-bar__btn">
         <img
@@ -18,8 +24,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'SearchBar',
+  computed: {
+    ...mapGetters([
+      'darkModeOn'
+    ]),
+  }
 }
 </script>
 
@@ -27,7 +40,7 @@ export default {
 .search-bar {
   display: flex;
   justify-content: center;
-  padding: 10px 0;
+  padding: 15px 0;
 
   &__wrapper {
     position: relative;
@@ -36,14 +49,14 @@ export default {
   &__btn {
     position: absolute;
     background: none;
-    top: 9px;
+    top: 4px;
     left: 25px;
   }
 
   &__input {
     width: 100%;
+    height: 30px;
     outline: none;
-    height: 40px;
     border-radius: 8px;
     padding: 0 40px;
     @include font($roboto-font, 14px, #969696, 400);

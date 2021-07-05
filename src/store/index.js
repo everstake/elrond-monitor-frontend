@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import layoutService from './modules/layoutService';
 
 Vue.use(Vuex);
 
@@ -11,5 +12,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    layoutService,
   },
 });

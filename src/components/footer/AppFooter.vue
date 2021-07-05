@@ -1,5 +1,11 @@
 <template>
-  <div class="footer white-background">
+  <div
+    :class="{
+      'footer': true,
+      'black-background': darkModeOn,
+      'white-background': !darkModeOn,
+    }"
+  >
     <div class="footer__top-group">
       <h2 class="footer__copyright">Copyright 2021 - everstake.com</h2>
 
@@ -48,8 +54,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Footer',
+  computed: {
+    ...mapGetters([
+      'darkModeOn',
+    ]),
+  },
 };
 </script>
 
