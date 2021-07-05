@@ -19,6 +19,7 @@
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppFooter from '@/components/footer/AppFooter.vue';
 import SearchBar from '@/components/header/SearchBar.vue';
+import { mapGetters  } from 'vuex';
 
 export default {
   name: 'App',
@@ -36,5 +37,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.page-body {
+  background-color: #E5E5E5;
 }
 </style>
