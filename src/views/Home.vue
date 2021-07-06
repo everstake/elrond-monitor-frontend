@@ -1,9 +1,14 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{ 'home--dark-mode': darkModeOn }">
     <div class="p-3">
       <b-row class="mb-3 g-3">
         <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card>
+          <b-card
+            :class="{
+              'card--dark-mode': darkModeOn,
+            }"
+            :header-class="{ 'card-header--dark-mode': darkModeOn }"
+          >
             <template #header> Price at the moment and All time high</template>
 
             <template>
@@ -27,7 +32,7 @@
         </b-col>
 
         <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card>
+          <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Market cap</template>
 
             <template>
@@ -51,7 +56,7 @@
         </b-col>
 
         <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card>
+          <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Circulating supply</template>
 
             <template>
@@ -75,7 +80,7 @@
         </b-col>
 
         <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card>
+          <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Trading volume</template>
 
             <template>
@@ -103,7 +108,10 @@
         <b-col cols="12" lg="6">
           <b-row class="g-3">
             <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card body-class="card-wrapper__epoch">
+              <b-card
+                :class="{ 'card--dark-mode': darkModeOn }"
+                body-class="card-wrapper__epoch"
+              >
                 <template #header>
                   <div
                     class="d-flex justify-content-between align-items-center"
@@ -118,7 +126,10 @@
             </b-col>
 
             <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card body-class="d-flex card-wrapper__account">
+              <b-card
+                :class="{ 'card--dark-mode': darkModeOn }"
+                body-class="d-flex card-wrapper__account"
+              >
                 <template #header>Accounts</template>
 
                 <template>
@@ -128,7 +139,10 @@
             </b-col>
 
             <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card body-class="d-flex">
+              <b-card
+                :class="{ 'card--dark-mode': darkModeOn }"
+                body-class="d-flex"
+              >
                 <template #header>Block height</template>
 
                 <template>
@@ -138,7 +152,10 @@
             </b-col>
 
             <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card body-class="d-flex card-wrapper__transaction">
+              <b-card
+                :class="{ 'card--dark-mode': darkModeOn }"
+                body-class="d-flex card-wrapper__transaction"
+              >
                 <template #header>Transactions</template>
 
                 <template>
@@ -150,7 +167,7 @@
         </b-col>
 
         <b-col cols="12" md="12" lg="6">
-          <b-card class="h-100">
+          <b-card :class="{ 'card--dark-mode': darkModeOn }" class="h-100">
             <template #header> Validators </template>
           </b-card>
         </b-col>
@@ -160,6 +177,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Home',
   components: {},
@@ -168,13 +187,19 @@ export default {
       listCards: [],
     };
   },
+  computed: {
+    ...mapGetters(['darkModeOn']),
+  },
 };
 </script>
 
 <style lang="scss">
 .home {
-  margin: 1rem 0;
   text-align: center;
+
+  &.home--dark-mode {
+    background-color: #1c1c1c;
+  }
 }
 .card {
   height: 223px;
@@ -187,11 +212,21 @@ export default {
     margin: 0 1rem;
     padding: 0.25rem 0 1rem;
     background-color: transparent;
+    border-bottom-color: #e8e8e8;
+
+    &--dark-mode {
+      border-bottom-color: #fff;
+    }
   }
 
   .card-body {
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  &.card--dark-mode {
+    background-color: #111;
+    color: white;
   }
 }
 
