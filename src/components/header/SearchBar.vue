@@ -61,7 +61,7 @@ export default {
     height: 30px;
     outline: none;
     border-radius: 8px;
-    padding: 0 40px;
+    padding: 0 50px;
     @include font($roboto-font, 14px, #969696, 400);
     line-height: 24px;
   }

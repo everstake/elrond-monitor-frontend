@@ -5,7 +5,7 @@
       <SearchBar />
     </header>
 
-    <main class="page-body">
+    <main class="page-body" :class="{'black-body-background': darkModeOn}">
       <router-view />
     </main>
 
@@ -28,6 +28,11 @@ export default {
     AppFooter,
     SearchBar,
   },
+  computed: {
+    ...mapGetters([
+      'darkModeOn',
+    ]),
+  },
 };
 </script>
 
@@ -36,9 +41,10 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .page-body {
   background-color: #E5E5E5;
+  flex-grow: 1;
 }
 </style>
