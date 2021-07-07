@@ -73,7 +73,6 @@ export default {
   align-items: center;
   gap: 30px;
   padding: 26px 0px;
-  border-top: 0.5px solid #e8e8e8;
 
   &__copyright {
     @include font($roboto-font, 14px, $font-black, 500);

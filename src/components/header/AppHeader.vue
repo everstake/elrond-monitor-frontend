@@ -7,7 +7,7 @@
     }"
   >
     <div class="header__wrapper wrapper">
-      <div class="header__logo logo">
+      <router-link to="/" class="header__logo logo">
         <img
           v-if="!darkModeOn"
           src="~@/assets/img/elrondLogo.svg"
@@ -26,7 +26,7 @@
             <span class="logo__subtitle"> by Everstake </span>
           </p>
         </div>
-      </div>
+      </router-link>
 
       <nav class="header__navbar navbar">
         <ul class="navbar__list">
@@ -116,7 +116,16 @@
 
       <div class="header__options">
         <button @click="this.changeMode" class="header__option-btn">
-          <img src="~@/assets/img/optionsIcon/moon.svg" alt="night mode" />
+          <img
+            v-if="!darkModeOn"
+            src="~@/assets/img/optionsIcon/moon.svg"
+            alt="night mode"
+          />
+          <img
+            v-else
+            src="~@/assets/img/optionsIcon/sun.svg"
+            alt="night mode"
+          />
         </button>
         <b-dropdown variant="link" right no-caret>
           <template #button-content>

@@ -1,177 +1,179 @@
 <template>
   <div class="home" :class="{ 'home--dark-mode': darkModeOn }">
-    <div class="p-3">
-      <b-row class="mb-3 g-3">
-        <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card
-            :class="{
-              'card--dark-mode': darkModeOn,
-            }"
-            :header-class="{ 'card-header--dark-mode': darkModeOn }"
-          >
-            <template #header> Price at the moment and All time high</template>
-
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
-
-              <div class="price">
-                <div class="d-flex justify-content-between">
-                  <span class="price__value">Current price: $80</span>
-                  <span class="price__percent">
-                    2%
-                    <b-icon icon="arrow-up-right" />
-                  </span>
-                </div>
-
-                <div>
-                  <span class="price__value">Volume 24h: $77,889</span>
-                </div>
-              </div>
-            </template>
-          </b-card>
-        </b-col>
-
-        <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card :class="{ 'card--dark-mode': darkModeOn }">
-            <template #header>Market cap</template>
-
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
-
-              <div class="price">
-                <div class="d-flex justify-content-between">
-                  <span class="price__value">Current price: $80</span>
-                  <span class="price__percent">
-                    2%
-                    <b-icon icon="arrow-up-right"
-                  /></span>
-                </div>
-
-                <div>
-                  <span class="price__value">Volume 24h: $77,889</span>
-                </div>
-              </div>
-            </template>
-          </b-card>
-        </b-col>
-
-        <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card :class="{ 'card--dark-mode': darkModeOn }">
-            <template #header>Circulating supply</template>
-
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
-
-              <div class="price">
-                <div class="d-flex justify-content-between">
-                  <span class="price__value">Current price: $80</span>
-                  <span class="price__percent">
-                    2%
-                    <b-icon icon="arrow-up-right" />
-                  </span>
-                </div>
-
-                <div>
-                  <span class="price__value">Volume 24h: $77,889</span>
-                </div>
-              </div>
-            </template>
-          </b-card>
-        </b-col>
-
-        <b-col cols="12" xs="12" sm="6" md="6" lg="3">
-          <b-card :class="{ 'card--dark-mode': darkModeOn }">
-            <template #header>Trading volume</template>
-
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">100,000</div>
-
-              <div class="price">
-                <div class="d-flex justify-content-between">
-                  <span class="price__value">Current price: $80</span>
-                  <span class="price__percent">
-                    2%
-                    <b-icon icon="arrow-up-right" />
-                  </span>
-                </div>
-
-                <div>
-                  <span class="price__value">Volume 24h: $77,889</span>
-                </div>
-              </div>
-            </template>
-          </b-card>
-        </b-col>
-      </b-row>
-
-      <b-row class="mb-3 g-3">
-        <b-col cols="12" lg="6">
-          <b-row class="g-3">
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="card-wrapper__epoch"
+    <div class="wrapper">
+      <div class="p-3">
+        <b-row class="mb-3 g-3">
+          <b-col cols="12" xs="12" sm="6" md="6" lg="3">
+            <b-card
+              :class="{ 'card--dark-mode': darkModeOn }"
+              :header-class="{ 'card-header--dark-mode': darkModeOn }"
+            >
+              <template #header>
+                Price at the moment and All time high</template
               >
-                <template #header>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <span>Epoch</span>
-                    <span class="fw-bold">196</span>
+
+              <template>
+                <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
+
+                <div class="price">
+                  <div class="d-flex justify-content-between">
+                    <span class="price__value">Current price: $80</span>
+                    <span class="price__percent">
+                      2%
+                      <b-icon icon="arrow-up-right" />
+                    </span>
                   </div>
-                </template>
 
-                <template></template>
-              </b-card>
-            </b-col>
+                  <div>
+                    <span class="price__value">Volume 24h: $77,889</span>
+                  </div>
+                </div>
+              </template>
+            </b-card>
+          </b-col>
 
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="d-flex card-wrapper__account"
-              >
-                <template #header>Accounts</template>
+          <b-col cols="12" xs="12" sm="6" md="6" lg="3">
+            <b-card :class="{ 'card--dark-mode': darkModeOn }">
+              <template #header>Market cap</template>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">196,546</span>
-                </template>
-              </b-card>
-            </b-col>
+              <template>
+                <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
 
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="d-flex"
-              >
-                <template #header>Block height</template>
+                <div class="price">
+                  <div class="d-flex justify-content-between">
+                    <span class="price__value">Current price: $80</span>
+                    <span class="price__percent">
+                      2%
+                      <b-icon icon="arrow-up-right"
+                    /></span>
+                  </div>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">19,246,0490</span>
-                </template>
-              </b-card>
-            </b-col>
+                  <div>
+                    <span class="price__value">Volume 24h: $77,889</span>
+                  </div>
+                </div>
+              </template>
+            </b-card>
+          </b-col>
 
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="d-flex card-wrapper__transaction"
-              >
-                <template #header>Transactions</template>
+          <b-col cols="12" xs="12" sm="6" md="6" lg="3">
+            <b-card :class="{ 'card--dark-mode': darkModeOn }">
+              <template #header>Circulating supply</template>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">16,297,098</span>
-                </template>
-              </b-card>
-            </b-col>
-          </b-row>
-        </b-col>
+              <template>
+                <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
 
-        <b-col cols="12" md="12" lg="6">
-          <b-card :class="{ 'card--dark-mode': darkModeOn }" class="h-100">
-            <template #header> Validators </template>
-          </b-card>
-        </b-col>
-      </b-row>
+                <div class="price">
+                  <div class="d-flex justify-content-between">
+                    <span class="price__value">Current price: $80</span>
+                    <span class="price__percent">
+                      2%
+                      <b-icon icon="arrow-up-right" />
+                    </span>
+                  </div>
+
+                  <div>
+                    <span class="price__value">Volume 24h: $77,889</span>
+                  </div>
+                </div>
+              </template>
+            </b-card>
+          </b-col>
+
+          <b-col cols="12" xs="12" sm="6" md="6" lg="3">
+            <b-card :class="{ 'card--dark-mode': darkModeOn }">
+              <template #header>Trading volume</template>
+
+              <template>
+                <div class="fw-bold fs-2 mt-3 mb-3">100,000</div>
+
+                <div class="price">
+                  <div class="d-flex justify-content-between">
+                    <span class="price__value">Current price: $80</span>
+                    <span class="price__percent">
+                      2%
+                      <b-icon icon="arrow-up-right" />
+                    </span>
+                  </div>
+
+                  <div>
+                    <span class="price__value">Volume 24h: $77,889</span>
+                  </div>
+                </div>
+              </template>
+            </b-card>
+          </b-col>
+        </b-row>
+
+        <b-row class="mb-3 g-3">
+          <b-col cols="12" lg="6">
+            <b-row class="g-3">
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="card-wrapper__epoch"
+                >
+                  <template #header>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <span>Epoch</span>
+                      <span class="fw-bold">196</span>
+                    </div>
+                  </template>
+
+                  <template></template>
+                </b-card>
+              </b-col>
+
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="d-flex card-wrapper__account"
+                >
+                  <template #header>Accounts</template>
+
+                  <template>
+                    <span class="align-self-end fw-bold fs-1">196,546</span>
+                  </template>
+                </b-card>
+              </b-col>
+
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="d-flex"
+                >
+                  <template #header>Block height</template>
+
+                  <template>
+                    <span class="align-self-end fw-bold fs-1">19,246,0490</span>
+                  </template>
+                </b-card>
+              </b-col>
+
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="d-flex card-wrapper__transaction"
+                >
+                  <template #header>Transactions</template>
+
+                  <template>
+                    <span class="align-self-end fw-bold fs-1">16,297,098</span>
+                  </template>
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-col>
+
+          <b-col cols="12" md="12" lg="6">
+            <b-card :class="{ 'card--dark-mode': darkModeOn }" class="h-100">
+              <template #header> Validators </template>
+            </b-card>
+          </b-col>
+        </b-row>
+      </div>
     </div>
   </div>
 </template>
@@ -196,6 +198,8 @@ export default {
 <style lang="scss">
 .home {
   text-align: center;
+  display: flex;
+  justify-content: center;
 
   &.home--dark-mode {
     background-color: #1c1c1c;

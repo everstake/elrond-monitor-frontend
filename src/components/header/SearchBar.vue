@@ -16,7 +16,10 @@
       </button>
       <input
         type="text"
-        class="search-bar__input"
+        :class="{
+          'search-bar__input': true,
+          'black-background': darkModeOn,
+        }"
         placeholder="Search for block, accounts, transactions, programs, tokens and validators..."
       >
     </div>
