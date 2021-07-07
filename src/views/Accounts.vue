@@ -1,20 +1,26 @@
 <template>
-  <div class="accounts">
-    <h1 class="accounts__title">
-      Accounts
-    </h1>
+  <div class="accounts wrapper">
+    <TableCard>
+      <template #header>
+        Accounts
+      </template>
+    </TableCard>
   </div>
 </template>
 
 <script>
+import TableCard from '@/components/TableCard.vue';
+
 export default {
   name: 'Accounts',
+  components: {
+    TableCard,
+  }
 
 }
 </script>
 
 <style lang="scss">
 .accounts {
-  text-align: center;
 }
 </style>

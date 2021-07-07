@@ -43,8 +43,15 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
 }
-.page-body {
-  background-color: #E5E5E5;
-  flex-grow: 1;
+.page {
+
+  &-body {
+    background-color: #E5E5E5;
+    flex-grow: 1;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+  }
 }
+
 </style>

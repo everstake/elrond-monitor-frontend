@@ -1,8 +1,7 @@
 <template>
   <div class="home" :class="{ 'home--dark-mode': darkModeOn }">
     <div class="wrapper">
-      <div class="p-3">
-        <b-row class="mb-3 g-3">
+      <b-row class="mb-3 g-3">
           <b-col cols="12" xs="12" sm="6" md="6" lg="3">
             <b-card
               :class="{ 'card--dark-mode': darkModeOn }"
@@ -103,9 +102,9 @@
               </template>
             </b-card>
           </b-col>
-        </b-row>
+      </b-row>
 
-        <b-row class="mb-3 g-3">
+      <b-row class="mb-3 g-3">
           <b-col cols="12" lg="6">
             <b-row class="g-3">
               <b-col cols="12" xs="12" sm="6" md="6" lg="6">
@@ -172,8 +171,7 @@
               <template #header> Validators </template>
             </b-card>
           </b-col>
-        </b-row>
-      </div>
+      </b-row>
     </div>
   </div>
 </template>
