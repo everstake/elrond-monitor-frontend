@@ -12,10 +12,23 @@
     <b-table
       id="my-table"
       :items="items"
+      :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
-      responsive
-    ></b-table>
+    >
+      <template #cell(address)="data">
+        <p class="table__address">
+          {{ data.item.address }}
+        </p>
+      </template>
+    </b-table>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="items.length"
+      :per-page="perPage"
+      align="right"
+      aria-controls="my-table"
+    ></b-pagination>
   </div>
 </template>
 
@@ -25,39 +38,127 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'TableCard',
   computed: {
-    ...mapGetters([
-      'darkModeOn',
-    ]),
+    ...mapGetters(['darkModeOn']),
   },
   data() {
     return {
-      perPage: 18,
+      perPage: 9,
       currentPage: 1,
-      items:[
-          {
-            address: 'erd195fe57d7fm5h33585sc7wl8trqhrmy85z3dg6f6mqd0724ymljxq3zjemc', balance: '1245',
-            stake: 0,
-            unstake: 0
-          },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-          { address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0', balance: '1245', stake: 0, unstake: 0 },
-        ]
-    }
-  }
-
-}
+      fields: [
+        {
+          key: 'address',
+          class: ['w-390', 'table__cell'],
+          thClass: ['table__title'],
+          tdClass: ['table__cell--blue'],
+        },
+        {
+          key: 'balance',
+          class: ['table__cell'],
+          thClass: ['table__title'],
+          tdClass: ['table__cell--common'],
+        },
+        {
+          key: 'stake',
+          class: ['table__cell'],
+          thClass: ['table__title'],
+          tdClass: ['table__cell--common'],
+        },
+        {
+          key: 'unstake',
+          class: ['table__cell'],
+          thClass: ['table__title'],
+          tdClass: ['table__cell--common'],
+        }
+      ],
+      items: [
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+        {
+          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
+          balance: '1245.6',
+          stake: 0,
+          unstake: 0,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss">
@@ -72,6 +173,29 @@ export default {
     text-align: center;
     @include font($roboto-font, 36px, $body-dark, 500);
   }
+}
+.table {
+  &__title {
+    @include font($roboto-font, 16px, $font-grey, 500);
+    line-height: 14px;
+  }
+  &__cell {
+    border-bottom: 1px solid #e8e8e8 !important;
+    @include font($roboto-font, 16px, $font-black, 500);
+    line-height: 24px;
+
+    &--blue {
+      color: #0085ff;
+      text-decoration: underline;
+    }
+  }
+
+  &__address {
+    padding: 12px 0;
+  }
+}
+.w-390 {
+  width: 390px;
 }
 </style>
 
@@ -123,4 +247,4 @@ export default {
     }
   }
 </script>
-!--> 
+!-->

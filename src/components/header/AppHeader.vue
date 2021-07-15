@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{
-      'header': true,
+      header: true,
       'white-background': !darkModeOn,
       'black-background': darkModeOn,
     }"
@@ -34,7 +34,7 @@
             <router-link
               to="/blocks"
               :class="{
-                'navbar__link': true,
+                navbar__link: true,
                 'black-font': !darkModeOn,
                 'white-font': darkModeOn,
               }"
@@ -46,7 +46,7 @@
             <router-link
               to="/epoch"
               :class="{
-                'navbar__link': true,
+                navbar__link: true,
                 'black-font': !darkModeOn,
                 'white-font': darkModeOn,
               }"
@@ -58,7 +58,7 @@
             <router-link
               to="/transactions"
               :class="{
-                'navbar__link': true,
+                navbar__link: true,
                 'black-font': !darkModeOn,
                 'white-font': darkModeOn,
               }"
@@ -70,7 +70,7 @@
             <router-link
               to="/accounts"
               :class="{
-                'navbar__link': true,
+                navbar__link: true,
                 'black-font': !darkModeOn,
                 'white-font': darkModeOn,
               }"
@@ -82,7 +82,7 @@
             <router-link
               to="/validators"
               :class="{
-                'navbar__link': true,
+                navbar__link: true,
                 'black-font': !darkModeOn,
                 'white-font': darkModeOn,
               }"
@@ -99,9 +99,9 @@
               <template #button-content>
                 <a
                   :class="{
-                  'navbar__link': true,
-                  'black-font': !darkModeOn,
-                  'white-font': darkModeOn,
+                    navbar__link: true,
+                    'black-font': !darkModeOn,
+                    'white-font': darkModeOn,
                   }"
                 >
                   Deep dive
@@ -115,7 +115,7 @@
       </nav>
 
       <div class="header__options">
-        <button @click="this.changeMode" class="header__option-btn">
+        <button class="header__option-btn" @click="this.changeMode">
           <img
             v-if="!darkModeOn"
             src="~@/assets/img/optionsIcon/moon.svg"
@@ -153,14 +153,12 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'AppHeader',
   computed: {
-    ...mapGetters([
-      'darkModeOn',
-    ])
+    ...mapGetters(['darkModeOn']),
   },
   methods: {
     ...mapActions({
       changeMode: 'changeMode',
-    })
+    }),
   },
 };
 </script>
