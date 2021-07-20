@@ -1,6 +1,6 @@
 const layoutService = {
   state: {
-    darkModeOn: localStorage.getItem('darkMode') === 'true' ? true : false,
+    darkModeOn: localStorage.getItem('darkMode') === 'true',
   },
   mutations: {
     toggleMode(state) {
