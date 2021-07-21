@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Accounts from '../views/Accounts.vue';
 import AccountDetails from '../views/AccountDetails.vue';
+import Transactions from '../views/Transactions.vue';
 
 Vue.use(VueRouter);
 
@@ -23,7 +24,12 @@ const routes = [
     path: '/account-details',
     name: 'AccountDetails',
     component: AccountDetails,
-  }
+  },
+  {
+    path: '/transactions',
+    name: 'Transactions',
+    component: Transactions,
+  },
 ];
 
 const router = new VueRouter({

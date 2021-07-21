@@ -10,6 +10,6 @@ const MockApi = service.createService({
   },
 });
 
-export const getAccounts = async () => {
-  return items.accounts;
+export const getTransactions = async () => {
+  return items.transactions;
 };
