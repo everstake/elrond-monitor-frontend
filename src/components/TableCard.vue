@@ -6,7 +6,13 @@
       'black-background': darkModeOn,
     }"
   >
-    <h1 class="table-card__title">
+    <h1 
+      class="table-card__title"
+      :class="{
+        'white-font-main': darkModeOn,
+        'black-font-main': !darkModeOn,
+      }"
+    >
       <slot name="header" />
     </h1>
     <b-table
@@ -17,9 +23,11 @@
       :current-page="currentPage"
     >
       <template #cell(address)="data">
-        <p class="table__address">
-          {{ data.item.address }}
-        </p>
+        <router-link to="/account-details">
+          <p class="table__address">
+            {{ data.item.address }}
+          </p>
+        </router-link>
       </template>
     </b-table>
     <b-pagination
@@ -36,6 +44,16 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  props: {
+    items: {
+      type: Array,
+      default: () => [1,1],
+    },
+    fields: {
+      type: Array,
+      default: () => [],
+    },
+  },
   name: 'TableCard',
   computed: {
     ...mapGetters(['darkModeOn']),
@@ -44,118 +62,6 @@ export default {
     return {
       perPage: 9,
       currentPage: 1,
-      fields: [
-        {
-          key: 'address',
-          class: ['w-390', 'table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--blue'],
-        },
-        {
-          key: 'balance',
-          class: ['table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--common'],
-        },
-        {
-          key: 'stake',
-          class: ['table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--common'],
-        },
-        {
-          key: 'unstake',
-          class: ['table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--common'],
-        }
-      ],
-      items: [
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-        {
-          address: 'hx0d50e8a602dc4a8dcbdd306ef9195a0...',
-          balance: '1245.6',
-          stake: 0,
-          unstake: 0,
-        },
-      ],
     };
   },
 };
@@ -197,54 +103,7 @@ export default {
 .w-390 {
   width: 390px;
 }
+.w-180 {
+  width: 180px;
+}
 </style>
-
-<!-- 
-<template>
-  <div class="overflow-auto">
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-    <b-table
-      id="my-table"
-      :items="items"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
-    ></b-table>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        perPage: 3,
-        currentPage: 1,
-        items: [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-        ]
-      }
-    },
-    computed: {
-      rows() {
-        return this.items.length
-      }
-    }
-  }
-</script>
-!-->
