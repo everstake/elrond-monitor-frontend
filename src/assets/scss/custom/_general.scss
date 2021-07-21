@@ -6,6 +6,10 @@
   background-color: $main-black;
 }
 
+.black-body-background {
+  background-color: $body-dark;
+}
+
 .light-blue-background {
   background-color: $light-blue;
 }
@@ -20,4 +24,12 @@
 
 .white-font {
   color: $font-white !important;
+}
+
+.white-font-main {
+  color: $font-white-main !important;
+}
+
+.black-font-main {
+  color: $body-dark !important;
 }

@@ -5,7 +5,7 @@
       <SearchBar />
     </header>
 
-    <main class="page-body">
+    <main class="page-body" :class="{ 'black-body-background': darkModeOn }">
       <router-view />
     </main>
 
@@ -19,7 +19,7 @@
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppFooter from '@/components/footer/AppFooter.vue';
 import SearchBar from '@/components/header/SearchBar.vue';
-import { mapGetters  } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -27,6 +27,9 @@ export default {
     AppHeader,
     AppFooter,
     SearchBar,
+  },
+  computed: {
+    ...mapGetters(['darkModeOn']),
   },
 };
 </script>
@@ -36,9 +39,15 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
-.page-body {
-  background-color: #E5E5E5;
+.page {
+  &-body {
+    background-color: #f7f7f7;
+    flex-grow: 1;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
