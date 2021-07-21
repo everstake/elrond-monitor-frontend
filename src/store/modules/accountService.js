@@ -5,7 +5,7 @@ const accountService = {
     accounts: [],
   },
   mutations: {
-    fetchAccounts({ state }, accounts) {
+    fetchAccounts(state, accounts) {
       state.accounts = accounts;
     },
   },

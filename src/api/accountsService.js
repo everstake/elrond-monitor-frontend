@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { items } from '@/constants/items';
 
 const MockApi = axios.create({
   baseURL: 'https://60df0e79abbdd9001722d210.mockapi.io',
@@ -10,7 +11,7 @@ const MockApi = axios.create({
 });
 
 export const getAccounts = async () => {
-  return MockApi.get('/accounts');
+  return items.accounts;
 };
 
 export const getInfoCardsCharts = async () => {
