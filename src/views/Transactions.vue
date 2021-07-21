@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="transactions">
-      <TableCard>
+      <TableCard :fields="fields" :items="transactions">
         <template #header> Transactions </template>
       </TableCard>
     </div>
@@ -11,6 +11,7 @@
 <script>
 import TableCard from '@/components/TableCard.vue';
 import { mapActions, mapGetters } from 'vuex';
+import { tableFields } from '@/constants/tables';
 
 export default {
   name: 'Transactions',
@@ -18,13 +19,16 @@ export default {
     TableCard,
   },
    async mounted() {
-    await this.fetchAccounts();
+    await this.fetchTransactions();
   },
   computed: {
-    ...mapGetters(['accounts']),
+    ...mapGetters(['transactions']),
+    fields() {
+      return tableFields.transactionFields;
+    }
   },
   methods: {
-    ...mapActions(['fetchAccounts']),
+    ...mapActions(['fetchTransactions']),
   },
 }
 </script>
