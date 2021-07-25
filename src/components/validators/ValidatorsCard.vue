@@ -69,13 +69,18 @@
         </p>
       </div>
     </div>
+    <Tabs />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import Tabs from '@/components/validators/Tabs.vue';
 export default {
   name: 'ValidatorsCard',
+  components: {
+    Tabs,
+  },
   computed: {
    ...mapGetters(['darkModeOn']),
  }
@@ -93,7 +98,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 50px;
+    padding: 0px 50px;
 
     &__group {
       display: flex;
@@ -102,10 +107,12 @@ export default {
     }
     
     &__text {
+      padding-top: 5px;
       @include font($roboto-font, 16px, $font-black, 400);
     }
     &__value {
       @include font($roboto-font, 30px, $main-black, 500);
+      line-height: 60px;
     }
   }
 }

@@ -29,6 +29,11 @@
           </p>
         </router-link>
       </template>
+      <template #cell(name)="data">
+        <p class="table__name">
+          {{ data.item.name }}
+        </p>
+      </template>
     </b-table>
     <b-pagination
       v-model="currentPage"
@@ -60,7 +65,7 @@ export default {
   },
   data() {
     return {
-      perPage: 9,
+      perPage: 12,
       currentPage: 1,
     };
   },
@@ -96,8 +101,11 @@ export default {
     }
   }
 
-  &__address {
+  &__name, &__address {
     padding: 12px 0;
+  }
+  &__name {
+    @include font($roboto-font, 16px, #0085FF, 500);
   }
 }
 .w-390 {

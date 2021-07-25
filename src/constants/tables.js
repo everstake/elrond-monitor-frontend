@@ -72,4 +72,30 @@ export const tableFields = {
       tdClass: ['table__cell--common'],
     }
   ],
+  validatorsFields: [
+    {
+      key: 'name',
+      class: [ 'table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'stake',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'cumulativeStake',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'nodes',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    }
+  ]
 }
