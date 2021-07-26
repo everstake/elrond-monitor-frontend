@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="validators">
-      <ValidatorsCard />
-      <TableCard :items="validators" :fields="fields" />
+      <ValidatorsCard @choisedTab="choisedTab" />
+      <TableCard :items="items" :fields="fields" />
     </div>
   </div>
 </template>
@@ -19,14 +19,32 @@ export default {
     ValidatorsCard,
     TableCard,
   },
+  data() {
+    return {
+      items: this.$store.getters['validators'],
+      fields: tableFields.validatorsFields,
+    }
+  },
   computed: {
     ...mapGetters(['validators', 'stakingProviders', 'nodes']),
-    fields() {
-      return tableFields.validatorsFields;
-    },
   },
   methods: {
     ...mapActions(['fetchValidators']),
+    choisedTab(tab) {
+      switch(tab) {
+        case 'Validators':
+          this.items = this.validators;
+          break;
+        case 'Staking Providers':
+          this.items = this.stakingProviders;
+          break;
+        case 'Nodes':
+          this.items = this.nodes;
+          break;
+        default:
+          this.items = this.validators;
+      }
+    }
   },
   mounted() {
     this.fetchValidators();

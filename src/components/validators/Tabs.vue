@@ -30,7 +30,7 @@ export default {
   methods: {
     choiseTab(tab) {
       this.currentTab = tab;
-      $emit('tabChoised', tab);
+      this.$emit('tabChoised', tab);
     },
   },
 }

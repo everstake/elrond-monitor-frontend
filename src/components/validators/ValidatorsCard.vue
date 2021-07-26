@@ -69,7 +69,7 @@
         </p>
       </div>
     </div>
-    <Tabs />
+    <Tabs @tabChoised="choisedTab" />
   </div>
 </template>
 
@@ -83,6 +83,11 @@ export default {
   },
   computed: {
    ...mapGetters(['darkModeOn']),
+ },
+ methods: {
+   choisedTab(tab) {
+     this.$emit('choisedTab', tab);
+   }
  }
 }
 </script>
