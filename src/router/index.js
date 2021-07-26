@@ -6,6 +6,7 @@ import Home from '../views/Home.vue';
 import Accounts from '../views/Accounts.vue';
 import AccountDetails from '../views/AccountDetails.vue';
 import Transactions from '../views/Transactions.vue';
+import Validators from '../views/Validators.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
     name: 'Transactions',
     component: Transactions,
   },
+  {
+    path: '/validators',
+    name: 'Validators',
+    component: Validators,
+  }
 ];
 
 const router = new VueRouter({

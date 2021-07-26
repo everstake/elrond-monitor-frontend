@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import layoutService from './modules/layoutService';
 import accountService from './modules/accountService';
 import transactionsService from './modules/transactionsService';
+import validatorsService from './modules/validatorsService';
 
 Vue.use(Vuex);
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     layoutService,
     accountService,
     transactionsService,
+    validatorsService,
   },
 });
