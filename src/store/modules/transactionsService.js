@@ -1,4 +1,4 @@
-import { getTransactions } from "../../api/transactionsService";
+import { getTransactions } from '../../api/accountsService';
 
 const transactionsService = {
   state: {
@@ -10,10 +10,11 @@ const transactionsService = {
     },
   },
   actions: {
-    async fetchTransactions({ commit }) {
+    async fetchTransactions({ commit }, params) {
+      console.log(params);
       try {
-        const transactions = await getTransactions();
-        commit('fetchTransactions', transactions)
+        const transactions = await getTransactions({ params });
+        commit('fetchTransactions', transactions.data.items);
       } catch (err) {
         console.log(err);
       }
@@ -21,7 +22,7 @@ const transactionsService = {
   },
   getters: {
     transactions: (state) => state.transactions,
-  }
-}
+  },
+};
 
 export default transactionsService;

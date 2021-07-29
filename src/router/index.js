@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 // views
 import Home from '../views/Home.vue';
 import Accounts from '../views/Accounts.vue';
-import AccountDetails from '../views/AccountDetails.vue';
 import Transactions from '../views/Transactions.vue';
 import Validators from '../views/Validators.vue';
 
@@ -22,9 +21,9 @@ const routes = [
     component: Accounts,
   },
   {
-    path: '/account-details',
+    path: '/account/:id',
     name: 'AccountDetails',
-    component: AccountDetails,
+    component: () => import('../views/AccountDetails.vue'),
   },
   {
     path: '/transactions',
@@ -35,7 +34,7 @@ const routes = [
     path: '/validators',
     name: 'Validators',
     component: Validators,
-  }
+  },
 ];
 
 const router = new VueRouter({

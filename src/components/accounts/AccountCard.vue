@@ -7,65 +7,43 @@
         'black-background': darkModeOn,
       }"
     >
-      <h1 class="account-card__title account-card__item">
-        Account details
-      </h1>
+      <h1 class="account-card__title account-card__item">Account details</h1>
       <div class="account-card__address-group account-card__item">
         <p class="account-card__address">
-          hx0d50e8a602dc4a8dcbdd306ef9195a0602dc4a8dcbdd306ef9195a0
+          {{ account.address }}
         </p>
         <button class="account-card__btn">
           <img
             src="~@/assets/img/optionsIcon/clipboard.svg"
             alt="clipboard"
             class="account-card__img"
-          >
+          />
         </button>
       </div>
       <div class="account-card__info-group">
         <div class="account-card__info">
-          <p class="account-card__info-item">
-            Balance
-          </p>
-          <p class="account-card__info-item">
-            11,234,023,7322
-          </p>
+          <p class="account-card__info-item">Balance</p>
+          <p class="account-card__info-item">{{ account.balance | formatAmount }}</p>
         </div>
 
         <div class="account-card__info">
-          <p class="account-card__info-item">
-            Stake
-          </p>
-          <p class="account-card__info-item">
-            11,234,023,7322
-          </p>
+          <p class="account-card__info-item">Stake</p>
+          <p class="account-card__info-item">{{ account.delegated }}</p>
         </div>
 
         <div class="account-card__info">
-          <p class="account-card__info-item">
-            Unstake
-          </p>
-          <p class="account-card__info-item">
-            11,234,023,7322
-          </p>
+          <p class="account-card__info-item">Unstake</p>
+          <p class="account-card__info-item">{{ account.undelegated }}</p>
         </div>
 
         <div class="account-card__info">
-          <p class="account-card__info-item">
-            Total rewards
-          </p>
-          <p class="account-card__info-item">
-            11,234,023,7322
-          </p>
+          <p class="account-card__info-item">Total rewards</p>
+          <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
         </div>
 
-         <div class="account-card__info">
-          <p class="account-card__info-item">
-            Staking provider
-          </p>
-          <p class="account-card__info-item">
-            Everstake
-          </p>
+        <div class="account-card__info">
+          <p class="account-card__info-item">Staking provider</p>
+          <p class="account-card__info-item">Everstake</p>
         </div>
       </div>
     </div>
@@ -76,11 +54,11 @@
 import { mapGetters } from 'vuex';
 
 export default {
- name: 'AccountCard',
- computed: {
-   ...mapGetters(['darkModeOn']),
- }
-}
+  name: 'AccountCard',
+  computed: {
+    ...mapGetters(['darkModeOn', 'account']),
+  },
+};
 </script>
 
 <style lang="scss">
@@ -92,7 +70,7 @@ export default {
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;
-  };
+  }
   &__btn {
     background: none;
   }
@@ -107,6 +85,5 @@ export default {
     align-items: center;
     justify-content: space-between;
   }
-
 }
 </style>

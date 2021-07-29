@@ -6,8 +6,8 @@
       'black-background': darkModeOn,
     }"
   >
-    <h1 
-      class="table-card__title"
+    <h1
+      class="table-card__title table-card__title--position"
       :class="{
         'white-font-main': darkModeOn,
         'black-font-main': !darkModeOn,
@@ -22,25 +22,20 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
-      <template #cell(address)="data">
-        <router-link to="/account-details">
-          <p class="table__address">
-            {{ data.item.address }}
-          </p>
-        </router-link>
-      </template>
-      <template #cell(name)="data">
-        <p class="table__name">
-          {{ data.item.name }}
-        </p>
+      <template
+        v-for="key in Object.keys($scopedSlots)"
+        #[key]="{ item, index }"
+      >
+        <slot :name="key" :item="item" :index="index" />
       </template>
     </b-table>
     <b-pagination
       v-model="currentPage"
-      :total-rows="items.length"
+      :total-rows="totalPage"
       :per-page="perPage"
       align="right"
       aria-controls="my-table"
+      @change="onChangePage"
     ></b-pagination>
   </div>
 </template>
@@ -52,22 +47,33 @@ export default {
   props: {
     items: {
       type: Array,
-      default: () => [1,1],
+      default: () => [],
     },
     fields: {
       type: Array,
       default: () => [],
     },
+    totalItems: {
+      type: Number,
+    },
   },
   name: 'TableCard',
-  computed: {
-    ...mapGetters(['darkModeOn']),
-  },
   data() {
     return {
-      perPage: 12,
+      perPage: 10,
       currentPage: 1,
     };
+  },
+  computed: {
+    ...mapGetters(['darkModeOn']),
+    totalPage() {
+      return Math.ceil(this.totalItems / this.perPage);
+    },
+  },
+  methods: {
+    onChangePage(val) {
+      this.$emit('changedPage', { page: 1, limit: this.perPage * val });
+    },
   },
 };
 </script>
@@ -75,7 +81,7 @@ export default {
 <style lang="scss">
 .table-card {
   border-radius: 8px;
-  padding: 40px 50px;
+  padding: 0px 50px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -83,6 +89,10 @@ export default {
   &__title {
     text-align: center;
     @include font($roboto-font, 36px, $body-dark, 500);
+
+    &--position {
+      margin-top: 30px;
+    }
   }
 }
 .table {
@@ -101,11 +111,12 @@ export default {
     }
   }
 
-  &__name, &__address {
+  &__name,
+  &__address {
     padding: 12px 0;
   }
   &__name {
-    @include font($roboto-font, 16px, #0085FF, 500);
+    @include font($roboto-font, 16px, #0085ff, 500);
   }
 }
 .w-390 {
@@ -113,5 +124,8 @@ export default {
 }
 .w-180 {
   width: 180px;
+}
+.posit-img {
+  vertical-align: middle;
 }
 </style>

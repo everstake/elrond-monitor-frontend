@@ -1,8 +1,8 @@
 import service from './service';
-import { items } from '@/constants/items';
+// import { items } from '@/constants/items';
 
-const MockApi = service.createService({
-  baseURL: 'https://60df0e79abbdd9001722d210.mockapi.io',
+const serviceApi = service.createService({
+  baseURL: 'http://localhost:9000/',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -10,6 +10,8 @@ const MockApi = service.createService({
   },
 });
 
-export const getAccounts = async () => {
-  return items.accounts;
-};
+export const getAccounts = (params) => serviceApi.get('/accounts', params);
+
+export const getAccount = (address) => serviceApi.get(`/account/${address}`);
+
+export const getTransactions = (params) => serviceApi.get('/transactions', params);

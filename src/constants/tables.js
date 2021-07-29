@@ -27,7 +27,7 @@ export const tableFields = {
   ],
   transactionFields: [
     {
-      key: 'address',
+      key: 'hash',
       label: 'Txn Hash',
       class: ['table__cell w-180'],
       thClass: ['table__title'],
@@ -52,14 +52,20 @@ export const tableFields = {
       tdClass: ['table__cell--common'],
     },
     {
+      key: 'status',
+      class: ['table__cell posit-img'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
       key: 'to',
       class: ['table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
     },
     {
-      key: 'valueERLD',
-      label: 'Value ERLD',
+      key: 'valueEGLD',
+      label: 'Value EGLD',
       class: ['table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
