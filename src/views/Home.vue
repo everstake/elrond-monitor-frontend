@@ -9,8 +9,8 @@
           >
             <template #header> Price at the moment and All time high</template>
 
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
+              <template>
+                <div class="card-amount mt-2 mb-2">$1000</div>
 
               <div class="price">
                 <div class="d-flex justify-content-between">
@@ -33,8 +33,8 @@
           <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Market cap</template>
 
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
+              <template>
+                <div class="card-amount mt-2 mb-2">$1000</div>
 
               <div class="price">
                 <div class="d-flex justify-content-between">
@@ -57,8 +57,8 @@
           <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Circulating supply</template>
 
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">$1000</div>
+              <template>
+                <div class="card-amount mt-2 mb-2">$1000</div>
 
               <div class="price">
                 <div class="d-flex justify-content-between">
@@ -81,8 +81,8 @@
           <b-card :class="{ 'card--dark-mode': darkModeOn }">
             <template #header>Trading volume</template>
 
-            <template>
-              <div class="fw-bold fs-2 mt-3 mb-3">100,000</div>
+              <template>
+                <div class="card-amount mt-2 mb-2">100,000</div>
 
               <div class="price">
                 <div class="d-flex justify-content-between">
@@ -102,39 +102,58 @@
         </b-col>
       </b-row>
 
-      <b-row class="mb-3 g-3">
-        <b-col cols="12" lg="6">
-          <b-row class="g-3">
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="card-wrapper__epoch"
-              >
-                <template #header>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <span>Epoch</span>
-                    <span class="fw-bold">196</span>
-                  </div>
-                </template>
+        <b-row class="mb-3 g-3">
+          <b-col cols="12" lg="6">
+            <b-row class="g-3">
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="position-relative"
+                >
+                  <template #header>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <span>Epoch</span>
+                      <span class="fw-bold">196</span>
+                    </div>
+                  </template>
 
-                <template></template>
-              </b-card>
-            </b-col>
+                  <template>
+                    <DoughnutChart
+                      :props-options="optionsDoughnutChart"
+                      :chart-data="getEpochData()"
+                      class="h-100 position-relative"
+                      :height="100"
+                    />
+                    <div class="card-epoch--position">
+                      <img src="~@/assets/img/epochIcon.svg" width="100%" />
+                    </div>
+                  </template>
+                </b-card>
+              </b-col>
 
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="d-flex card-wrapper__account"
-              >
-                <template #header>Accounts</template>
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="p-0"
+                >
+                  <template #header>Accounts</template>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">196,546</span>
-                </template>
-              </b-card>
-            </b-col>
+                  <template>
+                    <LineChart
+                      ref="chart"
+                      class="h-100 position-relative"
+                      :props-options="optionsLineChart"
+                      :chart-data="getAccountData()"
+                      :height="100"
+                    />
+                    <span class="card-amount card-amount--position"
+                      >196,546</span
+                    >
+                  </template>
+                </b-card>
+              </b-col>
 
             <b-col cols="12" xs="12" sm="6" md="6" lg="6">
               <b-card
@@ -143,26 +162,37 @@
               >
                 <template #header>Block height</template>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">19,246,0490</span>
-                </template>
-              </b-card>
-            </b-col>
+                  <template>
+                    <span class="align-self-end card-amount mt-2"
+                      >19,246,0490</span
+                    >
+                  </template>
+                </b-card>
+              </b-col>
 
-            <b-col cols="12" xs="12" sm="6" md="6" lg="6">
-              <b-card
-                :class="{ 'card--dark-mode': darkModeOn }"
-                body-class="d-flex card-wrapper__transaction"
-              >
-                <template #header>Transactions</template>
+              <b-col cols="12" xs="12" sm="6" md="6" lg="6">
+                <b-card
+                  :class="{ 'card--dark-mode': darkModeOn }"
+                  body-class="p-0"
+                >
+                  <template #header>Transactions</template>
 
-                <template>
-                  <span class="align-self-end fw-bold fs-1">16,297,098</span>
-                </template>
-              </b-card>
-            </b-col>
-          </b-row>
-        </b-col>
+                  <template>
+                    <LineChart
+                      ref="chart"
+                      class="h-100 position-relative"
+                      :props-options="optionsLineChart"
+                      :chart-data="getTransactionData()"
+                      :height="100"
+                    />
+                    <span class="card-amount card-amount--position"
+                      >16,297,098</span
+                    >
+                  </template>
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-col>
 
         <b-col cols="12" md="12" lg="6">
           <b-card :class="{ 'card--dark-mode': darkModeOn }" class="h-100">
@@ -176,17 +206,124 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import LineChart from '../components/charts/LineChart.vue';
+import DoughnutChart from '../components/charts/DoughnutChart.vue';
 
 export default {
   name: 'Home',
-  components: {},
+  components: {
+    LineChart,
+    DoughnutChart,
+  },
   data() {
     return {
-      listCards: [],
+      gradientAccount: null,
+      gradientTransaction: null,
+      optionsLineChart: {
+        responsive: true,
+        maintainAspectRatio: false,
+        elements: {
+          point: {
+            radius: 0,
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              display: false,
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              display: false,
+              ticks: {
+                display: false,
+                beginAtZero: true,
+              },
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+        },
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          enabled: false,
+        },
+      },
+      optionsDoughnutChart: {
+        display: false,
+        rotation: 1 * Math.PI,
+        circumference: 1 * Math.PI,
+        cutoutPercentage: 90,
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          enabled: false,
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      },
     };
   },
   computed: {
     ...mapGetters(['darkModeOn']),
+  },
+  mounted() {
+    this.gradientAccount = this.$refs.chart.$refs.canvas
+      .getContext('2d')
+      .createLinearGradient(0, 0, 0, 200);
+    this.gradientAccount.addColorStop(0, 'rgba(249, 134, 0, 1)');
+    this.gradientAccount.addColorStop(1, 'rgba(249, 134, 0, 0)');
+
+    this.gradientTransaction = this.$refs.chart.$refs.canvas
+      .getContext('2d')
+      .createLinearGradient(0, 0, 0, 200);
+    this.gradientTransaction.addColorStop(0, 'rgba(0,186,52, 1)');
+    this.gradientTransaction.addColorStop(1, 'rgba(0,186,52, 0)');
+  },
+  methods: {
+    getAccountData() {
+      return {
+        labels: ['a', 'b', 'c', 'e', 'f'],
+        datasets: [
+          {
+            backgroundColor: this.gradientAccount,
+            borderColor: '#F98600',
+            data: [200, 210, 205, 215, 240, 250, 280],
+          },
+        ],
+      };
+    },
+    getTransactionData() {
+      return {
+        labels: ['a', 'b', 'c', 'e', 'f'],
+        datasets: [
+          {
+            backgroundColor: this.gradientTransaction,
+            borderColor: '#00ba34',
+            data: [200, 250, 230, 280, 300, 320, 300],
+          },
+        ],
+      };
+    },
+    getEpochData() {
+      return {
+        datasets: [
+          {
+            backgroundColor: ['rgba(0, 133, 255, 1)', 'rgba(0, 133, 255, 0.2)'],
+            borderWidth: 0,
+            data: [45, 100],
+          },
+        ],
+      };
+    },
   },
 };
 </script>
@@ -198,7 +335,7 @@ export default {
   justify-content: center;
 
   &.home--dark-mode {
-    background-color: #1c1c1c;
+    background-color: $eerie-black;
   }
 }
 .card {
@@ -212,10 +349,10 @@ export default {
     margin: 0 1rem;
     padding: 0.25rem 0 1rem;
     background-color: transparent;
-    border-bottom-color: #e8e8e8;
+    border-bottom-color: $gray;
 
     &--dark-mode {
-      border-bottom-color: #fff;
+      border-bottom-color: $main-white;
     }
   }
 
@@ -225,8 +362,24 @@ export default {
   }
 
   &.card--dark-mode {
-    background-color: #111;
+    background-color: $black;
     color: white;
+  }
+
+  &-epoch--position {
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+
+  &-amount {
+    font-size: $fs-48;
+    font-weight: 500;
+    &--position {
+      position: absolute;
+      left: 1rem;
+      bottom: 0;
+    }
   }
 }
 
@@ -236,30 +389,19 @@ export default {
   row-gap: 1rem;
 
   &__value {
-    color: #969696;
+    color: $dark-gary;
   }
 
   &__percent {
-    color: #00ba34;
+    color: $light-green;
     padding: 2px 6px;
     background: linear-gradient(
         0deg,
         rgba(0, 186, 52, 0.1),
         rgba(0, 186, 52, 0.1)
       ),
-      #ffffff;
+      $main-white;
     border-radius: 6px;
-  }
-}
-.card-wrapper {
-  &__account {
-    background: url('../assets/img/bgChartAccount.svg') no-repeat left 150%;
-  }
-  &__transaction {
-    background: url('../assets/img/bgChartTransaction.svg') no-repeat left 150%;
-  }
-  &__epoch {
-    background: url('../assets/img/bgChartEpoch.svg') no-repeat center 100%;
   }
 }
 </style>
