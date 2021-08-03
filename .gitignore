@@ -1,3 +1,20 @@
 node_modules
-.idea
 .DS_Store
+/dist
+docker-compose.yml
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+ngnix

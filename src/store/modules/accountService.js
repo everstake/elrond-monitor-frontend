@@ -2,7 +2,7 @@ import {
   getAccounts,
   getAccount,
   getTransactions,
-} from '@/api/accountsService';
+} from '@/api/services';
 
 const accountService = {
   state: {
@@ -10,12 +10,14 @@ const accountService = {
     account: {},
     transactionsAccount: [],
     totalItemsAccount: 1,
+    totalTransactionAccount: 1,
   },
   getters: {
     accounts: (state) => state.accounts,
     account: (state) => state.account,
     transactionsAccount: (state) => state.transactionsAccount,
     totalItemsAccount: (state) => state.totalItemsAccount,
+    totalTransactionAccount: (state) => state.totalTransactionAccount,
   },
   mutations: {
     fetchAccounts(state, accounts) {
@@ -29,6 +31,9 @@ const accountService = {
     },
     totalItemsAcc(state, count) {
       state.totalItemsAccount = count;
+    },
+    totalTransactionAccount(state, count) {
+      state.totalTransactionAccount = count;
     },
   },
   actions: {
@@ -54,6 +59,7 @@ const accountService = {
       try {
         const transactions = await getTransactions({ params });
         commit('fetchTransactionsAccount', transactions.data.items);
+        commit('totalTransactionAccount', transactions.data.count);
       } catch (err) {
         console.log(err);
       }

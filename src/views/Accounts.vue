@@ -4,7 +4,7 @@
       :items="accounts"
       :fields="fields"
       :total-items="totalItemsAccount"
-      @changedPage="pagination"
+      :request-name="fetchAccounts"
     >
       <template #header> Accounts </template>
 
@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import TableCard from '@/components/TableCard.vue';
 import { mapGetters, mapActions } from 'vuex';
+import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
 
 export default {
@@ -49,17 +49,8 @@ export default {
       return tableFields.accountFields;
     },
   },
-  created() {
-    this.fetchAccounts({
-      page: 1,
-      limit: 10,
-    });
-  },
   methods: {
     ...mapActions(['fetchAccounts']),
-    pagination(e) {
-      this.fetchAccounts(e);
-    },
   },
 };
 </script>

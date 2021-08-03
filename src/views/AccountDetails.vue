@@ -1,8 +1,12 @@
 <template>
   <div class="account-details">
-    <AccountCard />
+    <AccountCard :address="address" />
 
-    <TableCard :fields="fields" :items="transactionsAccount">
+    <TableCard
+      :fields="fields"
+      :items="transactionsAccount"
+      :total-items="totalTransactionAccount"
+    >
       <template #cell(hash)="{ item: { hash } }">
         {{ hash | trimHash }}
       </template>
@@ -12,7 +16,7 @@
       </template>
 
       <template #cell(shard)="{ item: { shard_from, shard_to } }">
-        Shard {{ shard_from }} -> Shard {{ shard_to }}
+        Shard {{ shard_from }} &#8594; Shard {{ shard_to }}
       </template>
 
       <template #cell(from)="{ item: { from } }">
@@ -22,7 +26,11 @@
       </template>
 
       <template #cell(status)="{ item: { status } }">
-        <img v-if="status === 'success'" src="~@/assets/img/statusIn.svg" alt="In" />
+        <img
+          v-if="status === 'success'"
+          src="~@/assets/img/statusIn.svg"
+          alt="In"
+        />
 
         <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
       </template>
@@ -57,7 +65,7 @@ export default {
     TableCard,
   },
   computed: {
-    ...mapGetters(['transactionsAccount']),
+    ...mapGetters(['transactionsAccount', 'totalTransactionAccount']),
     fields() {
       return tableFields.transactionFields;
     },
@@ -72,7 +80,6 @@ export default {
     $route: {
       immediate: true,
       handler() {
-        this.fetchAccount(this.address);
         this.fetchTransactionsAccount({ address: this.address });
       },
     },

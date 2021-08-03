@@ -12,18 +12,16 @@
         <p class="account-card__address">
           {{ account.address }}
         </p>
-        <button class="account-card__btn">
-          <img
-            src="~@/assets/img/optionsIcon/clipboard.svg"
-            alt="clipboard"
-            class="account-card__img"
-          />
-        </button>
+
+        <BtnCopy :address="account.address" />
       </div>
+
       <div class="account-card__info-group">
         <div class="account-card__info">
           <p class="account-card__info-item">Balance</p>
-          <p class="account-card__info-item">{{ account.balance | formatAmount }}</p>
+          <p class="account-card__info-item">
+            {{ account.balance | formatAmount }}
+          </p>
         </div>
 
         <div class="account-card__info">
@@ -51,12 +49,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import BtnCopy from '../BtnCopy.vue';
 
 export default {
   name: 'AccountCard',
+  components: {
+    BtnCopy,
+  },
+  props: {
+    address: {
+      type: String,
+      default: '',
+    },
+  },
   computed: {
     ...mapGetters(['darkModeOn', 'account']),
+  },
+  created() {
+    this.fetchAccount(this.address);
+  },
+  methods: {
+    ...mapActions(['fetchAccount']),
   },
 };
 </script>
@@ -76,7 +90,7 @@ export default {
   }
   &__address-group {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     align-self: center;
   }
   &__info-group {

@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper">
     <div class="transactions">
-      <TableCard :fields="fields" :items="transactions">
+      <TableCard
+        :fields="fields"
+        :items="transactions"
+        :total-items="totalTransactionItems"
+        :request-name="fetchTransactions"
+      >
         <template #header> Transactions </template>
 
         <template #cell(hash)="{ item: { hash } }">
@@ -21,7 +26,11 @@
         </template>
 
         <template #cell(status)="{ item: { status } }">
-          <img v-if="status === 'success'" src="~@/assets/img/statusIn.svg" alt="In" />
+          <img
+            v-if="status === 'success'"
+            src="~@/assets/img/statusIn.svg"
+            alt="In"
+          />
 
           <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
         </template>
@@ -52,11 +61,8 @@ export default {
   components: {
     TableCard,
   },
-  mounted() {
-    this.fetchTransactions({ page: 2, limit: 20 });
-  },
   computed: {
-    ...mapGetters(['transactions']),
+    ...mapGetters(['transactions', 'totalTransactionItems']),
     fields() {
       return tableFields.transactionFields;
     },

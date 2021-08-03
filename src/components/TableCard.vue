@@ -15,13 +15,7 @@
     >
       <slot name="header" />
     </h1>
-    <b-table
-      id="my-table"
-      :items="items"
-      :fields="fields"
-      :per-page="perPage"
-      :current-page="currentPage"
-    >
+    <b-table id="my-table" :items="items" :fields="fields" :per-page="perPage">
       <template
         v-for="key in Object.keys($scopedSlots)"
         #[key]="{ item, index }"
@@ -35,7 +29,6 @@
       :per-page="perPage"
       align="right"
       aria-controls="my-table"
-      @change="onChangePage"
     ></b-pagination>
   </div>
 </template>
@@ -44,6 +37,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  name: 'TableCard',
   props: {
     items: {
       type: Array,
@@ -53,11 +47,15 @@ export default {
       type: Array,
       default: () => [],
     },
+    requestName: {
+      type: Function,
+      default: () => null,
+    },
     totalItems: {
       type: Number,
+      default: 1,
     },
   },
-  name: 'TableCard',
   data() {
     return {
       perPage: 10,
@@ -70,40 +68,39 @@ export default {
       return Math.ceil(this.totalItems / this.perPage);
     },
   },
-  methods: {
-    onChangePage(val) {
-      this.$emit('changedPage', { page: 1, limit: this.perPage * val });
+  watch: {
+    currentPage: {
+      immediate: true,
+      handler(val) {
+        this.requestName({
+          page: val,
+          limit: this.perPage,
+        });
+      },
     },
   },
 };
 </script>
 
 <style lang="scss">
-.table-card {
-  border-radius: 8px;
-  padding: 0px 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-
-  &__title {
-    text-align: center;
-    @include font($roboto-font, 36px, $body-dark, 500);
-
-    &--position {
-      margin-top: 30px;
-    }
-  }
-}
 .table {
+  & th,td {
+    vertical-align: middle;
+    border-top: none;
+  }
   &__title {
     @include font($roboto-font, 16px, $font-grey, 500);
     line-height: 14px;
   }
   &__cell {
-    border-bottom: 1px solid #e8e8e8 !important;
+    border-bottom: 1px solid $gray !important;
     @include font($roboto-font, 16px, $font-black, 500);
     line-height: 24px;
+    vertical-align: middle;
+
+    & img {
+      vertical-align: middle;
+    }
 
     &--blue {
       color: #0085ff;
@@ -124,8 +121,5 @@ export default {
 }
 .w-180 {
   width: 180px;
-}
-.posit-img {
-  vertical-align: middle;
 }
 </style>

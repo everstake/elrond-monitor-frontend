@@ -4,3 +4,20 @@
 .card-header {
   font-weight: 500;
 }
+
+.table-card {
+  border-radius: 8px;
+  padding: 0px 50px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__title {
+    text-align: center;
+    @include font($roboto-font, 36px, $body-dark, 500);
+
+    &--position {
+      margin-top: 30px;
+    }
+  }
+}
