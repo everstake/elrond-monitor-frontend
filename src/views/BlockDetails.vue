@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper">
-    <TableInfo :fields="fields" :items="block">
+    <TableInfo
+      :fields="fields"
+      :items="block"
+      :request-name="fetchBlockNonce"
+      :loading="loading"
+    >
       <template #header>Block details</template>
 
       <template #nonce="{ item, label }">
@@ -98,9 +103,11 @@
       <template #miniblocks="{ item, label }">
         <div class="row-info">
           <div class="row-info__label">{{ label }}</div>
-          <span>
-            {{ item }}
-          </span>
+          <div class="row-info__text">
+            <span v-for="miniBlock in item" :key="miniBlock">
+              {{ miniBlock | trimHash }}
+            </span>
+          </div>
         </div>
       </template>
 
@@ -121,6 +128,28 @@
           </span>
         </div>
       </template>
+
+      <template #block-nav>
+        <div class="table-info__btn">
+          <b-btn
+            variant="link"
+            class="table-info__btn--position"
+            @click="onNavigation('prev')"
+          >
+            <b-icon icon="chevron-left" />
+            Prev
+          </b-btn>
+
+          <b-btn
+            variant="link"
+            class="table-info__btn--position"
+            @click="onNavigation('next')"
+          >
+            Next
+            <b-icon icon="chevron-right" />
+          </b-btn>
+        </div>
+      </template>
     </TableInfo>
   </div>
 </template>
@@ -129,13 +158,13 @@
 import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '../components/tables/TableInfo.vue';
 import { tableFields } from '../constants/tables';
-import BtnCopy from '../components/BtnCopy';
+import BtnCopy from '../components/BtnCopy.vue';
 
 export default {
   name: 'BlockDetails',
   components: { BtnCopy, TableInfo },
   computed: {
-    ...mapGetters(['block']),
+    ...mapGetters(['block', 'loading']),
     fields() {
       return tableFields.blockFields;
     },
@@ -152,7 +181,30 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['fetchBlock']),
+    ...mapActions(['fetchBlock', 'fetchBlockNonce']),
+    async onNavigation(position) {
+      try {
+        switch (position) {
+          case 'prev':
+            await this.fetchBlockNonce({
+              nonce: this.block.nonce - 1,
+              shard: this.block.shard,
+            });
+            break;
+          case 'next':
+            await this.fetchBlockNonce({
+              nonce: this.block.nonce + 1,
+              shard: this.block.shard,
+            });
+            break;
+          default:
+        }
+
+        this.$router.replace(this.block.hash);
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
 };
 </script>

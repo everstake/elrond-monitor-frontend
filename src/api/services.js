@@ -12,4 +12,7 @@ export const getBlocks = (params) => APIService.get('/blocks', params);
 
 export const getBlock = (hash) => APIService.get(`/block/${hash}`);
 
+export const getBlockNonce = (params) =>
+  APIService.get(`/block/${params.shard}/${params.nonce}`);
+
 export const getValidators = () => items.validators;

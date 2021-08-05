@@ -3,4 +3,8 @@
   &-link:focus {
     text-decoration: none;
   }
+
+  &:focus, &.focus {
+    box-shadow: none;
+  }
 }

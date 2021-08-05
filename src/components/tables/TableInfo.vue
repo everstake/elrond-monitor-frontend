@@ -16,25 +16,21 @@
       <slot name="header" />
     </h1>
 
-    <div>
+    <div v-if="loading" class="d-flex justify-content-center mb-3">
+      <b-spinner label="Loading..."></b-spinner>
+    </div>
+
+    <div v-else-if="items.length" class="d-flex justify-content-center mb-3">
+      Not data
+    </div>
+
+    <div v-else>
       <div v-for="(item, index) in fields" :key="index">
         <slot :name="item.key" :item="items[item.key]" :label="item.label" />
       </div>
     </div>
 
-    <div class="table-info__btn">
-      <b-btn variant="link">
-        <b-icon icon="chevron-left" />
-        Back
-      </b-btn>
-
-      <b-btn variant="link">
-        <div>
-          Next
-          <b-icon icon="chevron-right" />
-        </div>
-      </b-btn>
-    </div>
+    <slot name="block-nav" />
   </div>
 </template>
 
@@ -46,6 +42,7 @@ export default {
   props: {
     items: {
       type: Object,
+      default: () => {},
     },
     fields: {
       type: Array,
@@ -55,12 +52,10 @@ export default {
       type: Function,
       default: () => null,
     },
-  },
-  data() {
-    return {
-      perPage: 10,
-      currentPage: 1,
-    };
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapGetters(['darkModeOn']),
@@ -71,7 +66,7 @@ export default {
 <style lang="scss">
 .table-info {
   border-radius: 8px;
-  padding: 0px 50px 32px;
+  padding: 0 50px 32px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -88,6 +83,11 @@ export default {
   &__btn {
     display: flex;
     justify-content: flex-end;
+
+    &--position {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 .row-info {
@@ -97,8 +97,14 @@ export default {
 
   &__label {
     color: $font-grey;
-    flex: 0 1 300px;
+    flex: 0 0 300px;
     padding: 20px 10px;
+  }
+
+  &__text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   & span {

@@ -9,7 +9,9 @@
       <template #header>Blocks</template>
 
       <template #cell(nonce)="{ item: { nonce, hash } }">
-        <router-link :to="{ name: 'BlockDetails', params: { id: hash } }">
+        <router-link
+          :to="{ name: 'BlockDetails', params: { id: hash, nonce: nonce } }"
+        >
           {{ nonce }}
         </router-link>
       </template>
