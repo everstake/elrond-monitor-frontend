@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const tableFields = {
   accountFields: [
     {
@@ -25,7 +26,7 @@ export const tableFields = {
       tdClass: ['table__cell--common'],
     },
   ],
-  transactionFields: [
+  transactionsFields: [
     {
       key: 'hash',
       label: 'Txn Hash',
@@ -54,7 +55,7 @@ export const tableFields = {
     {
       key: 'status',
       class: ['table__cell'],
-      thClass: ['table__title'],
+      thClass: ['table__title table__title--disable'],
       tdClass: ['table__cell--common'],
     },
     {
@@ -110,105 +111,134 @@ export const tableFields = {
       label: 'Block',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common table__cell--blue'],
+      tdClass: ['table__cell--block table__cell--blue'],
     },
     {
       key: 'shard',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--block'],
     },
     {
       key: 'transaction',
       label: 'Txns',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--block'],
     },
     {
       key: 'size',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--block'],
     },
     {
       key: 'time',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--block'],
     },
     {
       key: 'provider',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--block'],
     },
   ],
   blockFields: [
     {
       key: 'nonce',
       label: 'Block Height',
-      class: ['row-info'],
     },
     {
       key: 'hash',
       label: 'Block Hash',
-      class: ['table__cell'],
     },
     {
       key: 'epoch',
       label: 'Epoch',
-      class: ['table__cell'],
     },
     {
       key: 'timestamp',
       label: 'Age',
-      class: ['table__cell'],
     },
     {
       key: 'transactions',
       label: 'Transaction',
-      class: ['table__cell'],
     },
     {
       key: 'shard',
       label: 'Shard',
-      class: ['table__cell'],
     },
     {
       key: 'size',
       label: 'Size',
-      class: ['table__cell'],
     },
     {
       key: 'proposer',
       label: 'Proposer',
-      class: ['table__cell'],
     },
     {
       key: 'consensus',
       label: 'Consensus Group',
-      class: ['table__cell'],
     },
     {
       key: 'state',
       label: 'State Root Hash',
-      class: ['table__cell'],
     },
     {
       key: 'miniblocks',
       label: 'Miniblocks',
-      class: ['table__cell'],
     },
     {
       key: 'previous_hash',
       label: 'Previous Hash',
-      class: ['table__cell'],
     },
     {
       key: 'public_bitmap',
       label: 'Public Keys Bitmap',
-      class: ['table__cell'],
+    },
+  ],
+  transactionFields: [
+    {
+      key: 'hash',
+      label: 'Transaction Hash',
+    },
+    {
+      key: 'status',
+      label: 'Status',
+    },
+    {
+      key: 'timestamp',
+      label: 'Age',
+    },
+    {
+      key: 'miniblock_hash',
+      label: 'Miniblock',
+    },
+    {
+      key: 'from',
+      label: 'From',
+    },
+    {
+      key: 'to',
+      label: 'To',
+    },
+    {
+      key: 'value',
+      label: 'Value',
+    },
+    {
+      key: 'fee',
+      label: 'Transaction Fee',
+    },
+    {
+      key: 'gas_used',
+      label: 'Gas Used',
+    },
+    {
+      key: 'scResults',
+      label: 'Smart Contract Result',
     },
   ],
 };

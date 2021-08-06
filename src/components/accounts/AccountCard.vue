@@ -57,14 +57,11 @@ export default {
   components: {
     BtnCopy,
   },
-  props: {
-    address: {
-      type: String,
-      default: '',
-    },
-  },
   computed: {
     ...mapGetters(['darkModeOn', 'account']),
+    address() {
+      return this.$route.params.id;
+    },
   },
   created() {
     this.fetchAccount(this.address);
@@ -77,7 +74,6 @@ export default {
 
 <style lang="scss">
 .account-card {
-  background-color: $font-white-main;
   padding: 15px 40px;
   border-radius: 8px;
   @include font($roboto-font, 16px, $font-grey, 400);

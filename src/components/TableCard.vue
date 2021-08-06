@@ -55,6 +55,10 @@ export default {
       type: Number,
       default: 1,
     },
+    address: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
@@ -73,6 +77,7 @@ export default {
       immediate: true,
       handler(val) {
         this.requestName({
+          address: this.address,
           page: val,
           limit: this.perPage,
         });
@@ -84,13 +89,18 @@ export default {
 
 <style lang="scss">
 .table {
-  & th,td {
+  & th,
+  td {
     vertical-align: middle;
     border-top: none;
   }
   &__title {
     @include font($roboto-font, 16px, $font-grey, 500);
     line-height: 14px;
+
+    &--disable {
+      visibility: hidden;
+    }
   }
   &__cell {
     border-bottom: 1px solid $gray !important;
