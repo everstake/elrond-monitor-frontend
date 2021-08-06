@@ -93,12 +93,19 @@ export default {
 .row-info {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $gray;
+  @include border(bottom, 1px);
 
   &__label {
     color: $font-grey;
     flex: 0 0 300px;
     padding: 20px 10px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0;
   }
 
   &__text {

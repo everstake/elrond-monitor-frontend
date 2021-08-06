@@ -15,16 +15,16 @@ const blocksService = {
     loading: (state) => state.loading,
   },
   mutations: {
-    fetchBlocks(state, items) {
+    setBlocks(state, items) {
       state.blocks = items;
     },
-    fetchTotalBlocks(state, val) {
+    setTotalBlocks(state, val) {
       state.totalBlocks = val;
     },
-    fetchBlock(state, item) {
+    setBlock(state, item) {
       state.block = item;
     },
-    load(state, bol) {
+    setLoad(state, bol) {
       state.loading = bol;
     },
   },
@@ -32,32 +32,32 @@ const blocksService = {
     async fetchBlocks({ commit }, params) {
       try {
         const resp = await getBlocks({ params });
-        commit('fetchBlocks', resp.data.items);
-        commit('fetchTotalBlocks', resp.data.count);
+        commit('setBlocks', resp.data.items);
+        commit('setTotalBlocks', resp.data.count);
       } catch (e) {
         console.error(e);
       }
     },
     async fetchBlock({ commit }, hash) {
       try {
-        commit('load', true);
+        commit('setLoad', true);
         const resp = await getBlock(hash);
-        commit('fetchBlock', resp.data);
+        commit('setBlock', resp.data);
       } catch (e) {
         console.err(e);
       } finally {
-        commit('load', false);
+        commit('setLoad', false);
       }
     },
     async fetchBlockNonce({ commit }, params) {
       try {
-        commit('load', true);
+        commit('setLoad', true);
         const resp = await getBlockNonce(params);
-        commit('fetchBlock', resp.data);
+        commit('setBlock', resp.data);
       } catch (e) {
         handlerError(e);
       } finally {
-        commit('load', false);
+        commit('setLoad', false);
       }
     },
   },

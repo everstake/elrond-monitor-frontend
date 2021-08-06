@@ -4,3 +4,7 @@
   color: $color;
   font-weight: $weight;
 }
+
+@mixin border($position, $size) {
+  border-#{$position}: $size solid $gray;
+}
