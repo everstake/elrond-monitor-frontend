@@ -3,7 +3,7 @@
     <p
       v-for="tab in tabsList"
       :key="tab"
-      :class="{'active': currentTab === tab}"
+      :class="{'tabs__tab--active': currentTab === tab}"
       class="tabs__tab"
       @click="choiseTab(tab)"
     >
@@ -47,11 +47,13 @@ export default {
     padding: 0px 9px 5px;
     @include font($inter-font, 16px, $font-black, 500);
     cursor: pointer;
+
+    &--active {
+      color: #0085FF;
+      border-bottom: 2px solid #0085FF;
+    }
   }
 }
-.active {
-  color: #0085FF;
-  border-bottom: 2px solid #0085FF;
-}
+
 
 </style>

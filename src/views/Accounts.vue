@@ -1,35 +1,14 @@
 <template>
-  <div class="accounts wrapper">
-    <TableCard :items="accounts" :fields="fields">
-      <template #header> Accounts </template>
-    </TableCard>
+  <div class="wrapper">
+    <AccountsList />
   </div>
 </template>
 
 <script>
-import TableCard from '@/components/TableCard.vue';
-import { mapGetters, mapActions } from 'vuex';
-import { tableFields } from '@/constants/tables';
+import AccountsList from '@/components/accounts/AccountsList.vue';
 
 export default {
   name: 'Accounts',
-  components: {
-    TableCard,
-  },
-  computed: {
-    ...mapGetters(['accounts']),
-    fields() {
-      return tableFields.accountFields;
-    },
-  },
-  async mounted() {
-    await this.fetchAccounts();
-  },
-  methods: {
-    ...mapActions(['fetchAccounts'])
-  }
+  components: { AccountsList },
 };
 </script>
-
-<style lang="scss">
-</style>

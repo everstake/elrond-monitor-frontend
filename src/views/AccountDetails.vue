@@ -1,30 +1,21 @@
 <template>
   <div class="account-details">
     <AccountCard />
-    <TableCard :fields="fields" :items="items" />
+
+    <AccountTransactionsList />
   </div>
 </template>
 
 <script>
 import AccountCard from '@/components/accounts/AccountCard.vue';
-import TableCard from '@/components/TableCard.vue';
-import { tableFields } from '@/constants/tables';
-import { items } from '@/constants/items';
+import AccountTransactionsList from '@/components/accounts/AccountTransactionsList.vue';
+
 export default {
   components: {
+    AccountTransactionsList,
     AccountCard,
-    TableCard,
   },
-  computed: {
-    fields() {
-      return tableFields.transactionFields;
-    },
-    items() {
-      return items.transactions;
-    }
-  }
-
-}
+};
 </script>
 
 <style lang="scss">

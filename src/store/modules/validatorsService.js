@@ -1,4 +1,4 @@
-import { getValidators } from "../../api/validatorsService";
+import { getValidators } from "../../api/services";
 
 const validatorsService = {
   state: {

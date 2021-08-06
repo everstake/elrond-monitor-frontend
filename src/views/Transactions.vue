@@ -1,38 +1,18 @@
 <template>
   <div class="wrapper">
     <div class="transactions">
-      <TableCard :fields="fields" :items="transactions">
-        <template #header> Transactions </template>
-      </TableCard>
+      <TransactionsList />
     </div>
   </div>
 </template>
 
 <script>
-import TableCard from '@/components/TableCard.vue';
-import { mapActions, mapGetters } from 'vuex';
-import { tableFields } from '@/constants/tables';
+import TransactionsList from '@/components/transactions/TransactionsList.vue';
 
 export default {
   name: 'Transactions',
-  components: {
-    TableCard,
-  },
-   async mounted() {
-    await this.fetchTransactions();
-  },
-  computed: {
-    ...mapGetters(['transactions']),
-    fields() {
-      return tableFields.transactionFields;
-    }
-  },
-  methods: {
-    ...mapActions(['fetchTransactions']),
-  },
-}
+  components: { TransactionsList },
+};
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

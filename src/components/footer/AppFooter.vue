@@ -1,13 +1,15 @@
 <template>
   <div
     :class="{
-      'footer': true,
+      footer: true,
       'black-background': darkModeOn,
       'white-background': !darkModeOn,
     }"
   >
     <div class="footer__top-group">
-      <h2 class="footer__copyright">Copyright 2021 - everstake.com</h2>
+      <h2 class="footer__copyright">
+        Copyright {{ currentYear }} - everstake.com
+      </h2>
 
       <div class="footer__media">
         <a href="#" class="footer__icon-link">
@@ -59,9 +61,10 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Footer',
   computed: {
-    ...mapGetters([
-      'darkModeOn',
-    ]),
+    ...mapGetters(['darkModeOn']),
+    currentYear() {
+      return new Date().getFullYear();
+    },
   },
 };
 </script>

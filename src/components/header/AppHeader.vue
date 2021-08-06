@@ -115,7 +115,7 @@
       </nav>
 
       <div class="header__options">
-        <button class="header__option-btn" @click="this.changeMode">
+        <button class="header__option-btn" @click="changeMode">
           <img
             v-if="!darkModeOn"
             src="~@/assets/img/optionsIcon/moon.svg"
@@ -189,6 +189,10 @@ export default {
     gap: 20px;
     align-items: center;
 
+    &:hover {
+      text-decoration: none;
+    }
+
     &__subtitle {
       @include font($inter-font, 11px, #0085ff, 500);
     }
@@ -205,17 +209,37 @@ export default {
   }
 
   .navbar {
+    height: 100%;
+    padding: 0;
+
     &__list {
       display: flex;
       align-items: center;
-      gap: 45px;
+      height: 100%;
+      gap: 1rem;
     }
+
+    &__item {
+      display: flex;
+      width: 120px;
+      height: 100%;
+    }
+
     &__link {
-      @include font($inter-font, 16px, $font-black, 500);
-      line-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-bottom: 4px solid transparent;
+
+      &.router-link-exact-active {
+        color: $blue;
+        border-bottom: 4px solid $blue;
+      }
 
       &:hover {
-        color: #0085ff;
+        text-decoration: none;
       }
     }
   }
