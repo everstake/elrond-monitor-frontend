@@ -1,7 +1,4 @@
-import {
-  getAccounts,
-  getAccount,
-} from '@/api/services';
+import { getAccounts, getAccount } from '@/api/services';
 
 const accountService = {
   state: {

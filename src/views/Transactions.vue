@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapper">
+  <b-container>
     <div class="transactions">
       <TransactionsList />
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>

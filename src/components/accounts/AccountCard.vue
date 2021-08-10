@@ -1,48 +1,46 @@
 <template>
-  <div class="wrapper">
-    <div
-      class="account-card"
-      :class="{
-        'white-background': !darkModeOn,
-        'black-background': darkModeOn,
-      }"
-    >
-      <h1 class="account-card__title account-card__item">Account details</h1>
-      <div class="account-card__address-group account-card__item">
-        <p class="account-card__address">
-          {{ account.address }}
-        </p>
+  <div
+    class="account-card"
+    :class="{
+      'white-background': !darkModeOn,
+      'black-background': darkModeOn,
+    }"
+  >
+    <h1 class="account-card__title account-card__item">Account details</h1>
+    <div class="account-card__address-group account-card__item">
+      <p class="account-card__address">
+        {{ account.address }}
+      </p>
 
-        <BtnCopy :address="account.address" />
+      <BtnCopy :address="account.address" />
+    </div>
+
+    <div class="account-card__info-group">
+      <div class="account-card__info">
+        <p class="account-card__info-item">Balance</p>
+        <p class="account-card__info-item">
+          {{ account.balance | formatAmount }}
+        </p>
       </div>
 
-      <div class="account-card__info-group">
-        <div class="account-card__info">
-          <p class="account-card__info-item">Balance</p>
-          <p class="account-card__info-item">
-            {{ account.balance | formatAmount }}
-          </p>
-        </div>
+      <div class="account-card__info">
+        <p class="account-card__info-item">Stake</p>
+        <p class="account-card__info-item">{{ account.delegated }}</p>
+      </div>
 
-        <div class="account-card__info">
-          <p class="account-card__info-item">Stake</p>
-          <p class="account-card__info-item">{{ account.delegated }}</p>
-        </div>
+      <div class="account-card__info">
+        <p class="account-card__info-item">Unstake</p>
+        <p class="account-card__info-item">{{ account.undelegated }}</p>
+      </div>
 
-        <div class="account-card__info">
-          <p class="account-card__info-item">Unstake</p>
-          <p class="account-card__info-item">{{ account.undelegated }}</p>
-        </div>
+      <div class="account-card__info">
+        <p class="account-card__info-item">Total rewards</p>
+        <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
+      </div>
 
-        <div class="account-card__info">
-          <p class="account-card__info-item">Total rewards</p>
-          <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
-        </div>
-
-        <div class="account-card__info">
-          <p class="account-card__info-item">Staking provider</p>
-          <p class="account-card__info-item">Everstake</p>
-        </div>
+      <div class="account-card__info">
+        <p class="account-card__info-item">Staking provider</p>
+        <p class="account-card__info-item">Everstake</p>
       </div>
     </div>
   </div>

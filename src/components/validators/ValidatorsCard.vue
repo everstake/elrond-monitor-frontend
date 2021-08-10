@@ -23,73 +23,52 @@
       }"
     >
       <div class="info-line__group">
-        <p class="info-line__text">
-          Current leader
-        </p>
-        <img
-          src="~@/assets/img/avatar.svg"
-          alt=""
-          class="info-line__img"
-        >
+        <p class="info-line__text">Current leader</p>
+        <img src="~@/assets/img/avatar.svg" alt="" class="info-line__img" />
       </div>
 
       <div class="info-line__group">
-        <p class="info-line__text">
-          Validators
-        </p>
-        <p class="info-line__value">
-          695
-        </p>
+        <p class="info-line__text">Validators</p>
+        <p class="info-line__value">695</p>
       </div>
 
       <div class="info-line__group">
-        <p class="info-line__text">
-          Observer nodes
-        </p>
-        <p class="info-line__value">
-          407
-        </p>
+        <p class="info-line__text">Observer nodes</p>
+        <p class="info-line__value">407</p>
       </div>
 
       <div class="info-line__group">
-        <p class="info-line__text">
-          Staking APR
-        </p>
-        <p class="info-line__value">
-          60.675
-        </p>
+        <p class="info-line__text">Staking APR</p>
+        <p class="info-line__value">60.675</p>
       </div>
 
-       <div class="info-line__group">
-        <p class="info-line__text">
-          Block time
-        </p>
-        <p class="info-line__value">
-          6
-        </p>
+      <div class="info-line__group">
+        <p class="info-line__text">Block time</p>
+        <p class="info-line__value">6</p>
       </div>
     </div>
-    <Tabs @tabChoised="choisedTab" />
+    <Tabs @tabChoised="selectedTab" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Tabs from '@/components/validators/Tabs.vue';
+
 export default {
   name: 'ValidatorsCard',
   components: {
     Tabs,
   },
   computed: {
-   ...mapGetters(['darkModeOn']),
- },
- methods: {
-   choisedTab(tab) {
-     this.$emit('choisedTab', tab);
-   }
- }
-}
+    ...mapGetters(['darkModeOn']),
+  },
+  methods: {
+    selectedTab(tab) {
+      this.$emit('selectedTab', tab);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -110,7 +89,7 @@ export default {
       align-items: center;
       gap: 15px;
     }
-    
+
     &__text {
       padding-top: 5px;
       @include font($roboto-font, 16px, $font-black, 400);
@@ -121,5 +100,4 @@ export default {
     }
   }
 }
-
 </style>

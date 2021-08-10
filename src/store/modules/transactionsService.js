@@ -1,10 +1,15 @@
-import { getTransaction, getTransactions } from '../../api/services';
+import { getTransaction, getTransactions } from "../../api/services";
 
 const transactionsService = {
   state: {
     transactions: [],
     totalTransactionItems: 0,
     transaction: {},
+  },
+  getters: {
+    transactions: (state) => state.transactions,
+    totalTransactionItems: (state) => state.totalTransactionItems,
+    transaction: (state) => state.transaction,
   },
   mutations: {
     setTransactions(state, transactions) {
@@ -35,11 +40,6 @@ const transactionsService = {
         console.error(e);
       }
     },
-  },
-  getters: {
-    transactions: (state) => state.transactions,
-    totalTransactionItems: (state) => state.totalTransactionItems,
-    transaction: (state) => state.transaction,
   },
 };
 

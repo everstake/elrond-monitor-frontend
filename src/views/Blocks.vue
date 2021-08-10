@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <b-container>
     <BlocksList />
-  </div>
+  </b-container>
 </template>
 
 <script>
