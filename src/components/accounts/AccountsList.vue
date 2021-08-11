@@ -4,6 +4,7 @@
     :fields="fields"
     :total-items="totalItemsAccount"
     :request-name="fetchAccounts"
+    :loading="loadingAcc"
   >
     <template #header> Accounts </template>
 
@@ -40,7 +41,7 @@ export default {
     TableCard,
   },
   computed: {
-    ...mapGetters(['accounts', 'totalItemsAccount']),
+    ...mapGetters(['accounts', 'totalItemsAccount', 'loadingAcc']),
     fields() {
       return tableFields.accountFields;
     },

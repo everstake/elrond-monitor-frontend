@@ -7,4 +7,8 @@
   &:focus, &.focus {
     box-shadow: none;
   }
+
+  &-link {
+    color: $link-blue;
+  }
 }

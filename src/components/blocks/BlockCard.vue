@@ -3,7 +3,7 @@
     :fields="fields"
     :items="block"
     :request-name="fetchBlockNonce"
-    :loading="loading"
+    :loading="loadingBlock"
   >
     <template #header>Block details</template>
 
@@ -39,13 +39,23 @@
     <template #timestamp="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
+
+        <div>
+          <b-icon icon="clock" />
+
+          <span>
+            {{ item | formatMsToDays }}
+            {{ item | formatMsToHours }}
+            {{ item | formatMsToMinutes }}
+            {{ item | formatMsToSeconds }}
+          </span>
+
+          <span>({{ item | formatMsToDate }})</span>
+        </div>
       </div>
     </template>
 
-    <template #transactions="{ item, label }">
+    <template #tx_count="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
@@ -58,7 +68,7 @@
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
-          {{ item }}
+          {{ item | formatShard }}
         </span>
       </div>
     </template>
@@ -76,21 +86,38 @@
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
-          {{ item }}
+          {{ item | trimHashFromTo(50, -50) }}
         </span>
       </div>
     </template>
 
-    <template #consensus="{ item, label }">
+    <template #validators="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
+
+        <div class="row-info__text-wrapper">
+          <b-btn variant="link" v-b-toggle.collapse-validators class="p-0">
+            {{ item.length }} validators (See all)
+          </b-btn>
+
+          <b-collapse id="collapse-validators" class="row-info__text mt-3">
+            <span
+              v-for="(validator, index) in item"
+              :key="index"
+              class="row-info__text--blue"
+            >
+              <router-link
+                :to="{ name: 'Validators', params: { id: validator } }"
+              >
+                {{ validator | trimHashFromTo(20, -20) }}
+              </router-link>
+            </span>
+          </b-collapse>
+        </div>
       </div>
     </template>
 
-    <template #state="{ item, label }">
+    <template #state_root_hash="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
@@ -102,15 +129,17 @@
     <template #miniblocks="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
-        <div class="row-info__text">
-          <span v-for="miniBlock in item" :key="miniBlock">
+        <div v-if="item.length" class="row-info__text">
+          <span v-for="(miniBlock, index) in item" :key="index">
             {{ miniBlock | trimHash }}
           </span>
         </div>
+
+        <span>N/A</span>
       </div>
     </template>
 
-    <template #previous_hash="{ item, label }">
+    <template #prev_hash="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
@@ -119,7 +148,7 @@
       </div>
     </template>
 
-    <template #public_bitmap="{ item, label }">
+    <template #pub_key_bitmap="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
         <span>
@@ -165,22 +194,12 @@ export default {
     BtnCopy,
   },
   computed: {
-    ...mapGetters(['block', 'loading']),
+    ...mapGetters(['block', 'loadingBlock']),
     fields() {
       return tableFields.blockFields;
     },
   },
-  watch: {
-    block: {
-      immediate: true,
-      handler(item) {
-        if (this.$route.params.id !== item.hash) {
-          this.$router.replace(item.hash);
-        }
-      },
-    },
-  },
-  mounted() {
+  created() {
     this.fetchBlock(this.$route.params.id);
   },
   methods: {

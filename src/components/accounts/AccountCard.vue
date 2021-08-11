@@ -57,12 +57,16 @@ export default {
   },
   computed: {
     ...mapGetters(['darkModeOn', 'account']),
-    address() {
-      return this.$route.params.id;
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.fetchAccount(this.$route.params.id);
+      },
     },
   },
   created() {
-    this.fetchAccount(this.address);
+    this.fetchAccount(this.$route.params.id);
   },
   methods: {
     ...mapActions(['fetchAccount']),
@@ -78,6 +82,12 @@ export default {
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
   }
   &__btn {
     background: none;

@@ -94,7 +94,7 @@
             <b-dropdown
               variant="link"
               toggle-class="text-decoration-none"
-              right
+              no-caret
             >
               <template #button-content>
                 <a
@@ -194,7 +194,7 @@ export default {
     }
 
     &__subtitle {
-      @include font($inter-font, 11px, #0085ff, 500);
+      @include font($inter-font, 11px, $link-blue, 500);
     }
 
     &__title {

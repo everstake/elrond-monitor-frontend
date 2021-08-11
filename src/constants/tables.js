@@ -53,6 +53,53 @@ export const tableFields = {
       tdClass: ['table__cell--common table__cell--blue'],
     },
     {
+      key: 'to',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'valueEGLD',
+      label: 'Value EGLD',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'valueUSD',
+      label: 'Value $',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+  ],
+  accountsTransactionsFields: [
+    {
+      key: 'hash',
+      label: 'Txn Hash',
+      class: ['table__cell w-180'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--blue'],
+    },
+    {
+      key: 'age',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'shard',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'from',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common table__cell--blue'],
+    },
+    {
       key: 'status',
       class: ['table__cell'],
       thClass: ['table__title table__title--disable'],
@@ -62,7 +109,7 @@ export const tableFields = {
       key: 'to',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--common table__cell--blue'],
     },
     {
       key: 'valueEGLD',
@@ -163,7 +210,7 @@ export const tableFields = {
       label: 'Age',
     },
     {
-      key: 'transactions',
+      key: 'tx_count',
       label: 'Transaction',
     },
     {
@@ -179,11 +226,11 @@ export const tableFields = {
       label: 'Proposer',
     },
     {
-      key: 'consensus',
+      key: 'validators',
       label: 'Consensus Group',
     },
     {
-      key: 'state',
+      key: 'state_root_hash',
       label: 'State Root Hash',
     },
     {
@@ -191,11 +238,11 @@ export const tableFields = {
       label: 'Miniblocks',
     },
     {
-      key: 'previous_hash',
+      key: 'prev_hash',
       label: 'Previous Hash',
     },
     {
-      key: 'public_bitmap',
+      key: 'pub_key_bitmap',
       label: 'Public Keys Bitmap',
     },
   ],

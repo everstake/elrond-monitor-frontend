@@ -170,7 +170,10 @@
           </b-card>
         </div>
 
-        <b-card :class="{ 'card--dark-mode': darkModeOn }" class="map h-100">
+        <b-card
+          class="map-wrapper h-100"
+          :class="{ 'card--dark-mode': darkModeOn }"
+        >
           <template #header> Validators </template>
         </b-card>
       </div>
@@ -378,7 +381,7 @@ export default {
   gap: $gap-1rem;
 }
 
-.map {
+.map-wrapper {
   width: calc(99% / 2);
 }
 </style>

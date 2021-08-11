@@ -25,9 +25,18 @@
     <template #timestamp="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
+        <div>
+          <b-icon icon="clock" />
+
+          <span>
+            {{ item | formatMsToDays }}
+            {{ item | formatMsToHours }}
+            {{ item | formatMsToMinutes }}
+            {{ item | formatMsToSeconds }}
+          </span>
+
+          <span>({{ item | formatMsToDate }})</span>
+        </div>
       </div>
     </template>
 
@@ -94,7 +103,7 @@
     <template #scResults="{ item, label }">
       <div class="row-info">
         <div class="row-info__label">{{ label }}</div>
-        <div class="row-info__item">
+        <div v-if="item.length" class="row-info__item">
           <div v-for="(elem, i) in item" :key="i" class="contract-info">
             <div class="contract-info__item">
               <span>From</span>
@@ -120,10 +129,13 @@
 
             <div class="contract-info__item">
               <span>Data</span>
+
               <span>{{ elem.data }}</span>
             </div>
           </div>
         </div>
+
+        <span v-else>N/A</span>
       </div>
     </template>
   </TableInfo>
@@ -144,6 +156,14 @@ export default {
       return tableFields.transactionFields;
     },
   },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.fetchTransaction(this.$route.params.id);
+      },
+    },
+  },
   created() {
     this.fetchTransaction(this.$route.params.id);
   },
@@ -160,9 +180,10 @@ export default {
   gap: 1rem;
   padding: 1rem 0 1rem 1rem;
   @include border(left, 1px);
+  @include border(bottom, 1px);
 
-  &:first-child {
-    @include border(bottom, 1px);
+  &:last-child {
+    border-bottom: none;
   }
 
   &__item {
@@ -170,6 +191,12 @@ export default {
 
     & span:nth-child(1) {
       width: 100px;
+    }
+
+    & span:last-child {
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

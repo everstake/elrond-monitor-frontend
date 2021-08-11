@@ -96,9 +96,10 @@ export default {
   @include border(bottom, 1px);
 
   &__label {
-    color: $font-grey;
+    align-self: flex-start;
     flex: 0 0 300px;
-    padding: 20px 10px;
+    @include padding(20px, 10px);
+    color: $font-grey;
   }
 
   &__item {
@@ -108,10 +109,22 @@ export default {
     padding: 1rem 0;
   }
 
+  &__text-wrapper {
+    @include padding(20px);
+  }
+
   &__text {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
+    .row-info &--blue {
+      color: $link-blue;
+    }
+
+    & span {
+      width: 45%;
+    }
   }
 
   & span {

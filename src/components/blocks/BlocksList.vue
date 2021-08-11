@@ -4,6 +4,7 @@
     :items="blocks"
     :total-items="totalBlocks"
     :request-name="fetchBlocks"
+    :loading="loadingBlock"
   >
     <template #header>Blocks</template>
 
@@ -16,7 +17,7 @@
     </template>
 
     <template #cell(shard)="{ item: { shard } }">
-      {{ shard }}
+      {{ shard | formatShard }}
     </template>
 
     <template #cell(transaction)="{ item: { tx_count } }">
@@ -26,7 +27,12 @@
     <template #cell(size)="{ item: { size } }"> {{ size }} kb </template>
 
     <template #cell(time)="{ item: { timestamp } }">
-      {{ timestamp }}
+      <span>
+        {{ timestamp | formatMsToDays }}
+        {{ timestamp | formatMsToHours }}
+        {{ timestamp | formatMsToMinutes }}
+        {{ timestamp | formatMsToSeconds }}
+      </span>
     </template>
   </TableCard>
 </template>
@@ -40,7 +46,7 @@ export default {
   name: 'BlocksList',
   components: { TableCard },
   computed: {
-    ...mapGetters(['blocks', 'totalBlocks']),
+    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
     fields() {
       return tableFields.blocksFields;
     },

@@ -15,7 +15,22 @@
     >
       <slot name="header" />
     </h1>
-    <b-table id="my-table" :items="items" :fields="fields" :per-page="perPage">
+
+    <div v-if="loading" class="d-flex justify-content-center mb-3">
+      <b-spinner label="Loading..."></b-spinner>
+    </div>
+
+    <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
+      Not data
+    </div>
+
+    <b-table
+      v-else
+      id="my-table"
+      :items="items"
+      :fields="fields"
+      :per-page="perPage"
+    >
       <template
         v-for="key in Object.keys($scopedSlots)"
         #[key]="{ item, index }"
@@ -58,6 +73,10 @@ export default {
     address: {
       type: String,
       required: false,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -113,8 +132,7 @@ export default {
     }
 
     &--blue {
-      color: #0085ff;
-      text-decoration: underline;
+      color: $link-blue;
     }
   }
 
@@ -123,7 +141,7 @@ export default {
     padding: 12px 0;
   }
   &__name {
-    @include font($roboto-font, 16px, #0085ff, 500);
+    @include font($roboto-font, 16px, $link-blue, 500);
   }
 }
 .w-390 {
