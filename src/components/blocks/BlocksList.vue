@@ -10,7 +10,10 @@
 
     <template #cell(nonce)="{ item: { nonce, hash } }" class="col-6">
       <router-link
-        :to="{ name: 'BlockDetails', params: { id: hash, nonce: nonce } }"
+        :to="{
+          name: 'BlockDetails',
+          params: { id: hash },
+        }"
       >
         {{ nonce }}
       </router-link>
@@ -27,12 +30,7 @@
     <template #cell(size)="{ item: { size } }"> {{ size }} kb </template>
 
     <template #cell(time)="{ item: { timestamp } }">
-      <span>
-        {{ timestamp | formatMsToDays }}
-        {{ timestamp | formatMsToHours }}
-        {{ timestamp | formatMsToMinutes }}
-        {{ timestamp | formatMsToSeconds }}
-      </span>
+      <span>{{ timestamp | formatTime }}</span>
     </template>
   </TableCard>
 </template>

@@ -29,10 +29,7 @@
           <b-icon icon="clock" />
 
           <span>
-            {{ item | formatMsToDays }}
-            {{ item | formatMsToHours }}
-            {{ item | formatMsToMinutes }}
-            {{ item | formatMsToSeconds }}
+            {{ item | formatTime }}
           </span>
 
           <span>({{ item | formatMsToDate }})</span>

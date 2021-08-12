@@ -49,8 +49,8 @@ export default {
     cursor: pointer;
 
     &--active {
-      color: $link-blue;
-      border-bottom: 2px solid $link-blue;
+      color: $main-blue;
+      border-bottom: 2px solid $main-blue;
     }
   }
 }

@@ -16,10 +16,7 @@
 
     <template #cell(age)="{ item: { timestamp } }">
       <span>
-        {{ timestamp | formatMsToDays }}
-        {{ timestamp | formatMsToHours }}
-        {{ timestamp | formatMsToMinutes }}
-        {{ timestamp | formatMsToSeconds }}
+        {{ timestamp | formatTime }}
       </span>
     </template>
 

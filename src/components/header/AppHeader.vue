@@ -194,7 +194,7 @@ export default {
     }
 
     &__subtitle {
-      @include font($inter-font, 11px, $link-blue, 500);
+      @include font($inter-font, 11px, $main-blue, 500);
     }
 
     &__title {

@@ -17,7 +17,7 @@
     </h1>
 
     <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner label="Loading..."></b-spinner>
+      <b-spinner variant="primary" class="spinner" />
     </div>
 
     <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
@@ -113,6 +113,24 @@ export default {
     vertical-align: middle;
     border-top: none;
   }
+
+  &-card {
+    border-radius: 8px;
+    padding: 0 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    &__title {
+      text-align: center;
+      @include font($roboto-font, 36px, $body-dark, 500);
+
+      &--position {
+        margin-top: 30px;
+      }
+    }
+  }
+
   &__title {
     @include font($roboto-font, 16px, $font-grey, 500);
     line-height: 14px;
@@ -132,7 +150,7 @@ export default {
     }
 
     &--blue {
-      color: $link-blue;
+      color: $main-blue;
     }
   }
 
@@ -141,7 +159,7 @@ export default {
     padding: 12px 0;
   }
   &__name {
-    @include font($roboto-font, 16px, $link-blue, 500);
+    @include font($roboto-font, 16px, $main-blue, 500);
   }
 }
 .w-390 {

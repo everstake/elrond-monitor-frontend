@@ -11,12 +11,14 @@ const statsService = {
     accountsChart: [],
     transactionsChart: [],
     epochDoughnut: {},
+    loading: false,
   },
   getters: {
     stats: (state) => state.stats,
     accountsChart: (state) => state.accountsChart,
     transactionsChart: (state) => state.transactionsChart,
     epochDoughnut: (state) => state.epochDoughnut,
+    loadingStatus: (state) => state.loading,
   },
   mutations: {
     setStats(state, item) {
@@ -31,6 +33,9 @@ const statsService = {
     setEpochDoughnut(state, item) {
       state.epochDoughnut = item;
     },
+    setLoading(state, bol) {
+      state.loading = bol;
+    },
   },
   actions: {
     async fetchStats({ commit }) {
@@ -43,10 +48,13 @@ const statsService = {
     },
     async fetchAccountsChart({ commit }) {
       try {
+        commit('setLoading', true);
         const resp = await getAccountsChart();
         commit('setAccountsChart', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoading', false);
       }
     },
     async fetchTransactionsChart({ commit }) {

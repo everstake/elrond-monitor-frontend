@@ -46,7 +46,7 @@ const routes = [
     path: '/block/:id',
     name: 'BlockDetails',
     component: () => import('../views/BlockDetails.vue'),
-  }
+  },
 ];
 
 const router = new VueRouter({

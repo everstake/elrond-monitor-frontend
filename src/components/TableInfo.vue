@@ -17,7 +17,7 @@
     </h1>
 
     <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner label="Loading..."></b-spinner>
+      <b-spinner variant="primary" class="spinner"></b-spinner>
     </div>
 
     <div v-else-if="items.length" class="d-flex justify-content-center mb-3">
@@ -119,7 +119,7 @@ export default {
     gap: 1rem;
 
     .row-info &--blue {
-      color: $link-blue;
+      color: $main-blue;
     }
 
     & span {

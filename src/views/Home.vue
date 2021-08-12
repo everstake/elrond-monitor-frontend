@@ -11,7 +11,7 @@
 
           <template>
             <div class="card-body--info">
-              <div class="card-amount">$ {{ formatStats(stats.price) }}</div>
+              <div class="card-amount">${{ formatStats(stats.price) }}</div>
 
               <span
                 class="card-amount__percent"
@@ -34,7 +34,7 @@
 
           <template>
             <div class="card-body--info">
-              <div class="card-amount">$ {{ formatStats(stats.cap) }}</div>
+              <div class="card-amount">${{ formatStats(stats.cap) }}</div>
 
               <span
                 class="card-amount__percent"
@@ -58,7 +58,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                $ {{ formatStats(stats.circulating_supply) }}
+                ${{ formatStats(stats.circulating_supply) }}
               </div>
             </div>
           </template>
@@ -70,7 +70,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                $ {{ formatStats(stats.trading_volume) }}
+                ${{ formatStats(stats.trading_volume) }}
               </div>
             </div>
           </template>
@@ -82,7 +82,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                $ {{ formatStats(stats.total_supply) }}
+                ${{ formatStats(stats.total_supply) }}
               </div>
             </div>
           </template>
@@ -94,7 +94,7 @@
           <b-card
             class="card-chart"
             :class="{ 'card--dark-mode': darkModeOn }"
-            body-class="pt-3"
+            body-class="doughnut pt-3"
           >
             <template #header>
               <div class="d-flex justify-content-between align-items-center">
@@ -112,6 +112,16 @@
                 :chart-data="getEpochData()"
                 :height="120"
               />
+
+              <div class="doughnut__percent">
+                <img src="~@/assets/img/epochIcon.svg" alt="Elrond" />
+                <span> {{ percent }}% </span>
+              </div>
+
+              <div class="doughnut__info">
+                <span>since {{ since }}</span>
+                <span>left {{ epochDoughnut.left | formatDuration }}</span>
+              </div>
             </template>
           </b-card>
 
@@ -184,6 +194,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import numeral from 'numeral';
+import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 
@@ -258,7 +269,14 @@ export default {
       'transactionsChart',
       'stats',
       'epochDoughnut',
+      'loadingStatus',
     ]),
+    since() {
+      return moment(this.epochDoughnut.start * 1000).format('DD.MM.YYYY');
+    },
+    percent() {
+      return Math.round(this.epochDoughnut.percent);
+    },
   },
   mounted() {
     this.fetchAccountsChart();
@@ -317,7 +335,7 @@ export default {
         datasets: [
           {
             backgroundColor: ['rgba(0, 133, 255, 1)', 'rgba(0, 133, 255, 0.2)'],
-            borderWidth: 1,
+            borderWidth: 0,
             data: [
               this.epochDoughnut.percent,
               100 - this.epochDoughnut.percent,
@@ -383,5 +401,25 @@ export default {
 
 .map-wrapper {
   width: calc(99% / 2);
+}
+
+.doughnut {
+  position: relative;
+
+  &__percent {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    @include font($roboto-font, 24px, $main-blue, 800);
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    @include font($roboto-font, $fs-14, $dark-gary);
+  }
 }
 </style>
