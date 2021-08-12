@@ -3,19 +3,24 @@
     :fields="fields"
     :items="transactions"
     :total-items="totalTransactionItems"
-    :request-name="fetchTransactions"
     :address="address"
+    :request-name="fetchTransactions"
+    :loading="loadingAcc"
   >
     <template #cell(hash)="{ item: { hash } }">
-      {{ hash | trimHash }}
+      <router-link :to="{ name: 'TransactionDetails', params: { id: hash } }">
+        {{ hash | trimHash }}
+      </router-link>
     </template>
 
     <template #cell(age)="{ item: { timestamp } }">
-      {{ timestamp }}
+      <span>
+        {{ timestamp | formatTime }}
+      </span>
     </template>
 
     <template #cell(shard)="{ item: { shard_from, shard_to } }">
-      Shard {{ shard_from }} &#8594; Shard {{ shard_to }}
+      {{ shard_from | formatShard }} &#8594; {{ shard_to | formatShard }}
     </template>
 
     <template #cell(from)="{ item: { from } }">
@@ -24,12 +29,8 @@
       </router-link>
     </template>
 
-    <template #cell(status)="{ item: { status } }">
-      <img
-        v-if="status === 'success'"
-        src="~@/assets/img/statusIn.svg"
-        alt="In"
-      />
+    <template #cell(status)="{ item: { to } }">
+      <img v-if="to === address" src="~@/assets/img/statusIn.svg" alt="In" />
 
       <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
     </template>
@@ -59,12 +60,20 @@ export default {
   name: 'AccountTransactionsList',
   components: { TableCard },
   computed: {
-    ...mapGetters(['transactions', 'totalTransactionItems']),
+    ...mapGetters(['transactions', 'totalTransactionItems', 'loadingAcc']),
     fields() {
-      return tableFields.transactionsFields;
+      return tableFields.accountsTransactionsFields;
     },
     address() {
       return this.$route.params.id;
+    },
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.fetchTransactions({ address: this.address });
+      },
     },
   },
   methods: {

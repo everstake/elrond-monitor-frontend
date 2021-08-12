@@ -1,23 +1,81 @@
 .card {
-  font-size: $fs-16;
-}
-.card-header {
-  font-weight: 500;
-}
-
-.table-card {
+  height: 223px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 2px 1px rgba(0, 0, 0, 0.06),
+    0 1px 1px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
-  padding: 0px 50px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  text-align: start;
+  font-size: $fs-16;
 
-  &__title {
-    text-align: center;
-    @include font($roboto-font, 36px, $body-dark, 500);
+  .card-header {
+    margin: 0 1rem;
+    padding: 16px 0;
+    background-color: transparent;
+    border-bottom-color: $gray;
+    font-weight: 500;
 
+    &--dark-mode {
+      border-bottom-color: $main-white;
+    }
+  }
+
+  .card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &--info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.card--dark-mode {
+    background-color: $black;
+    color: white;
+  }
+
+  &-epoch--position {
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+
+  &-amount {
+    font-size: $fs-26;
+    font-weight: 500;
     &--position {
-      margin-top: 30px;
+      position: absolute;
+      left: 1rem;
+      bottom: 0;
+    }
+
+    &__percent {
+      font-size: $fs-14;
+      padding: 2px 6px;
+      border-radius: 6px;
+
+      &--up {
+        color: $light-green;
+        background: linear-gradient(
+            0deg,
+            rgba(0, 186, 52, 0.1),
+            rgba(0, 186, 52, 0.1)
+          ),
+          $main-white;
+      }
+      &--down {
+        color: $red;
+        background: linear-gradient(
+                        0deg,
+                        rgba(255, 0, 0, 0.1),
+                        rgba(255, 0, 0, 0.1)
+        ),
+        $main-white;
+      }
     }
   }
 }
+
+

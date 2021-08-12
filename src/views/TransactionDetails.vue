@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <b-container>
     <TransactionsCard />
-  </div>
+  </b-container>
 </template>
 
 <script>

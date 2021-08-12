@@ -6,7 +6,7 @@
     </header>
 
     <main class="page-body" :class="{ 'black-body-background': darkModeOn }">
-      <router-view />
+      <router-view :key="$route.path" />
     </main>
 
     <footer class="page-footer">

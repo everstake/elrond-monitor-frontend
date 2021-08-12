@@ -12,7 +12,7 @@ const blocksService = {
     blocks: (state) => state.blocks,
     totalBlocks: (state) => state.totalBlocks,
     block: (state) => state.block,
-    loading: (state) => state.loading,
+    loadingBlock: (state) => state.loading,
   },
   mutations: {
     setBlocks(state, items) {
@@ -31,11 +31,15 @@ const blocksService = {
   actions: {
     async fetchBlocks({ commit }, params) {
       try {
+        commit('setLoad', true);
+
         const resp = await getBlocks({ params });
         commit('setBlocks', resp.data.items);
         commit('setTotalBlocks', resp.data.count);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoad', false);
       }
     },
     async fetchBlock({ commit }, hash) {

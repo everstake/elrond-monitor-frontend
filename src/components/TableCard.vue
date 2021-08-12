@@ -15,7 +15,22 @@
     >
       <slot name="header" />
     </h1>
-    <b-table id="my-table" :items="items" :fields="fields" :per-page="perPage">
+
+    <div v-if="loading" class="d-flex justify-content-center mb-3">
+      <b-spinner variant="primary" class="spinner" />
+    </div>
+
+    <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
+      Not data
+    </div>
+
+    <b-table
+      v-else
+      id="my-table"
+      :items="items"
+      :fields="fields"
+      :per-page="perPage"
+    >
       <template
         v-for="key in Object.keys($scopedSlots)"
         #[key]="{ item, index }"
@@ -59,6 +74,10 @@ export default {
       type: String,
       required: false,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -94,6 +113,24 @@ export default {
     vertical-align: middle;
     border-top: none;
   }
+
+  &-card {
+    border-radius: 8px;
+    padding: 0 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    &__title {
+      text-align: center;
+      @include font($roboto-font, 36px, $body-dark, 500);
+
+      &--position {
+        margin-top: 30px;
+      }
+    }
+  }
+
   &__title {
     @include font($roboto-font, 16px, $font-grey, 500);
     line-height: 14px;
@@ -113,8 +150,7 @@ export default {
     }
 
     &--blue {
-      color: #0085ff;
-      text-decoration: underline;
+      color: $main-blue;
     }
   }
 
@@ -123,7 +159,7 @@ export default {
     padding: 12px 0;
   }
   &__name {
-    @include font($roboto-font, 16px, #0085ff, 500);
+    @include font($roboto-font, 16px, $main-blue, 500);
   }
 }
 .w-390 {

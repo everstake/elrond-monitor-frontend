@@ -1,4 +1,4 @@
-@mixin font($family, $size, $color, $weight) {
+@mixin font($family, $size, $color, $weight: 400) {
   font-family: $family;
   font-size: $size;
   color: $color;
@@ -7,4 +7,8 @@
 
 @mixin border($position, $size) {
   border-#{$position}: $size solid $gray;
+}
+
+@mixin padding($top: 0, $right: 0, $bottom: $top, $left: $right) {
+  padding: $top $right $bottom $left;
 }

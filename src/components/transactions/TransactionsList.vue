@@ -4,6 +4,7 @@
     :items="transactions"
     :total-items="totalTransactionItems"
     :request-name="fetchTransactions"
+    :loading="loadingTx"
   >
     <template #header> Transactions </template>
 
@@ -14,25 +15,17 @@
     </template>
 
     <template #cell(age)="{ item: { timestamp } }">
-      {{ timestamp }}
+      <span>
+        {{ timestamp | formatTime }}
+      </span>
     </template>
 
     <template #cell(shard)="{ item: { shard_from, shard_to } }">
-      Shard {{ shard_from }} &#8594; Shard {{ shard_to }}
+      {{ shard_from | formatShard }} &#8594; {{ shard_to | formatShard }}
     </template>
 
     <template #cell(from)="{ item: { from } }">
       {{ from | trimHash }}
-    </template>
-
-    <template #cell(status)="{ item: { status } }">
-      <img
-        v-if="status === 'success'"
-        src="~@/assets/img/statusIn.svg"
-        alt="In"
-      />
-
-      <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
     </template>
 
     <template #cell(to)="{ item: { to } }">
@@ -60,7 +53,7 @@ export default {
     TableCard,
   },
   computed: {
-    ...mapGetters(['transactions', 'totalTransactionItems']),
+    ...mapGetters(['transactions', 'totalTransactionItems', 'loadingTx']),
     fields() {
       return tableFields.transactionsFields;
     },

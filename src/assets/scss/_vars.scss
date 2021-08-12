@@ -8,13 +8,35 @@ $font-white: #b8b8b8;
 $font-white-main: #fff;
 $light-blue: #e5f3ff;
 $search-dark: #052541;
+$dark-gary: #969696;
+$light-green: #00ba34;
+$eerie-black: #1c1c1c;
+$black: #111;
 $body-dark: #1c1c1c;
 $font-grey: #969696;
+$red: #f00;
+$main-blue: #0085ff;
 
 // fonts
 $inter-font: 'Inter';
 $roboto-font: 'Roboto';
 
+// Bootstrap color
+$primary: $main-blue;
+
 // font-size
+$fs-14: 14px;
 $fs-16: 16px;
+$fs-26: 26px;
 $fs-48: 48px;
+
+// size
+$gap-1rem: 1rem;
+$home-card: 330px;
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1400px
+) !default;

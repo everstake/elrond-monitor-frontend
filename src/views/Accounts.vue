@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <b-container>
     <AccountsList />
-  </div>
+  </b-container>
 </template>
 
 <script>

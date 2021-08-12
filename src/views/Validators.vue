@@ -1,10 +1,10 @@
 <template>
-  <div class="wrapper">
+  <b-container>
     <div class="validators">
-      <ValidatorsCard @choisedTab="choisedTab" />
+      <ValidatorsCard @selectedTab="selectedTab" />
       <TableCard :items="items" :fields="fields" />
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -23,15 +23,15 @@ export default {
     return {
       items: this.$store.getters['validators'],
       fields: tableFields.validatorsFields,
-    }
+    };
   },
   computed: {
     ...mapGetters(['validators', 'stakingProviders', 'nodes']),
   },
   methods: {
     ...mapActions(['fetchValidators']),
-    choisedTab(tab) {
-      switch(tab) {
+    selectedTab(tab) {
+      switch (tab) {
         case 'Validators':
           this.items = this.validators;
           break;
@@ -44,12 +44,12 @@ export default {
         default:
           this.items = this.validators;
       }
-    }
+    },
   },
   mounted() {
     this.fetchValidators();
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
@@ -58,5 +58,4 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-
 </style>

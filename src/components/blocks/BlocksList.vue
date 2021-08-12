@@ -4,19 +4,23 @@
     :items="blocks"
     :total-items="totalBlocks"
     :request-name="fetchBlocks"
+    :loading="loadingBlock"
   >
     <template #header>Blocks</template>
 
     <template #cell(nonce)="{ item: { nonce, hash } }" class="col-6">
       <router-link
-        :to="{ name: 'BlockDetails', params: { id: hash, nonce: nonce } }"
+        :to="{
+          name: 'BlockDetails',
+          params: { id: hash },
+        }"
       >
         {{ nonce }}
       </router-link>
     </template>
 
     <template #cell(shard)="{ item: { shard } }">
-      {{ shard }}
+      {{ shard | formatShard }}
     </template>
 
     <template #cell(transaction)="{ item: { tx_count } }">
@@ -26,7 +30,7 @@
     <template #cell(size)="{ item: { size } }"> {{ size }} kb </template>
 
     <template #cell(time)="{ item: { timestamp } }">
-      {{ timestamp }}
+      <span>{{ timestamp | formatTime }}</span>
     </template>
   </TableCard>
 </template>
@@ -40,7 +44,7 @@ export default {
   name: 'BlocksList',
   components: { TableCard },
   computed: {
-    ...mapGetters(['blocks', 'totalBlocks']),
+    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
     fields() {
       return tableFields.blocksFields;
     },

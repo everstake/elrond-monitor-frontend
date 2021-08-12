@@ -17,7 +17,7 @@
     </h1>
 
     <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner label="Loading..."></b-spinner>
+      <b-spinner variant="primary" class="spinner"></b-spinner>
     </div>
 
     <div v-else-if="items.length" class="d-flex justify-content-center mb-3">
@@ -96,9 +96,10 @@ export default {
   @include border(bottom, 1px);
 
   &__label {
-    color: $font-grey;
+    align-self: flex-start;
     flex: 0 0 300px;
-    padding: 20px 10px;
+    @include padding(20px, 10px);
+    color: $font-grey;
   }
 
   &__item {
@@ -108,10 +109,22 @@ export default {
     padding: 1rem 0;
   }
 
+  &__text-wrapper {
+    @include padding(20px);
+  }
+
   &__text {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
+    .row-info &--blue {
+      color: $main-blue;
+    }
+
+    & span {
+      width: 45%;
+    }
   }
 
   & span {
