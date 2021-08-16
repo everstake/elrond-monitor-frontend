@@ -25,4 +25,8 @@ export const getTransactionsChart = () => APIService.get('/transactions/range');
 
 export const getEpochDoughnut = () => APIService.get('/epoch');
 
+export const getMiniblock = (hash) => APIService.get(`/miniblock/${hash}`);
+
+export const getValidatorsMap = () => APIService.get('/validators/map');
+
 export const getValidators = () => items.validators;

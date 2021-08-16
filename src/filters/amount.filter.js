@@ -2,24 +2,21 @@ import Vue from 'vue';
 import numeral from 'numeral';
 
 const formatAmount = (value) => {
-  const amount = Number(value);
-  if (typeof amount !== 'number') {
-    return '-';
+  if (!value) {
+    return '$0';
   }
 
-  if (amount <= 1) {
-    return `${amount}`;
-  }
+  return `$${numeral(value).format('0,0.[00]')}`;
+};
 
-  if (amount < 1000) {
-    return (amount / 1000000000)
-      .toFixed(9)
-      .replace(/0*$/, '');
+const formatToken = (val) => {
+  if (!Number(val)) {
+    return '0 EGLD';
   }
-
-  return numeral(amount / 1000000000).format('0,0.[000000000]');
+  return `${numeral(val).format('0,0.[0000000]')} EGLD`;
 };
 
 Vue.filter('formatAmount', formatAmount);
+Vue.filter('formatToken', formatToken);
 
-export default formatAmount;
+export { formatAmount, formatToken };

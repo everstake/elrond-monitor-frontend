@@ -1,4 +1,4 @@
-import { getValidators } from "../../api/services";
+import { getValidators, getValidatorsMap } from '../../api/services';
 
 const validatorsService = {
   state: {
@@ -6,6 +6,13 @@ const validatorsService = {
     stakingProviders: [],
     nodes: [],
     ranking: [],
+    validatorsMap: [],
+  },
+  getters: {
+    validators: (state) => state.validators,
+    stakingProviders: (state) => state.stakingProviders,
+    nodes: (state) => state.nodes,
+    validatorsMap: (state) => state.validatorsMap,
   },
   mutations: {
     fetchValidators(state, validators) {
@@ -13,22 +20,28 @@ const validatorsService = {
       state.stakingProviders = validators.stakingProviders;
       state.nodes = validators.nodes;
     },
+    setValidatorsMap(state, items) {
+      state.validatorsMap = items;
+    },
   },
   actions: {
     async fetchValidators({ commit }) {
       try {
         const validators = await getValidators();
-        commit('fetchValidators', validators)
+        commit('fetchValidators', validators);
       } catch (err) {
         console.log(err);
       }
     },
+    async fetchValidatorsMap({ commit }) {
+      try {
+        const resp = await getValidatorsMap();
+        commit('setValidatorsMap', resp.data);
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
-  getters: {
-    validators: (state) => state.validators,
-    stakingProviders: (state) => state.stakingProviders,
-    nodes: (state) => state.nodes,
-  },
-}
+};
 
 export default validatorsService;

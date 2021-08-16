@@ -47,6 +47,11 @@ const routes = [
     name: 'BlockDetails',
     component: () => import('../views/BlockDetails.vue'),
   },
+  {
+    path: '/miniblock/:id',
+    name: 'MiniblockDetails',
+    component: () => import('../views/MiniblockDetails.vue'),
+  },
 ];
 
 const router = new VueRouter({
