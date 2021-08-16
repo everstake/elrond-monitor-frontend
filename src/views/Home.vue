@@ -11,7 +11,7 @@
 
           <template>
             <div class="card-body--info">
-              <div class="card-amount">${{ formatStats(stats.price) }}</div>
+              <div class="card-amount">{{ stats.price | formatAmount }}</div>
 
               <span
                 class="card-amount__percent"
@@ -34,7 +34,7 @@
 
           <template>
             <div class="card-body--info">
-              <div class="card-amount">${{ formatStats(stats.cap) }}</div>
+              <div class="card-amount">{{ stats.cap | formatAmount }}</div>
 
               <span
                 class="card-amount__percent"
@@ -58,7 +58,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                ${{ formatStats(stats.circulating_supply) }}
+                {{ stats.circulating_supply | formatAmount }}
               </div>
             </div>
           </template>
@@ -70,7 +70,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                ${{ formatStats(stats.trading_volume) }}
+                {{ stats.trading_volume | formatAmount }}
               </div>
             </div>
           </template>
@@ -82,7 +82,7 @@
           <template>
             <div class="card-body--info">
               <div class="card-amount">
-                ${{ formatStats(stats.total_supply) }}
+                {{ stats.total_supply | formatAmount }}
               </div>
             </div>
           </template>
@@ -183,8 +183,13 @@
         <b-card
           class="map-wrapper h-100"
           :class="{ 'card--dark-mode': darkModeOn }"
+          body-class="p-0"
         >
           <template #header> Validators </template>
+
+          <template>
+            <ValidatorsMap />
+          </template>
         </b-card>
       </div>
     </b-container>
@@ -197,12 +202,14 @@ import numeral from 'numeral';
 import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
+import ValidatorsMap from '../components/ValidatorsMap.vue';
 
 export default {
   name: 'Home',
   components: {
     LineChart,
     DoughnutChart,
+    ValidatorsMap,
   },
   data() {
     return {
@@ -286,13 +293,13 @@ export default {
 
     this.gradientAccount = this.$refs.chart.$refs.canvas
       .getContext('2d')
-      .createLinearGradient(0, 0, 0, 165);
+      .createLinearGradient(0, 0, 0, 140);
     this.gradientAccount.addColorStop(0, 'rgba(249, 134, 0, 1)');
     this.gradientAccount.addColorStop(1, 'rgba(249, 134, 0, 0)');
 
     this.gradientTransaction = this.$refs.chart.$refs.canvas
       .getContext('2d')
-      .createLinearGradient(0, 0, 0, 165);
+      .createLinearGradient(0, 0, 0, 140);
     this.gradientTransaction.addColorStop(0, 'rgba(0,186,52, 1)');
     this.gradientTransaction.addColorStop(1, 'rgba(0,186,52, 0)');
   },

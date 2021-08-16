@@ -42,11 +42,11 @@
     </template>
 
     <template #cell(valueEGLD)="{ item: { value } }">
-      {{ value | formatAmount }}
+      {{ value | formatToken }}
     </template>
 
     <template #cell(valueUSD)="{ item: { value } }">
-      {{ value | formatAmount }}
+      {{ $_exchange(value) | formatAmount }}
     </template>
   </TableCard>
 </template>
@@ -55,10 +55,12 @@
 import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
 import { mapActions, mapGetters } from 'vuex';
+import exchangeTokenForUSD from "../../mixins/exchangeTokenForUSD";
 
 export default {
   name: 'AccountTransactionsList',
   components: { TableCard },
+  mixins: [exchangeTokenForUSD],
   computed: {
     ...mapGetters(['transactions', 'totalTransactionItems', 'loadingAcc']),
     fields() {

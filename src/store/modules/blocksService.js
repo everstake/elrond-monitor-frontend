@@ -1,4 +1,9 @@
-import { getBlock, getBlockNonce, getBlocks } from '../../api/services';
+import {
+  getBlock,
+  getBlockNonce,
+  getBlocks,
+  getMiniblock,
+} from '../../api/services';
 import { handlerError } from '../../helpers/errorsHandler';
 
 const blocksService = {
@@ -7,12 +12,14 @@ const blocksService = {
     totalBlocks: 1,
     block: {},
     loading: false,
+    miniblock: {},
   },
   getters: {
     blocks: (state) => state.blocks,
     totalBlocks: (state) => state.totalBlocks,
     block: (state) => state.block,
     loadingBlock: (state) => state.loading,
+    miniblock: (state) => state.miniblock,
   },
   mutations: {
     setBlocks(state, items) {
@@ -26,6 +33,9 @@ const blocksService = {
     },
     setLoad(state, bol) {
       state.loading = bol;
+    },
+    setMiniblock(state, item) {
+      state.miniblock = item;
     },
   },
   actions: {
@@ -60,6 +70,17 @@ const blocksService = {
         commit('setBlock', resp.data);
       } catch (e) {
         handlerError(e);
+      } finally {
+        commit('setLoad', false);
+      }
+    },
+    async fetchMiniblock({ commit }, hash) {
+      try {
+        commit('setLoad', true);
+        const resp = await getMiniblock(hash);
+        commit('setMiniblock', resp.data);
+      } catch (e) {
+        console.error(e);
       } finally {
         commit('setLoad', false);
       }

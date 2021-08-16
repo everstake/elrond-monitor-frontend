@@ -27,7 +27,9 @@
       {{ tx_count }}
     </template>
 
-    <template #cell(size)="{ item: { size } }"> {{ size }} kb </template>
+    <template #cell(size)="{ item: { size } }">
+      {{ size | formatSize }}
+    </template>
 
     <template #cell(time)="{ item: { timestamp } }">
       <span>{{ timestamp | formatTime }}</span>

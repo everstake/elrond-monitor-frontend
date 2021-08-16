@@ -1,139 +1,97 @@
 <template>
-  <TableInfo :fields="fields" :items="transaction">
+  <TableInfo :fields="fields" :items="transaction" :loading="loadingTx">
     <template #header>Transaction Details</template>
 
-    <template #hash="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
+    <template #hash="{ item }">
+      <span>{{ item }}</span>
+
+      <BtnCopy :address="item" class="pl-1" />
+    </template>
+
+    <template #status="{ item }">
+      <span>{{ item }}</span>
+    </template>
+
+    <template #timestamp="{ item }">
+      <div>
+        <b-icon icon="clock" />
+
         <span>
-          {{ item }}
-
-          <BtnCopy :address="item" class="pl-1" />
+          {{ item | formatTime }}
         </span>
+
+        <span>({{ item | formatMsToDate }})</span>
       </div>
     </template>
 
-    <template #status="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
+    <template #miniblock_hash="{ item }">
+      <span class="row-info__text--blue">
+        <router-link :to="{ name: 'MiniblockDetails', params: { id: item } }">
           {{ item }}
-        </span>
-      </div>
+        </router-link>
+      </span>
+
+      <BtnCopy :address="item" class="pl-1" />
     </template>
 
-    <template #timestamp="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <div>
-          <b-icon icon="clock" />
+    <template #from="{ item }">
+      <span>{{ item }}</span>
 
-          <span>
-            {{ item | formatTime }}
-          </span>
-
-          <span>({{ item | formatMsToDate }})</span>
-        </div>
-      </div>
+      <BtnCopy :address="item" class="pl-1" />
     </template>
 
-    <template #miniblock_hash="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
+    <template #to="{ item }">
+      <span>{{ item }}</span>
 
-          <BtnCopy :address="item" class="pl-1" />
-        </span>
-      </div>
+      <BtnCopy :address="item" class="pl-1" />
     </template>
 
-    <template #from="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-
-          <BtnCopy :address="item" class="pl-1" />
-        </span>
-      </div>
+    <template #value="{ item }">
+      <span>{{ item }}</span>
     </template>
 
-    <template #to="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-
-          <BtnCopy :address="item" class="pl-1" />
-        </span>
-      </div>
+    <template #fee="{ item }">
+      <span>{{ item }}</span>
     </template>
 
-    <template #value="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
+    <template #gas_used="{ item }">
+      <span>{{ item }}</span>
     </template>
 
-    <template #fee="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
-    </template>
+    <template #scResults="{ item }">
+      <div v-if="Object.keys(item).length" class="row-info__item">
+        <div v-for="(elem, i) in item" :key="i" class="contract-info">
+          <div class="contract-info__item">
+            <span>From</span>
 
-    <template #gas_used="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
-    </template>
+            <span>
+              {{ elem.from }}
+              <BtnCopy :address="elem.from" class="pl-1" />
+            </span>
+          </div>
 
-    <template #scResults="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <div v-if="item.length" class="row-info__item">
-          <div v-for="(elem, i) in item" :key="i" class="contract-info">
-            <div class="contract-info__item">
-              <span>From</span>
+          <div class="contract-info__item">
+            <span>To</span>
+            <span>
+              {{ elem.to }}
+              <BtnCopy :address="elem.to" class="pl-1" />
+            </span>
+          </div>
 
-              <span>
-                {{ elem.from }}
-                <BtnCopy :address="elem.from" class="pl-1" />
-              </span>
-            </div>
+          <div class="contract-info__item">
+            <span>Value</span>
+            <span>{{ elem.value }}</span>
+          </div>
 
-            <div class="contract-info__item">
-              <span>To</span>
-              <span>
-                {{ elem.to }}
-                <BtnCopy :address="elem.to" class="pl-1" />
-              </span>
-            </div>
+          <div class="contract-info__item">
+            <span>Data</span>
 
-            <div class="contract-info__item">
-              <span>Value</span>
-              <span>{{ elem.value }}</span>
-            </div>
-
-            <div class="contract-info__item">
-              <span>Data</span>
-
-              <span>{{ elem.data }}</span>
-            </div>
+            <span>{{ elem.data }}</span>
           </div>
         </div>
-
-        <span v-else>N/A</span>
       </div>
+
+      <span v-else>N/A</span>
     </template>
   </TableInfo>
 </template>
@@ -148,7 +106,7 @@ export default {
   name: 'TransactionsCard',
   components: { TableInfo, BtnCopy },
   computed: {
-    ...mapGetters(['transaction']),
+    ...mapGetters(['transaction', 'loadingTx']),
     fields() {
       return tableFields.transactionFields;
     },
@@ -191,7 +149,7 @@ export default {
     }
 
     & span:last-child {
-      width: 50%;
+      max-width: 700px;
       overflow: hidden;
       text-overflow: ellipsis;
     }

@@ -20,13 +20,21 @@
       <b-spinner variant="primary" class="spinner"></b-spinner>
     </div>
 
-    <div v-else-if="items.length" class="d-flex justify-content-center mb-3">
+    <div
+      v-else-if="boolItems"
+      class="d-flex justify-content-center mb-3"
+    >
       Not data
     </div>
 
     <div v-else>
       <div v-for="(item, index) in fields" :key="index">
-        <slot :name="item.key" :item="items[item.key]" :label="item.label" />
+        <div class="row-info">
+          <div class="row-info__label">{{ item.label }}</div>
+
+          <slot :name="item.key" :item="items[item.key]" />
+        </div>
+        <div></div>
       </div>
     </div>
 
@@ -59,6 +67,9 @@ export default {
   },
   computed: {
     ...mapGetters(['darkModeOn']),
+    boolItems() {
+      return !Object.keys(this.items).length;
+    },
   },
 };
 </script>
@@ -116,7 +127,7 @@ export default {
   &__text {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 2rem;
 
     .row-info &--blue {
       color: $main-blue;

@@ -7,151 +7,98 @@
   >
     <template #header>Block details</template>
 
-    <template #nonce="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
+    <template #nonce="{ item }">
+      <span>{{ item }}</span>
+    </template>
+
+    <template #hash="{ item }">
+      <span>{{ item }}</span>
+
+      <BtnCopy :address="item" class="pl-1" />
+    </template>
+
+    <template #epoch="{ item }">
+      <span>{{ item }}</span>
+    </template>
+
+    <template #timestamp="{ item }">
+      <div>
+        <b-icon icon="clock" />
+
         <span>
-          {{ item }}
+          {{ item | formatTime }}
         </span>
+
+        <span>({{ item | formatMsToDate }})</span>
       </div>
     </template>
 
-    <template #hash="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-
-          <BtnCopy :address="item" class="pl-1" />
-        </span>
-      </div>
+    <template #tx_count="{ item }">
+      <span>{{ item }} transactions in the block</span>
     </template>
 
-    <template #epoch="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
+    <template #shard="{ item }">
+      <span>{{ item | formatShard }}</span>
     </template>
 
-    <template #timestamp="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-
-        <div>
-          <b-icon icon="clock" />
-
-          <span>
-            {{ item | formatTime }}
-          </span>
-
-          <span>({{ item | formatMsToDate }})</span>
-        </div>
-      </div>
+    <template #size="{ item }">
+      <span>{{ item | formatSize }}</span>
     </template>
 
-    <template #tx_count="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
+    <template #proposer="{ item }">
+      <span> {{ item | trimHashFromTo(50, -50) }}</span>
     </template>
 
-    <template #shard="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item | formatShard }}
-        </span>
-      </div>
-    </template>
+    <template #validators="{ item }">
+      <div class="row-info__text-wrapper">
+        <b-btn variant="link" v-b-toggle.collapse-validators class="p-0">
+          {{ item.length }} validators (See all)
+        </b-btn>
 
-    <template #size="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
-    </template>
-
-    <template #proposer="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item | trimHashFromTo(50, -50) }}
-        </span>
-      </div>
-    </template>
-
-    <template #validators="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-
-        <div class="row-info__text-wrapper">
-          <b-btn variant="link" v-b-toggle.collapse-validators class="p-0">
-            {{ item.length }} validators (See all)
-          </b-btn>
-
-          <b-collapse id="collapse-validators" class="row-info__text mt-3">
-            <span
-              v-for="(validator, index) in item"
-              :key="index"
-              class="row-info__text--blue"
+        <b-collapse id="collapse-validators" class="row-info__text mt-3">
+          <span
+            v-for="(validator, index) in item"
+            :key="index"
+            class="row-info__text--blue"
+          >
+            <router-link
+              :to="{ name: 'Validators', params: { id: validator } }"
             >
-              <router-link
-                :to="{ name: 'Validators', params: { id: validator } }"
-              >
-                {{ validator | trimHashFromTo(20, -20) }}
-              </router-link>
-            </span>
-          </b-collapse>
-        </div>
-      </div>
-    </template>
-
-    <template #state_root_hash="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
-    </template>
-
-    <template #miniblocks="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <div v-if="item.length" class="row-info__text">
-          <span v-for="(miniBlock, index) in item" :key="index">
-            {{ miniBlock | trimHash }}
+              {{ validator | trimHashFromTo(20, -20) }}
+            </router-link>
           </span>
-        </div>
-
-        <span>N/A</span>
+        </b-collapse>
       </div>
     </template>
 
-    <template #prev_hash="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
-        </span>
-      </div>
+    <template #state_root_hash="{ item }">
+      <span>{{ item }}</span>
     </template>
 
-    <template #pub_key_bitmap="{ item, label }">
-      <div class="row-info">
-        <div class="row-info__label">{{ label }}</div>
-        <span>
-          {{ item }}
+    <template #miniblocks="{ item }">
+      <div v-if="item.length" class="row-info__text row-info__text-wrapper">
+        <span
+          v-for="(miniBlock, index) in item"
+          :key="index"
+          class="row-info__text--blue"
+        >
+          <router-link
+            :to="{ name: 'MiniblockDetails', params: { id: miniBlock } }"
+          >
+            {{ miniBlock | trimHashFromTo(10, -10) }}
+          </router-link>
         </span>
       </div>
+
+      <span v-else>N/A</span>
+    </template>
+
+    <template #prev_hash="{ item }">
+      <span>{{ item }}</span>
+    </template>
+
+    <template #pub_key_bitmap="{ item }">
+      <span>{{ item }}</span>
     </template>
 
     <template #block-nav>

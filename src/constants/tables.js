@@ -95,7 +95,7 @@ export const tableFields = {
     },
     {
       key: 'from',
-      class: ['table__cell'],
+      class: ['table__cell w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common table__cell--blue'],
     },
@@ -107,7 +107,7 @@ export const tableFields = {
     },
     {
       key: 'to',
-      class: ['table__cell'],
+      class: ['table__cell w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common table__cell--blue'],
     },
@@ -286,6 +286,32 @@ export const tableFields = {
     {
       key: 'scResults',
       label: 'Smart Contract Result',
+    },
+  ],
+  miniblockFields: [
+    {
+      key: 'hash',
+      label: 'Miniblock Hash',
+    },
+    {
+      key: 'shard_from',
+      label: 'Sender Shard',
+    },
+    {
+      key: 'shard_to',
+      label: 'Receiver Shard',
+    },
+    {
+      key: 'block_sender',
+      label: 'Sender Block',
+    },
+    {
+      key: 'block_receiver',
+      label: 'Receiver Block',
+    },
+    {
+      key: 'type',
+      label: 'Type',
     },
   ],
 };
