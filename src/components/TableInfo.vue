@@ -16,19 +16,18 @@
       <slot name="header" />
     </h1>
 
-    <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner variant="primary" class="spinner"></b-spinner>
-    </div>
+    <AppSpinner v-if="loading" :size-bool="true" />
 
-    <div
-      v-else-if="boolItems"
-      class="d-flex justify-content-center mb-3"
-    >
+    <div v-else-if="boolItems" class="d-flex justify-content-center mb-3">
       Not data
     </div>
 
-    <div v-else>
-      <div v-for="(item, index) in fields" :key="index">
+    <div v-else class="wrapper-table-info">
+      <div
+        v-for="(item, index) in fields"
+        :key="index"
+        class="wrapper-table-info__row"
+      >
         <div class="row-info">
           <div class="row-info__label">{{ item.label }}</div>
 
@@ -44,9 +43,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import AppSpinner from './AppSpinner.vue';
 
 export default {
   name: 'TableInfo',
+  components: {
+    AppSpinner,
+  },
   props: {
     items: {
       type: Object,
@@ -106,6 +109,9 @@ export default {
   align-items: center;
   @include border(bottom, 1px);
 
+  @include md-down {
+  }
+
   &__label {
     align-self: flex-start;
     flex: 0 0 300px;
@@ -135,11 +141,28 @@ export default {
 
     & span {
       width: 45%;
+
+      @include md-down {
+        width: auto;
+      }
     }
   }
 
   & span {
     color: $font-black;
+  }
+}
+
+.wrapper-table-info {
+  overflow-x: auto;
+  width: 100%;
+
+  &__row {
+    width: 100%;
+
+    @include lg-down {
+      width: 1400px;
+    }
   }
 }
 </style>

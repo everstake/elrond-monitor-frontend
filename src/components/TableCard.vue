@@ -16,28 +16,28 @@
       <slot name="header" />
     </h1>
 
-    <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner variant="primary" class="spinner" />
-    </div>
+    <AppSpinner v-if="loading" :size-bool="true" />
 
     <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
       Not data
     </div>
 
-    <b-table
-      v-else
-      id="my-table"
-      :items="items"
-      :fields="fields"
-      :per-page="perPage"
-    >
-      <template
-        v-for="key in Object.keys($scopedSlots)"
-        #[key]="{ item, index }"
+    <div v-else class="table__wrapper">
+      <b-table
+        id="my-table"
+        :items="items"
+        :fields="fields"
+        :per-page="perPage"
       >
-        <slot :name="key" :item="item" :index="index" />
-      </template>
-    </b-table>
+        <template
+          v-for="key in Object.keys($scopedSlots)"
+          #[key]="{ item, index }"
+        >
+          <slot :name="key" :item="item" :index="index" />
+        </template>
+      </b-table>
+    </div>
+
     <b-pagination
       v-model="currentPage"
       :total-rows="totalPage"
@@ -50,9 +50,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import AppSpinner from "./AppSpinner.vue";
 
 export default {
   name: 'TableCard',
+  components: {
+    AppSpinner,
+  },
   props: {
     items: {
       type: Array,
@@ -108,6 +112,11 @@ export default {
 
 <style lang="scss">
 .table {
+  &__wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
   & th,
   td {
     vertical-align: middle;
@@ -144,6 +153,7 @@ export default {
     @include font($roboto-font, 16px, $font-black, 500);
     line-height: 24px;
     vertical-align: middle;
+    min-width: 155px;
 
     & img {
       vertical-align: middle;
@@ -167,5 +177,8 @@ export default {
 }
 .w-180 {
   width: 180px;
+}
+.w-70 {
+  min-width: 70px;
 }
 </style>

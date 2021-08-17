@@ -6,13 +6,13 @@
       'dark-blue-bakcground': darkModeOn,
     }"
   >
-    <div class="search-bar__wrapper wrapper">
+    <div class="search-bar__wrapper container-lg">
       <button class="search-bar__btn">
         <img
           src="~@/assets/img/searchIcon.svg"
           alt="search"
           class="search-bar__img"
-        >
+        />
       </button>
       <input
         type="text"
@@ -21,7 +21,7 @@
           'black-background': darkModeOn,
         }"
         placeholder="Search for block, accounts, transactions, programs, tokens and validators..."
-      >
+      />
     </div>
   </div>
 </template>
@@ -32,11 +32,9 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'SearchBar',
   computed: {
-    ...mapGetters([
-      'darkModeOn'
-    ]),
-  }
-}
+    ...mapGetters(['darkModeOn']),
+  },
+};
 </script>
 
 <style lang="scss">

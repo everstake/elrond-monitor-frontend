@@ -88,6 +88,10 @@ export default {
     display: flex;
     flex-direction: column;
     row-gap: 12px;
+
+    @include lg-down {
+      min-width: 150px;
+    }
   }
   &__btn {
     background: none;

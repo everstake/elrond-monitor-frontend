@@ -6,7 +6,7 @@
       'black-background': darkModeOn,
     }"
   >
-    <div class="header__wrapper wrapper">
+    <div class="header__wrapper container-lg">
       <router-link to="/" class="header__logo logo">
         <img
           v-if="!darkModeOn"
@@ -133,14 +133,34 @@
               <img src="~@/assets/img/optionsIcon/menu.svg" alt="menu" />
             </button>
           </template>
-          <b-dropdown-item href="#">Elrond website</b-dropdown-item>
-          <b-dropdown-item href="#">Maiar exchange</b-dropdown-item>
-          <b-dropdown-item href="#">Web wallet</b-dropdown-item>
-          <b-dropdown-item href="#">Maiar wallet</b-dropdown-item>
-          <b-dropdown-item href="#">Staking guides</b-dropdown-item>
-          <b-dropdown-item href="#">Whitepaper</b-dropdown-item>
-          <b-dropdown-item href="#">Elrond blog</b-dropdown-item>
-          <b-dropdown-item href="#">Elrond Docs</b-dropdown-item>
+          <b-dropdown-item href="https://elrond.com/" target="_blank"
+            >Elrond website</b-dropdown-item
+          >
+          <b-dropdown-item href="https://maiar.exchange/" target="_blank"
+            >Maiar exchange</b-dropdown-item
+          >
+          <b-dropdown-item href="https://wallet.elrond.com/" target="_blank"
+            >Web wallet</b-dropdown-item
+          >
+          <b-dropdown-item href="https://maiar.com/" target="_blank"
+            >Maiar wallet</b-dropdown-item
+          >
+          <b-dropdown-item
+            href="https://medium.com/everstake/tagged/egld"
+            target="_blank"
+            >Staking guides</b-dropdown-item
+          >
+          <b-dropdown-item
+            href="https://elrond.com/assets/files/elrond-whitepaper.pdf"
+            target="_blank"
+            >Whitepaper</b-dropdown-item
+          >
+          <b-dropdown-item href="https://elrond.com/blog/" target="_blank"
+            >Elrond blog</b-dropdown-item
+          >
+          <b-dropdown-item href="https://docs.elrond.com/" target="_blank"
+            >Elrond Docs</b-dropdown-item
+          >
         </b-dropdown>
       </div>
     </div>
@@ -169,6 +189,10 @@ export default {
   justify-content: center;
   height: 60px;
 
+  &__logo {
+    min-width: 150px;
+  }
+
   &__options {
     display: flex;
     align-items: center;
@@ -179,6 +203,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow-x: auto;
   }
   &__option-btn {
     background: none !important;

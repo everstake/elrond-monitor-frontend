@@ -12,3 +12,34 @@
 @mixin padding($top: 0, $right: 0, $bottom: $top, $left: $right) {
   padding: $top $right $bottom $left;
 }
+
+// Breakpoints
+@mixin xl-down {
+  @media(max-width: 1399px) {
+    @content;
+  }
+}
+
+@mixin lg-down {
+  @media(max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin md-down {
+  @media(max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin sm-down {
+  @media(max-width: 575px) {
+    @content;
+  }
+}
+
+@mixin xl-up {
+  @media(min-width: 1200px) {
+    @content;
+  }
+}

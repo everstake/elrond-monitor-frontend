@@ -1,9 +1,9 @@
 <template>
-  <b-container class="account-details">
+  <div class="container-lg account-details">
     <AccountCard />
 
     <AccountTransactionsList />
-  </b-container>
+  </div>
 </template>
 
 <script>

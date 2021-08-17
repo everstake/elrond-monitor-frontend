@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="{ 'home--dark-mode': darkModeOn }">
-    <b-container class="home-container">
+    <div class="container-lg home-container">
       <div class="home-row">
         <b-card
           class="card-price"
@@ -10,12 +10,7 @@
           <template #header> Price at the moment and All time high</template>
 
           <template>
-            <div
-              v-if="!loadingStatus"
-              class="d-flex justify-content-center align-items-center h-100"
-            >
-              <b-spinner variant="primary"></b-spinner>
-            </div>
+            <AppSpinner v-if="!loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.price | formatUSD }}</div>
@@ -40,12 +35,7 @@
           <template #header>Market cap</template>
 
           <template>
-            <div
-              v-if="!loadingStatus"
-              class="d-flex justify-content-center align-items-center h-100"
-            >
-              <b-spinner variant="primary"></b-spinner>
-            </div>
+            <AppSpinner v-if="!loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.cap | formatUSD }}</div>
@@ -70,12 +60,7 @@
           <template #header>Circulating supply</template>
 
           <template>
-            <div
-              v-if="!loadingStatus"
-              class="d-flex justify-content-center align-items-center h-100"
-            >
-              <b-spinner variant="primary"></b-spinner>
-            </div>
+            <AppSpinner v-if="!loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -89,12 +74,7 @@
           <template #header>Trading volume</template>
 
           <template>
-            <div
-              v-if="!loadingStatus"
-              class="d-flex justify-content-center align-items-center h-100"
-            >
-              <b-spinner variant="primary"></b-spinner>
-            </div>
+            <AppSpinner v-if="!loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -108,12 +88,7 @@
           <template #header>Total supply</template>
 
           <template>
-            <div
-              v-if="!loadingStatus"
-              class="d-flex justify-content-center align-items-center h-100"
-            >
-              <b-spinner variant="primary"></b-spinner>
-            </div>
+            <AppSpinner v-if="!loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -134,7 +109,10 @@
             <template #header>
               <div class="d-flex justify-content-between align-items-center">
                 <span>Epoch</span>
-                <span class="font-weight-bold">
+                <span
+                  v-if="epochDoughnut.epoch_number"
+                  class="font-weight-bold"
+                >
                   {{ epochDoughnut.epoch_number }}
                 </span>
               </div>
@@ -150,11 +128,11 @@
 
               <div class="doughnut__percent">
                 <img src="~@/assets/img/epochIcon.svg" alt="Elrond" />
-                <span> {{ percent }}% </span>
+                <span> {{ percent || '0' }}% </span>
               </div>
 
               <div class="doughnut__info">
-                <span>since {{ since }}</span>
+                <span>since {{ since || '0' }}</span>
                 <span>left {{ epochDoughnut.left | formatDuration }}</span>
               </div>
             </template>
@@ -216,7 +194,7 @@
         </div>
 
         <b-card
-          class="map-wrapper h-100"
+          class="map-wrapper"
           :class="{ 'card--dark-mode': darkModeOn }"
           body-class="p-0"
         >
@@ -227,7 +205,7 @@
           </template>
         </b-card>
       </div>
-    </b-container>
+    </div>
   </div>
 </template>
 
@@ -238,6 +216,7 @@ import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
+import AppSpinner from '../components/AppSpinner.vue';
 
 export default {
   name: 'Home',
@@ -245,6 +224,7 @@ export default {
     LineChart,
     DoughnutChart,
     ValidatorsMap,
+    AppSpinner,
   },
   data() {
     return {
@@ -346,6 +326,9 @@ export default {
       'fetchEpochDoughnut',
     ]),
     formatStats(val) {
+      if (!val) {
+        return '0';
+      }
       return numeral(val).format('0,0.[00]');
     },
     getAccountData() {
@@ -415,34 +398,53 @@ export default {
 
   &-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: $gap-1rem;
 
+    @include lg-down {
+      justify-content: center;
+    }
+
     &--width {
-      width: calc(99% / 2);
+      flex: 0 0 calc(99% / 2);
       flex-wrap: wrap;
+
+      @include lg-down {
+        justify-content: center;
+      }
     }
   }
 }
 
 .home .card {
   &-price {
-    flex: 0 0 $home-card;
+    flex: 0 1 $home-card;
     height: 150px;
   }
   &-chart {
-    flex: 0 0 $home-card;
+    flex: 0 1 $home-card;
   }
 }
 
 .wrapper-charts {
   display: flex;
+  justify-content: flex-start;
   gap: $gap-1rem;
+
+  @include xl-down {
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 
 .map-wrapper {
-  width: calc(99% / 2);
+  height: 100% !important;
+  flex: 1 0 auto;
+
+  @include xl-down {
+    height: 400px !important;
+  }
 }
 
 .doughnut {
