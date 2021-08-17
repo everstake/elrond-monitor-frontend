@@ -46,7 +46,7 @@
     </template>
 
     <template #cell(valueUSD)="{ item: { value } }">
-      {{ $_exchange(value) | formatAmount }}
+      {{ $_exchange(value) | formatUSD }}
     </template>
   </TableCard>
 </template>
