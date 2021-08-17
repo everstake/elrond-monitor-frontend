@@ -10,7 +10,14 @@
           <template #header> Price at the moment and All time high</template>
 
           <template>
-            <div class="card-body--info">
+            <div
+              v-if="!loadingStatus"
+              class="d-flex justify-content-center align-items-center h-100"
+            >
+              <b-spinner variant="primary"></b-spinner>
+            </div>
+
+            <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.price | formatAmount }}</div>
 
               <span
@@ -33,7 +40,14 @@
           <template #header>Market cap</template>
 
           <template>
-            <div class="card-body--info">
+            <div
+              v-if="!loadingStatus"
+              class="d-flex justify-content-center align-items-center h-100"
+            >
+              <b-spinner variant="primary"></b-spinner>
+            </div>
+
+            <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.cap | formatAmount }}</div>
 
               <span
@@ -56,7 +70,14 @@
           <template #header>Circulating supply</template>
 
           <template>
-            <div class="card-body--info">
+            <div
+              v-if="!loadingStatus"
+              class="d-flex justify-content-center align-items-center h-100"
+            >
+              <b-spinner variant="primary"></b-spinner>
+            </div>
+
+            <div v-else class="card-body--info">
               <div class="card-amount">
                 {{ stats.circulating_supply | formatAmount }}
               </div>
@@ -68,7 +89,14 @@
           <template #header>Trading volume</template>
 
           <template>
-            <div class="card-body--info">
+            <div
+              v-if="!loadingStatus"
+              class="d-flex justify-content-center align-items-center h-100"
+            >
+              <b-spinner variant="primary"></b-spinner>
+            </div>
+
+            <div v-else class="card-body--info">
               <div class="card-amount">
                 {{ stats.trading_volume | formatAmount }}
               </div>
@@ -80,7 +108,14 @@
           <template #header>Total supply</template>
 
           <template>
-            <div class="card-body--info">
+            <div
+              v-if="!loadingStatus"
+              class="d-flex justify-content-center align-items-center h-100"
+            >
+              <b-spinner variant="primary"></b-spinner>
+            </div>
+
+            <div v-else class="card-body--info">
               <div class="card-amount">
                 {{ stats.total_supply | formatAmount }}
               </div>

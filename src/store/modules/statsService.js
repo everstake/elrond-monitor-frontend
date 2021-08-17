@@ -11,7 +11,7 @@ const statsService = {
     accountsChart: [],
     transactionsChart: [],
     epochDoughnut: {},
-    loading: false,
+    loading: true,
   },
   getters: {
     stats: (state) => state.stats,
@@ -40,21 +40,21 @@ const statsService = {
   actions: {
     async fetchStats({ commit }) {
       try {
+        commit('setLoading', false);
         const resp = await getStats();
         commit('setStats', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoading', true);
       }
     },
     async fetchAccountsChart({ commit }) {
       try {
-        commit('setLoading', true);
         const resp = await getAccountsChart();
         commit('setAccountsChart', resp.data);
       } catch (e) {
         console.error(e);
-      } finally {
-        commit('setLoading', false);
       }
     },
     async fetchTransactionsChart({ commit }) {
