@@ -18,7 +18,7 @@
             </div>
 
             <div v-else class="card-body--info">
-              <div class="card-amount">{{ stats.price | formatAmount }}</div>
+              <div class="card-amount">{{ stats.price | formatUSD }}</div>
 
               <span
                 class="card-amount__percent"
@@ -48,7 +48,7 @@
             </div>
 
             <div v-else class="card-body--info">
-              <div class="card-amount">{{ stats.cap | formatAmount }}</div>
+              <div class="card-amount">{{ stats.cap | formatUSD }}</div>
 
               <span
                 class="card-amount__percent"
@@ -79,7 +79,7 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.circulating_supply | formatAmount }}
+                {{ stats.circulating_supply | formatUSD }}
               </div>
             </div>
           </template>
@@ -98,7 +98,7 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.trading_volume | formatAmount }}
+                {{ stats.trading_volume | formatUSD }}
               </div>
             </div>
           </template>
@@ -117,7 +117,7 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.total_supply | formatAmount }}
+                {{ stats.total_supply | formatUSD }}
               </div>
             </div>
           </template>

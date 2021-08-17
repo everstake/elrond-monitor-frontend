@@ -62,9 +62,7 @@ export default {
     imageSeries.data = this.validatorsMap;
   },
   beforeDestroy() {
-    if (this.map) {
-      this.map.dispose();
-    }
+    am4core.disposeAllCharts();
   },
   methods: {
     ...mapActions(['fetchValidatorsMap']),

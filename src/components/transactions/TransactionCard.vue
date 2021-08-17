@@ -24,9 +24,9 @@
       </div>
     </template>
 
-    <template #miniblock_hash="{ item }">
+    <template #from="{ item }">
       <span class="row-info__text--blue">
-        <router-link :to="{ name: 'MiniblockDetails', params: { id: item } }">
+        <router-link :to="{ name: 'AccountDetails', params: { id: item } }">
           {{ item }}
         </router-link>
       </span>
@@ -34,20 +34,20 @@
       <BtnCopy :address="item" class="pl-1" />
     </template>
 
-    <template #from="{ item }">
-      <span>{{ item }}</span>
-
-      <BtnCopy :address="item" class="pl-1" />
-    </template>
-
     <template #to="{ item }">
-      <span>{{ item }}</span>
+      <span class="row-info__text--blue">
+        <router-link :to="{ name: 'AccountDetails', params: { id: item } }">
+          {{ item }}
+        </router-link>
+      </span>
 
       <BtnCopy :address="item" class="pl-1" />
     </template>
 
     <template #value="{ item }">
-      <span>{{ item }}</span>
+      <span
+        >{{ item | formatToken }} ( = {{ $_exchange(item) | formatUSD }})</span
+      >
     </template>
 
     <template #fee="{ item }">
@@ -55,7 +55,11 @@
     </template>
 
     <template #gas_used="{ item }">
-      <span>{{ item }}</span>
+      <span>{{ item | formatAmount }}</span>
+    </template>
+
+    <template #gas_price="{ item }">
+      <span>{{ item | formatAmount }}</span>
     </template>
 
     <template #scResults="{ item }">
@@ -101,10 +105,12 @@ import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '@/components/TableInfo.vue';
 import { tableFields } from '@/constants/tables';
 import BtnCopy from '@/components/BtnCopy.vue';
+import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 
 export default {
   name: 'TransactionsCard',
   components: { TableInfo, BtnCopy },
+  mixins: [exchangeTokenForUSD],
   computed: {
     ...mapGetters(['transaction', 'loadingTx']),
     fields() {

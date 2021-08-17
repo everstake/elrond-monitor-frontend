@@ -35,12 +35,6 @@ export const tableFields = {
       tdClass: ['table__cell--blue'],
     },
     {
-      key: 'age',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
       key: 'shard',
       class: ['table__cell'],
       thClass: ['table__title'],
@@ -54,6 +48,18 @@ export const tableFields = {
     },
     {
       key: 'to',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'age',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--common'],
+    },
+    {
+      key: 'fee',
       class: ['table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
@@ -260,10 +266,6 @@ export const tableFields = {
       label: 'Age',
     },
     {
-      key: 'miniblock_hash',
-      label: 'Miniblock',
-    },
-    {
       key: 'from',
       label: 'From',
     },
@@ -273,7 +275,7 @@ export const tableFields = {
     },
     {
       key: 'value',
-      label: 'Value',
+      label: 'Value (EGLD / $)',
     },
     {
       key: 'fee',
@@ -282,6 +284,10 @@ export const tableFields = {
     {
       key: 'gas_used',
       label: 'Gas Used',
+    },
+    {
+      key: 'gas_price',
+      label: 'Gas Price',
     },
     {
       key: 'scResults',
