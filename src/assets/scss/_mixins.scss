@@ -27,13 +27,13 @@
 }
 
 @mixin md-down {
-  @media(max-width: 767px) {
+  @media(max-width: 1024px) {
     @content;
   }
 }
 
 @mixin sm-down {
-  @media(max-width: 575px) {
+  @media(max-width: 767px) {
     @content;
   }
 }

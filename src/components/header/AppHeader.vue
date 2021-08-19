@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="{
-      header: true,
-      'white-background': !darkModeOn,
-      'black-background': darkModeOn,
-    }"
-  >
+  <div :class="['header', darkModeClassBackground]">
     <div class="header__wrapper container-lg">
       <router-link to="/" class="header__logo logo">
         <img
@@ -28,137 +22,157 @@
         </div>
       </router-link>
 
-      <nav class="header__navbar navbar">
-        <ul class="navbar__list">
-          <li class="navbar__item">
-            <router-link
-              to="/blocks"
-              :class="{
-                navbar__link: true,
-                'black-font': !darkModeOn,
-                'white-font': darkModeOn,
-              }"
-            >
-              Blocks
-            </router-link>
-          </li>
-          <li class="navbar__item">
-            <router-link
-              to="/epoch"
-              :class="{
-                navbar__link: true,
-                'black-font': !darkModeOn,
-                'white-font': darkModeOn,
-              }"
-            >
-              Epoch
-            </router-link>
-          </li>
-          <li class="navbar__item">
-            <router-link
-              to="/transactions"
-              :class="{
-                navbar__link: true,
-                'black-font': !darkModeOn,
-                'white-font': darkModeOn,
-              }"
-            >
-              Transactions
-            </router-link>
-          </li>
-          <li class="navbar__item">
-            <router-link
-              to="/accounts"
-              :class="{
-                navbar__link: true,
-                'black-font': !darkModeOn,
-                'white-font': darkModeOn,
-              }"
-            >
-              Accounts
-            </router-link>
-          </li>
-          <li class="navbar__item">
-            <router-link
-              to="/validators"
-              :class="{
-                navbar__link: true,
-                'black-font': !darkModeOn,
-                'white-font': darkModeOn,
-              }"
-            >
-              Validators
-            </router-link>
-          </li>
-          <li class="navbar__item">
-            <b-dropdown
-              variant="link"
-              toggle-class="text-decoration-none"
-              no-caret
-            >
-              <template #button-content>
-                <a
-                  :class="{
-                    navbar__link: true,
-                    'black-font': !darkModeOn,
-                    'white-font': darkModeOn,
-                  }"
-                >
-                  Deep dive
-                </a>
-              </template>
-              <b-dropdown-item href="#">Network</b-dropdown-item>
-              <b-dropdown-item href="#">APR calculator</b-dropdown-item>
-            </b-dropdown>
-          </li>
-        </ul>
-      </nav>
+      <b-nav class="navbar__list">
+        <li class="navbar__item">
+          <router-link
+            to="/blocks"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            Blocks
+          </router-link>
+        </li>
+        <li class="navbar__item">
+          <router-link
+            to="/epoch"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            Epoch
+          </router-link>
+        </li>
+        <li class="navbar__item">
+          <router-link
+            to="/transactions"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            Transactions
+          </router-link>
+        </li>
+        <li class="navbar__item">
+          <router-link
+            to="/accounts"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            Accounts
+          </router-link>
+        </li>
+        <li class="navbar__item">
+          <router-link
+            to="/validators"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            Validators
+          </router-link>
+        </li>
+
+        <b-nav-item-dropdown
+          class="navbar__item"
+          variant="link"
+          toggle-class="text-decoration-none"
+          no-caret
+          :menu-class="darkModeClassBackground"
+        >
+          <template #button-content>
+            <a :class="['navbar__link', darkModeClassFonts]"> Deep dive </a>
+          </template>
+          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
+            >Network</b-dropdown-item
+          >
+          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
+            >APR calculator</b-dropdown-item
+          >
+        </b-nav-item-dropdown>
+      </b-nav>
 
       <div class="header__options">
         <button class="header__option-btn" @click="changeMode">
-          <img
+          <b-icon
             v-if="!darkModeOn"
-            src="~@/assets/img/optionsIcon/moon.svg"
-            alt="night mode"
+            icon="moon"
+            :class="[darkModeClassFonts]"
           />
-          <img
+          <b-icon
             v-else
-            src="~@/assets/img/optionsIcon/sun.svg"
-            alt="night mode"
+            icon="brightness-high-fill"
+            :class="[darkModeClassFonts]"
           />
         </button>
-        <b-dropdown variant="link" right no-caret>
+
+        <div
+          class="burger"
+          :class="{ 'burger__line--rotate': showMenu }"
+          v-b-toggle.menu-burger-collapse
+        >
+          <div
+            class="burger__line"
+            :class="{ 'burger__line--dark-mode': darkModeOn }"
+          />
+          <div
+            class="burger__line"
+            :class="{ 'burger__line--dark-mode': darkModeOn }"
+          />
+          <div
+            class="burger__line"
+            :class="{ 'burger__line--dark-mode': darkModeOn }"
+          />
+        </div>
+
+        <b-dropdown
+          variant="link"
+          right
+          no-caret
+          :menu-class="darkModeClassBackground"
+        >
           <template #button-content>
             <button class="header__option-btn">
-              <img src="~@/assets/img/optionsIcon/menu.svg" alt="menu" />
+              <b-icon icon="grid-fill" :class="[darkModeClassFonts]" />
             </button>
           </template>
-          <b-dropdown-item href="https://elrond.com/" target="_blank"
+          <b-dropdown-item
+            href="https://elrond.com/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Elrond website</b-dropdown-item
           >
-          <b-dropdown-item href="https://maiar.exchange/" target="_blank"
+          <b-dropdown-item
+            href="https://maiar.exchange/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Maiar exchange</b-dropdown-item
           >
-          <b-dropdown-item href="https://wallet.elrond.com/" target="_blank"
+          <b-dropdown-item
+            href="https://wallet.elrond.com/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Web wallet</b-dropdown-item
           >
-          <b-dropdown-item href="https://maiar.com/" target="_blank"
+          <b-dropdown-item
+            href="https://maiar.com/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Maiar wallet</b-dropdown-item
           >
           <b-dropdown-item
             href="https://medium.com/everstake/tagged/egld"
             target="_blank"
+            :link-class="darkModeClassFonts"
             >Staking guides</b-dropdown-item
           >
           <b-dropdown-item
             href="https://elrond.com/assets/files/elrond-whitepaper.pdf"
             target="_blank"
+            :link-class="darkModeClassFonts"
             >Whitepaper</b-dropdown-item
           >
-          <b-dropdown-item href="https://elrond.com/blog/" target="_blank"
+          <b-dropdown-item
+            href="https://elrond.com/blog/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Elrond blog</b-dropdown-item
           >
-          <b-dropdown-item href="https://docs.elrond.com/" target="_blank"
+          <b-dropdown-item
+            href="https://docs.elrond.com/"
+            target="_blank"
+            :link-class="darkModeClassFonts"
             >Elrond Docs</b-dropdown-item
           >
         </b-dropdown>
@@ -172,8 +186,25 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'AppHeader',
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
   computed: {
-    ...mapGetters(['darkModeOn']),
+    ...mapGetters([
+      'darkModeOn',
+      'darkModeClassBackground',
+      'darkModeClassFonts',
+    ]),
+  },
+  mounted() {
+    this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
+      if (collapseId === 'menu-burger-collapse') {
+        this.showMenu = isJustShown;
+        this.$root.$emit('hide', 'links');
+      }
+    });
   },
   methods: {
     ...mapActions({
@@ -197,13 +228,24 @@ export default {
     display: flex;
     align-items: center;
     gap: 30px;
+
+    @include md-down {
+      & .dropdown {
+        display: none;
+      }
+    }
+
+    & .header__option-btn {
+      & .b-icon.bi {
+        font-size: 1.7rem;
+      }
+    }
   }
 
   &__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow-x: auto;
   }
   &__option-btn {
     background: none !important;
@@ -234,20 +276,25 @@ export default {
   }
 
   .navbar {
-    height: 100%;
-    padding: 0;
-
     &__list {
       display: flex;
       align-items: center;
       height: 100%;
       gap: 1rem;
+
+      @include md-down {
+        display: none;
+      }
     }
 
     &__item {
       display: flex;
       width: 120px;
       height: 100%;
+
+      @include xl-down {
+        width: 100px;
+      }
     }
 
     &__link {
@@ -265,6 +312,56 @@ export default {
 
       &:hover {
         text-decoration: none;
+      }
+    }
+  }
+}
+
+.burger {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 1.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+
+  @include md-down {
+    display: flex;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &__line {
+    width: 2rem;
+    height: 0.1rem;
+    background-color: $font-black;
+    border-radius: 10px;
+    transition: all 0.1s linear;
+    position: relative;
+    transform-origin: 5px;
+
+    &--dark-mode {
+      background-color: $font-white;
+    }
+
+    &--rotate {
+      :first-child {
+        transform: rotate(45deg);
+      }
+
+      :nth-child(2) {
+        opacity: 0;
+      }
+
+      :nth-child(3) {
+        transform: rotate(-45deg);
       }
     }
   }

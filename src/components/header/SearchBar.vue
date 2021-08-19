@@ -16,10 +16,7 @@
       </button>
       <input
         type="text"
-        :class="{
-          'search-bar__input': true,
-          'black-background': darkModeOn,
-        }"
+        :class="['search-bar__input', darkModeClassBackground]"
         placeholder="Search for block, accounts, transactions, programs, tokens and validators..."
       />
     </div>
@@ -32,7 +29,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'SearchBar',
   computed: {
-    ...mapGetters(['darkModeOn']),
+    ...mapGetters(['darkModeOn', 'darkModeClassBackground']),
   },
 };
 </script>

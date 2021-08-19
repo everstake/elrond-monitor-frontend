@@ -2,6 +2,7 @@
   <div id="app">
     <header class="page-header">
       <AppHeader />
+      <AppHeaderMenu />
       <SearchBar />
     </header>
 
@@ -16,14 +17,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import AppHeader from '@/components/header/AppHeader.vue';
 import AppFooter from '@/components/footer/AppFooter.vue';
 import SearchBar from '@/components/header/SearchBar.vue';
-import { mapGetters } from 'vuex';
+import AppHeaderMenu from '@/components/header/AppHeaderMenu.vue';
 
 export default {
   name: 'App',
   components: {
+    AppHeaderMenu,
     AppHeader,
     AppFooter,
     SearchBar,

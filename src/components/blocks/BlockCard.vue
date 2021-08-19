@@ -23,7 +23,7 @@
 
     <template #timestamp="{ item }">
       <div>
-        <b-icon icon="clock" />
+        <b-icon icon="clock" :class="darkModeClassFonts" />
 
         <span>
           {{ item | formatTime }}
@@ -55,18 +55,20 @@
           {{ item.length }} validators (See all)
         </b-btn>
 
-        <b-collapse id="collapse-validators" class="row-info__text mt-3">
-          <span
-            v-for="(validator, index) in item"
-            :key="index"
-            class="row-info__text--blue"
-          >
-            <router-link
-              :to="{ name: 'Validators', params: { id: validator } }"
+        <b-collapse id="collapse-validators">
+          <div class="row-info__text mt-3">
+            <span
+              v-for="(validator, index) in item"
+              :key="index"
+              class="row-info__text--blue"
             >
-              {{ validator | trimHashFromTo(20, -20) }}
-            </router-link>
-          </span>
+              <router-link
+                :to="{ name: 'Validators', params: { id: validator } }"
+              >
+                {{ validator | trimHashFromTo(20, -20) }}
+              </router-link>
+            </span>
+          </div>
         </b-collapse>
       </div>
     </template>
@@ -138,7 +140,7 @@ export default {
     BtnCopy,
   },
   computed: {
-    ...mapGetters(['block', 'loadingBlock']),
+    ...mapGetters(['block', 'loadingBlock', 'darkModeClassFonts']),
     fields() {
       return tableFields.blockFields;
     },

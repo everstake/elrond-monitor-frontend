@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="{
-      'table-info': true,
-      'white-background': !darkModeOn,
-      'black-background': darkModeOn,
-    }"
-  >
+  <div :class="['table-info', darkModeClassBackground]">
     <h1
       class="table-info__title table-info__title--position"
       :class="{
@@ -28,7 +22,7 @@
         :key="index"
         class="wrapper-table-info__row"
       >
-        <div class="row-info">
+        <div :class="['row-info', darkModeClassFonts]">
           <div class="row-info__label">{{ item.label }}</div>
 
           <slot :name="item.key" :item="items[item.key]" />
@@ -69,7 +63,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['darkModeOn']),
+    ...mapGetters([
+      'darkModeOn',
+      'darkModeClassBackground',
+      'darkModeClassFonts',
+    ]),
     boolItems() {
       return !Object.keys(this.items).length;
     },
@@ -109,14 +107,12 @@ export default {
   align-items: center;
   @include border(bottom, 1px);
 
-  @include md-down {
-  }
-
   &__label {
     align-self: flex-start;
     flex: 0 0 300px;
     @include padding(20px, 10px);
     color: $font-grey;
+    font-weight: 500;
   }
 
   &__item {
@@ -146,10 +142,6 @@ export default {
         width: auto;
       }
     }
-  }
-
-  & span {
-    color: $font-black;
   }
 }
 

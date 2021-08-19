@@ -36,7 +36,7 @@ export const tableFields = {
     },
     {
       key: 'shard',
-      class: ['table__cell'],
+      class: ['table__cell', 'w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
     },
