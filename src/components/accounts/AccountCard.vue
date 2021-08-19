@@ -19,7 +19,7 @@
       <div class="account-card__info">
         <p class="account-card__info-item">Balance</p>
         <p class="account-card__info-item">
-          {{ account.balance }}
+          {{ account.balance | formatAmount }}
         </p>
       </div>
 
@@ -79,6 +79,12 @@ export default {
   padding: 15px 40px;
   border-radius: 8px;
   @include font($roboto-font, 16px, $font-grey, 400);
+
+  @include md-down {
+    overflow-x: auto;
+    padding: 15px 10px;
+  }
+
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;

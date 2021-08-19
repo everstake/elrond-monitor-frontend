@@ -50,7 +50,7 @@ export const tableFields = {
       key: 'to',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--common', 'table__cell--blue'],
     },
     {
       key: 'age',
@@ -95,7 +95,7 @@ export const tableFields = {
     },
     {
       key: 'shard',
-      class: ['table__cell'],
+      class: ['table__cell', 'w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
     },
@@ -115,7 +115,7 @@ export const tableFields = {
       key: 'to',
       class: ['w-180 table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common table__cell--blue'],
+      tdClass: ['table__cell--common'],
     },
     {
       key: 'valueEGLD',
