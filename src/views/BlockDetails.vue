@@ -1,7 +1,7 @@
 <template>
-  <b-container>
+  <div class="container-lg">
     <BlockCard />
-  </b-container>
+  </div>
 </template>
 
 <script>

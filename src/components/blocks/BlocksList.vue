@@ -8,7 +8,7 @@
   >
     <template #header>Blocks</template>
 
-    <template #cell(nonce)="{ item: { nonce, hash } }" class="col-6">
+    <template #cell(nonce)="{ item: { nonce, hash } }">
       <router-link
         :to="{
           name: 'BlockDetails',
@@ -58,11 +58,4 @@ export default {
 </script>
 
 <style lang="scss">
-.table {
-  &__cell {
-    &--block {
-      width: calc(100% / 7);
-    }
-  }
-}
 </style>

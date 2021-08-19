@@ -1,7 +1,7 @@
 <template>
-  <b-container>
+  <div class="container-lg">
     <AccountsList />
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,9 +1,7 @@
 <template>
-  <b-container>
-    <div class="transactions">
-      <TransactionsList />
-    </div>
-  </b-container>
+  <div class="container-lg transactions">
+    <TransactionsList />
+  </div>
 </template>
 
 <script>

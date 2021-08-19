@@ -15,7 +15,11 @@ const layoutService = {
   },
   getters: {
     darkModeOn: (state) => state.darkModeOn,
-  }
-}
+    darkModeClassBackground: (state) =>
+      state.darkModeOn ? 'black-background' : 'white-background',
+    darkModeClassFonts: (state) =>
+      state.darkModeOn ? 'white-font' : 'black-font',
+  },
+};
 
 export default layoutService;

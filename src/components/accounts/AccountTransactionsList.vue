@@ -55,7 +55,7 @@
 import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
 import { mapActions, mapGetters } from 'vuex';
-import exchangeTokenForUSD from "../../mixins/exchangeTokenForUSD";
+import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 
 export default {
   name: 'AccountTransactionsList',

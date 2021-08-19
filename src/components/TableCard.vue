@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="{
-      'table-card': true,
-      'white-background': !darkModeOn,
-      'black-background': darkModeOn,
-    }"
-  >
+  <div :class="['table-card', darkModeClassBackground]">
     <h1
       class="table-card__title table-card__title--position"
       :class="{
@@ -16,43 +10,49 @@
       <slot name="header" />
     </h1>
 
-    <div v-if="loading" class="d-flex justify-content-center mb-3">
-      <b-spinner variant="primary" class="spinner" />
-    </div>
+    <AppSpinner v-if="loading" :size-bool="true" />
 
     <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
       Not data
     </div>
 
-    <b-table
-      v-else
-      id="my-table"
-      :items="items"
-      :fields="fields"
-      :per-page="perPage"
-    >
-      <template
-        v-for="key in Object.keys($scopedSlots)"
-        #[key]="{ item, index }"
+    <div v-else class="table__wrapper">
+      <b-table
+        id="my-table"
+        :items="items"
+        :fields="fields"
+        :per-page="perPage"
+        :dark="darkModeOn"
       >
-        <slot :name="key" :item="item" :index="index" />
-      </template>
-    </b-table>
+        <template
+          v-for="key in Object.keys($scopedSlots)"
+          #[key]="{ item, index }"
+        >
+          <slot :name="key" :item="item" :index="index" />
+        </template>
+      </b-table>
+    </div>
+
     <b-pagination
       v-model="currentPage"
       :total-rows="totalPage"
       :per-page="perPage"
       align="right"
       aria-controls="my-table"
+      :class="{ 'pagination__page-link--dark': darkModeOn }"
     ></b-pagination>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import AppSpinner from './AppSpinner.vue';
 
 export default {
   name: 'TableCard',
+  components: {
+    AppSpinner,
+  },
   props: {
     items: {
       type: Array,
@@ -86,7 +86,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['darkModeOn']),
+    ...mapGetters(['darkModeOn', 'darkModeClassBackground']),
     totalPage() {
       return Math.ceil(this.totalItems / this.perPage);
     },
@@ -108,10 +108,23 @@ export default {
 
 <style lang="scss">
 .table {
+  font-family: $roboto-font;
+  color: $font-black;
+
+  &__wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
   & th,
   td {
     vertical-align: middle;
     border-top: none;
+  }
+
+  &-dark {
+    background-color: $main-black;
+    color: $font-white;
   }
 
   &-card {
@@ -141,9 +154,9 @@ export default {
   }
   &__cell {
     border-bottom: 1px solid $gray !important;
-    @include font($roboto-font, 16px, $font-black, 500);
     line-height: 24px;
     vertical-align: middle;
+    min-width: 155px;
 
     & img {
       vertical-align: middle;
@@ -162,10 +175,24 @@ export default {
     @include font($roboto-font, 16px, $main-blue, 500);
   }
 }
+
 .w-390 {
   width: 390px;
 }
 .w-180 {
-  width: 180px;
+  min-width: 180px;
+}
+.w-70 {
+  min-width: 70px;
+}
+
+.pagination {
+  &__page-link--dark {
+    .page-link,
+    .page-item.disabled .page-link {
+      background-color: $main-black;
+      color: $font-white;
+    }
+  }
 }
 </style>

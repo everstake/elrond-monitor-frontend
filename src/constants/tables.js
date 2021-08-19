@@ -30,13 +30,13 @@ export const tableFields = {
     {
       key: 'hash',
       label: 'Txn Hash',
-      class: ['table__cell w-180'],
+      class: ['table__cell', 'w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--blue'],
     },
     {
       key: 'shard',
-      class: ['table__cell'],
+      class: ['table__cell', 'w-180'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common'],
     },
@@ -44,7 +44,7 @@ export const tableFields = {
       key: 'from',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common table__cell--blue'],
+      tdClass: ['table__cell--common', 'table__cell--blue'],
     },
     {
       key: 'to',
@@ -83,7 +83,7 @@ export const tableFields = {
     {
       key: 'hash',
       label: 'Txn Hash',
-      class: ['table__cell w-180'],
+      class: ['w-180', 'table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--blue'],
     },
@@ -101,19 +101,19 @@ export const tableFields = {
     },
     {
       key: 'from',
-      class: ['table__cell w-180'],
+      class: ['w-180', 'table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common table__cell--blue'],
+      tdClass: ['table__cell--common', 'table__cell--blue'],
     },
     {
       key: 'status',
-      class: ['table__cell'],
+      class: ['w-70', 'table__cell'],
       thClass: ['table__title table__title--disable'],
       tdClass: ['table__cell--common'],
     },
     {
       key: 'to',
-      class: ['table__cell w-180'],
+      class: ['w-180 table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--common table__cell--blue'],
     },
