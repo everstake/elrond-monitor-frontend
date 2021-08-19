@@ -83,6 +83,10 @@ export default {
   flex-direction: column;
   gap: 30px;
 
+  @include md-down {
+    padding: 0 10px 20px
+  }
+
   &__title {
     text-align: center;
     @include font($roboto-font, 36px, $body-dark, 500);
