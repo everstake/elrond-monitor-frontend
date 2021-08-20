@@ -94,13 +94,21 @@ export default {
   watch: {
     currentPage: {
       immediate: true,
-      handler(val) {
-        this.requestName({
+      async handler(val) {
+        await this.requestName({
           address: this.address,
           page: val,
           limit: this.perPage,
         });
       },
+    },
+
+    async requestName(func) {
+      await func({
+        address: this.address,
+        page: 1,
+        limit: this.perPage,
+      });
     },
   },
 };

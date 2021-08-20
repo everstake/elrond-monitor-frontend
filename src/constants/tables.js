@@ -132,32 +132,85 @@ export const tableFields = {
       tdClass: ['table__cell--common'],
     },
   ],
-  validatorsFields: [
-    {
-      key: 'name',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'stake',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'cumulativeStake',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'nodes',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-  ],
+  validatorsFields: {
+    validators: [
+      {
+        key: 'name',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'stake',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'stake_percent',
+        label: 'Cumulative Stake %',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'validators',
+        label: 'Nodes',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+    ],
+    stakingProviders: [
+      {
+        key: 'name',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'stake',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'num_nodes',
+        label: 'Nodes',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'apr',
+        label: 'Computed APR',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'service_fee',
+        label: 'Service Fee',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'delegation_cap',
+        label: 'Delegation cap',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: '',
+        label: 'Filled',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+    ],
+  },
   blocksFields: [
     {
       key: 'nonce',

@@ -19,7 +19,7 @@
       <div class="account-card__info">
         <p class="account-card__info-item">Balance</p>
         <p class="account-card__info-item">
-          {{ account.balance }}
+          {{ account.balance | formatAmount }}
         </p>
       </div>
 

@@ -1,4 +1,3 @@
-import { items } from '@/constants/items';
 import { APIService } from './index';
 
 export const getStats = () => APIService.get('/stats');
@@ -29,4 +28,11 @@ export const getMiniblock = (hash) => APIService.get(`/miniblock/${hash}`);
 
 export const getValidatorsMap = () => APIService.get('/validators/map');
 
-export const getValidators = () => items.validators;
+export const getStatsValidators = () => APIService.get('/stats/validators');
+
+export const getValidators = (params) => APIService.get('/validators', params);
+
+export const getStakingProviders = (params) =>
+  APIService.get('/staking/providers', params);
+
+export const getNodes = (params) => APIService.get('/nodes', params);

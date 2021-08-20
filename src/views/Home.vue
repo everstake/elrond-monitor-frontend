@@ -22,7 +22,7 @@
                   'card-amount__percent--down': stats.price_change < 0,
                 }"
               >
-                {{ formatStats(stats.price_change) }}%
+                {{ stats.price_change | formatPercent }}
 
                 <b-icon v-if="stats.price_change > 0" icon="arrow-up-right" />
                 <b-icon v-else icon="arrow-down-left" />
@@ -47,7 +47,7 @@
                   'card-amount__percent--down': stats.cap_change < 0,
                 }"
               >
-                {{ formatStats(stats.cap_change) }}%
+                {{ stats.cap_change | formatPercent }}
 
                 <b-icon v-if="stats.cap_change > 0" icon="arrow-up-right" />
                 <b-icon v-else icon="arrow-down-left" />
@@ -153,7 +153,7 @@
                 :chart-data="getAccountData()"
               />
               <span class="card-amount card-amount--position">
-                {{ formatStats(stats.total_accounts) }}
+                {{ stats.total_accounts | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -167,7 +167,7 @@
 
             <template>
               <span class="align-self-end card-amount mt-2">
-                {{ formatStats(stats.height) }}
+                {{ stats.height | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -187,7 +187,7 @@
                 :chart-data="getTransactionData()"
               />
               <span class="card-amount card-amount--position">
-                {{ formatStats(stats.total_txs) }}
+                {{ stats.total_txs | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -211,7 +211,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import numeral from 'numeral';
 import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
@@ -325,12 +324,6 @@ export default {
       'fetchStats',
       'fetchEpochDoughnut',
     ]),
-    formatStats(val) {
-      if (!val) {
-        return '0';
-      }
-      return numeral(val).format('0,0.[0]');
-    },
     getAccountData() {
       return {
         labels: [...this.accountsChart.map(({ time }) => time)],

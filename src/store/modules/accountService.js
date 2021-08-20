@@ -15,13 +15,11 @@ const accountService = {
   },
   mutations: {
     setAccounts(state, accounts) {
-      state.accounts = accounts;
+      state.accounts = accounts.items;
+      state.totalItemsAccount = accounts.count;
     },
     setAccount(state, account) {
       state.account = account;
-    },
-    setTotalItemsAcc(state, count) {
-      state.totalItemsAccount = count;
     },
     setLoading(state, bol) {
       state.loading = bol;
@@ -32,8 +30,7 @@ const accountService = {
       try {
         commit('setLoading', true);
         const accounts = await getAccounts({ params });
-        commit('setTotalItemsAcc', accounts.data.count);
-        commit('setAccounts', accounts.data.items);
+        commit('setAccounts', accounts.data);
       } catch (err) {
         console.error(err);
       } finally {
