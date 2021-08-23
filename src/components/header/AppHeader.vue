@@ -68,7 +68,6 @@
           class="navbar__item"
           variant="link"
           toggle-class="text-decoration-none"
-          no-caret
           :menu-class="darkModeClassBackground"
         >
           <template #button-content>

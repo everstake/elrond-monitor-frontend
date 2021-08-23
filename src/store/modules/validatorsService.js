@@ -3,6 +3,7 @@ import {
   getValidatorsMap,
   getStatsValidators,
   getStakingProviders,
+  getNodes,
 } from '../../api/services';
 
 const validatorsService = {
@@ -38,10 +39,14 @@ const validatorsService = {
     },
     setStakingProviders(state, items) {
       state.stakingProviders = items;
-      state.totalItems = 1;
+      state.totalItems = items.langth;
     },
     setLoading(state, bool) {
       state.loading = bool;
+    },
+    setNodes(state, nodes) {
+      state.nodes = nodes.items;
+      state.totalItems = nodes.count;
     },
   },
   actions: {
@@ -80,6 +85,17 @@ const validatorsService = {
         commit('setLoading', true);
         const resp = await getStakingProviders({ params });
         commit('setStakingProviders', resp.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        commit('setLoading', false);
+      }
+    },
+    async fetchNodes({ commit }, params) {
+      try {
+        commit('setLoading', true);
+        const resp = await getNodes({ params });
+        commit('setNodes', resp.data);
       } catch (e) {
         console.error(e);
       } finally {

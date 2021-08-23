@@ -19,6 +19,10 @@ const layoutService = {
       state.darkModeOn ? 'black-background' : 'white-background',
     darkModeClassFonts: (state) =>
       state.darkModeOn ? 'white-font' : 'black-font',
+    darkModeClassTitle: (state) =>
+      state.darkModeOn ? 'white-font-main' : 'dark-font-main',
+    darkModeClassBgLightBlue: (state) =>
+      state.darkModeOn ? 'dark-blue-background' : 'light-blue-background',
   },
 };
 

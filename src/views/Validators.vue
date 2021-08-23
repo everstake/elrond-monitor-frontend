@@ -51,13 +51,28 @@
           {{ delegation_cap | formatToken }}
         </template>
 
-<!--        <template #cell()="{ item: {} }"> </template>-->
+        <template #cell(publicKey)="{ item: { publicKey } }">
+          <router-link :to="{ params: { id: publicKey } }">
+            {{ publicKey | trimHashFromTo(7, -10) }}
+          </router-link>
+        </template>
 
-<!--        <template #cell()="{ item: {} }"> </template>-->
+        <template #cell(nodeDisplayName)="{ item: { nodeDisplayName } }">{{
+          nodeDisplayName
+        }}</template>
 
-<!--        <template #cell()="{ item: {} }"> </template>-->
+        <template #cell(shardId)="{ item: { shardId } }">{{
+          shardId | formatShard
+        }}</template>
 
-<!--        <template #cell()="{ item: {} }"> </template>-->
+        <template #cell(versionNumber)="{ item: { versionNumber } }">
+          {{ versionNumber }}
+        </template>
+        <template #cell(upTime)="{ item: { upTime } }">{{
+          upTime | formatPercent
+        }}</template>
+        <template #cell(status)="{ item: { status } }">{{ status }}</template>
+        <template #cell(rating)="{ item: { rating } }">{{ rating }}</template>
       </TableCard>
     </div>
   </b-container>
@@ -95,8 +110,8 @@ export default {
         case 'stakingProviders':
           return tableFields.validatorsFields.stakingProviders;
 
-        // case 'nodes':
-        //   return tableFields.validatorsFields.;
+        case 'nodes':
+          return tableFields.validatorsFields.nodesFields;
         //
         //   case 'ranking':
         //     return tableFields.validatorsFields.;
@@ -110,6 +125,8 @@ export default {
           return this.validators;
         case 'stakingProviders':
           return this.stakingProviders;
+        case 'nodes':
+          return this.nodes;
         default:
           return this.validators;
       }
@@ -120,6 +137,8 @@ export default {
           return this.fetchValidators;
         case 'stakingProviders':
           return this.fetchStakingProviders;
+        case 'nodes':
+          return this.fetchNodes;
         default:
           return this.fetchValidators;
       }
@@ -133,6 +152,7 @@ export default {
       'fetchValidators',
       'fetchStatsValidators',
       'fetchStakingProviders',
+      'fetchNodes',
     ]),
     selectedTab(tab) {
       this.activeTab = tab;

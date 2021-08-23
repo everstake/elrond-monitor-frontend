@@ -109,6 +109,7 @@ export default {
         page: 1,
         limit: this.perPage,
       });
+      this.currentPage = 1;
     },
   },
 };
