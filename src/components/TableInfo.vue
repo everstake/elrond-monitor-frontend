@@ -35,7 +35,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppSpinner from './AppSpinner.vue';
+import AppSpinner from './app/AppSpinner.vue';
 
 export default {
   name: 'TableInfo',

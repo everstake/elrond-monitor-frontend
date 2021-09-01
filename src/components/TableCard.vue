@@ -12,7 +12,10 @@
 
     <AppSpinner v-if="loading" :size-bool="true" />
 
-    <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
+    <div
+      v-else-if="!items"
+      :class="['d-flex justify-content-center mb-3', darkModeClassFonts]"
+    >
       Not data
     </div>
 
@@ -31,22 +34,30 @@
           <slot :name="key" :item="item" :index="index" />
         </template>
       </b-table>
-    </div>
 
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="totalPage"
-      :per-page="perPage"
-      align="right"
-      aria-controls="my-table"
-      :class="{ 'pagination__page-link--dark': darkModeOn }"
-    ></b-pagination>
+      <div class="nav-pagination">
+        <div :class="['nav-pagination__wrapper-input', darkModeClassFonts]">
+          <span>Go to</span>
+          <b-form-input type="number" placeholder="10" @change="choosePage" />
+          <span>page</span>
+        </div>
+
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalPage"
+          :per-page="perPage"
+          align="right"
+          aria-controls="my-table"
+          :class="{ 'pagination__page-link--dark': darkModeOn }"
+        ></b-pagination>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import AppSpinner from './AppSpinner.vue';
+import AppSpinner from './app/AppSpinner.vue';
 
 export default {
   name: 'TableCard',
@@ -86,7 +97,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['darkModeOn', 'darkModeClassBackground']),
+    ...mapGetters([
+      'darkModeOn',
+      'darkModeClassBackground',
+      'darkModeClassFonts',
+    ]),
     totalPage() {
       return Math.ceil(this.totalItems / this.perPage);
     },
@@ -100,6 +115,7 @@ export default {
           page: val,
           limit: this.perPage,
         });
+        window.scrollTo(0, 0);
       },
     },
 
@@ -112,6 +128,15 @@ export default {
       this.currentPage = 1;
     },
   },
+  methods: {
+    choosePage(e) {
+      if (e <= 0) {
+        this.currentPage = 1;
+      } else {
+        this.currentPage = e;
+      }
+    },
+  },
 };
 </script>
 
@@ -121,6 +146,9 @@ export default {
   color: $font-black;
 
   &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     overflow-x: auto;
     width: 100%;
   }
@@ -142,6 +170,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    min-height: 400px;
 
     &__title {
       text-align: center;
@@ -201,6 +230,32 @@ export default {
     .page-item.disabled .page-link {
       background-color: $main-black;
       color: $font-white;
+    }
+  }
+}
+
+.nav-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__wrapper-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & input {
+      width: 64px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: transparent;
+
+      &:active,
+      &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: transparent;
+      }
     }
   }
 }

@@ -50,7 +50,7 @@ export const tableFields = {
       key: 'to',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--common', 'table__cell--blue'],
     },
     {
       key: 'age',

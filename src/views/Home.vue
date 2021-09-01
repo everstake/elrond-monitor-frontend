@@ -64,7 +64,7 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.circulating_supply | formatUSD }}
+                {{ stats.circulating_supply | formatToken }}
               </div>
             </div>
           </template>
@@ -92,7 +92,49 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.total_supply | formatUSD }}
+                {{ stats.total_supply | formatToken }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Average staking providers fee</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.avg_staking_providers_fee | formatPercent }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Average transactions fee</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.avg_tx_fee | formatToken }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Staking providers</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.staking_providers }}
               </div>
             </div>
           </template>
@@ -215,7 +257,7 @@ import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
-import AppSpinner from '../components/AppSpinner.vue';
+import AppSpinner from '../components/app/AppSpinner.vue';
 
 export default {
   name: 'Home',
@@ -391,13 +433,9 @@ export default {
 
   &-row {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     gap: $gap-1rem;
-
-    @include lg-down {
-      justify-content: center;
-    }
 
     &--width {
       flex: 0 0 calc(99% / 2);

@@ -37,23 +37,36 @@
         <p class="account-card__info-item">Total rewards</p>
         <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
       </div>
-
-      <div class="account-card__info">
-        <p class="account-card__info-item">Staking provider</p>
-        <p class="account-card__info-item">Everstake</p>
-      </div>
     </div>
+
+    <Tabs :tabs="accountTabs" @selectedTab="selectedTab" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BtnCopy from '../BtnCopy.vue';
+import Tabs from '../Tabs.vue';
 
 export default {
   name: 'AccountCard',
   components: {
     BtnCopy,
+    Tabs,
+  },
+  data() {
+    return {
+      accountTabs: [
+        {
+          key: 'transactions',
+          label: 'Transactions',
+        },
+        {
+          key: 'staking_providers',
+          label: 'Staking provider',
+        },
+      ],
+    };
   },
   computed: {
     ...mapGetters(['darkModeOn', 'account']),
@@ -70,13 +83,16 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAccount']),
+    selectedTab(tab) {
+      this.$emit('selectedTab', tab);
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .account-card {
-  padding: 15px 40px;
+  padding: 15px 40px 0;
   border-radius: 8px;
   @include font($roboto-font, 16px, $font-grey, 400);
   &__item {

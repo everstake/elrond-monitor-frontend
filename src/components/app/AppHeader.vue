@@ -65,10 +65,10 @@
         </li>
 
         <b-nav-item-dropdown
-          class="navbar__item"
+          :class="['navbar__item', darkModeClassFonts]"
           variant="link"
           toggle-class="text-decoration-none"
-          :menu-class="darkModeClassBackground"
+          :menu-class="[darkModeClassBackground]"
         >
           <template #button-content>
             <a :class="['navbar__link', darkModeClassFonts]"> Deep dive </a>

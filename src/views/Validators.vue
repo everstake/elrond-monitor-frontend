@@ -109,7 +109,6 @@ export default {
           return tableFields.validatorsFields.validators;
         case 'stakingProviders':
           return tableFields.validatorsFields.stakingProviders;
-
         case 'nodes':
           return tableFields.validatorsFields.nodesFields;
         //

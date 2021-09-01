@@ -5,11 +5,7 @@
     v-clipboard:copy="address"
     v-clipboard:success="onCopy"
   >
-    <img
-      src="~@/assets/img/optionsIcon/clipboard.svg"
-      alt="clipboard"
-      class="account-card__img"
-    />
+    <img src="~@/assets/img/optionsIcon/clipboard.svg" alt="clipboard" />
   </b-btn>
 </template>
 

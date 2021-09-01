@@ -264,22 +264,22 @@ export default {
   computed: {
     ...mapGetters(['block', 'loadingBlock', 'darkModeClassFonts']),
   },
-  created() {
-    this.fetchBlock(this.$route.params.id);
+  async created() {
+    await this.fetchBlock(this.$route.params.id);
   },
   methods: {
     ...mapActions(['fetchBlock', 'fetchBlockNonce']),
-    onNavigation(position) {
+    async onNavigation(position) {
       try {
         switch (position) {
           case 'prev':
-            this.fetchBlockNonce({
+            await this.fetchBlockNonce({
               nonce: this.block.nonce - 1,
               shard: this.block.shard,
             });
             break;
           case 'next':
-            this.fetchBlockNonce({
+            await this.fetchBlockNonce({
               nonce: this.block.nonce + 1,
               shard: this.block.shard,
             });
@@ -288,6 +288,10 @@ export default {
         }
       } catch (e) {
         console.error(e);
+      } finally {
+        if (this.$route.params.id !== this.block.hash) {
+          this.$router.push(this.block.hash);
+        }
       }
     },
   },

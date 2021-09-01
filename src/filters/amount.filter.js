@@ -21,7 +21,7 @@ const formatToken = (val) => {
   if (!Number(val)) {
     return '0 EGLD';
   }
-  return `${numeral(val).format('0,0.[0000000]')} EGLD`;
+  return `${numeral(val).format('0,0.[000000]')} EGLD`;
 };
 
 Vue.filter('formatUSD', formatUSD);

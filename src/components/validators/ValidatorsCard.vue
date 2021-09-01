@@ -39,20 +39,7 @@
     </template>
 
     <template #block-nav>
-      <div class="tabs">
-        <p
-          v-for="tab in tabsList"
-          :key="tab.key"
-          :class="[
-            'tabs__tab',
-            darkModeClassFonts,
-            { 'tabs__tab--active': currentTab === tab },
-          ]"
-          @click="chooseTab(tab)"
-        >
-          {{ tab.label }}
-        </p>
-      </div>
+      <Tabs @selectedTab="selectedTab" />
     </template>
   </TableInfo>
 </template>
@@ -60,35 +47,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import TableInfo from '../TableInfo.vue';
-
-const tabsList = [
-  {
-    key: 'validators',
-    label: 'Validators',
-  },
-  {
-    key: 'stakingProviders',
-    label: 'Staking Providers',
-  },
-  {
-    key: 'nodes',
-    label: 'Nodes',
-  },
-  {
-    key: 'ranking',
-    label: 'Ranking',
-  },
-];
+import Tabs from '../Tabs.vue';
 
 export default {
   name: 'ValidatorsCard',
   components: {
     TableInfo,
+    Tabs,
   },
   data() {
     return {
-      currentTab: tabsList[0],
-      tabsList,
       fields: [
         {
           key: 'validators',
@@ -132,7 +100,6 @@ export default {
     ...mapGetters([
       'darkModeOn',
       'statsValidators',
-      'darkModeClassFonts',
       'darkModeClassTitle',
       'darkModeClassBgLightBlue',
     ]),
@@ -140,17 +107,9 @@ export default {
       return this.statsValidators.length;
     },
   },
-  watch: {
-    currentTab: {
-      immediate: true,
-      handler(val) {
-        this.$emit('selectedTab', val);
-      },
-    },
-  },
   methods: {
-    chooseTab(tab) {
-      this.currentTab = tab;
+    selectedTab(tab) {
+      this.$emit('selectedTab', tab);
     },
   },
 };
@@ -175,24 +134,6 @@ export default {
   &__value {
     @include font($roboto-font, 30px, $main-black, 500);
     line-height: 60px;
-  }
-}
-
-.tabs {
-  width: 100%;
-  padding: 40px 50px 0;
-  display: flex;
-  gap: 45px;
-
-  &__tab {
-    padding: 0 9px 8px;
-    cursor: pointer;
-    font-weight: 500;
-
-    &--active {
-      color: $main-blue;
-      border-bottom: 2px solid $main-blue;
-    }
   }
 }
 </style>
