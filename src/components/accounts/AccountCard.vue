@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <Tabs :tabs="accountTabs" @selectedTab="selectedTab" />
+    <Tabs :tabs="accountTabs" />
   </div>
 </template>
 
@@ -83,9 +83,6 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAccount']),
-    selectedTab(tab) {
-      this.$emit('selectedTab', tab);
-    },
   },
 };
 </script>
@@ -93,8 +90,8 @@ export default {
 <style lang="scss">
 .account-card {
   padding: 15px 40px 0;
-  border-radius: 8px;
-  @include font($roboto-font, 16px, $font-grey, 400);
+  border-radius: $border-radius-card;
+  @include font(16px, $font-grey, 400);
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;

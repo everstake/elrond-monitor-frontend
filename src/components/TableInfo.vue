@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss">
 .table-info {
-  border-radius: 8px;
+  border-radius: $border-radius-card;
   padding: 0 50px 32px;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ export default {
 
   &__title {
     text-align: center;
-    @include font($roboto-font, 36px, $body-dark, 500);
+    @include font(36px, $body-dark, 500);
 
     &--position {
       margin-top: 30px;

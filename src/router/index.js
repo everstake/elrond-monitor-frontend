@@ -33,9 +33,28 @@ const routes = [
     component: () => import('../views/TransactionDetails.vue'),
   },
   {
-    path: '/validators',
-    name: 'Validators',
+    path: '',
     component: () => import('../views/Validators.vue'),
+    children: [
+      {
+        path: '/validators',
+        name: 'Validators',
+        component: () =>
+          import('../components/validators/ValidatorsTabsLists.vue'),
+      },
+      {
+        path: 'validator/:identity',
+        name: 'ValidatorsDetails',
+        component: () =>
+          import('../components/validators/ValidatorsDetails.vue'),
+      },
+      {
+        path: 'provider/:provider',
+        name: 'StakingProviderDetails',
+        component: () =>
+          import('../components/validators/StakingProviderDetails.vue'),
+      },
+    ],
   },
   {
     path: '/blocks',
@@ -51,6 +70,11 @@ const routes = [
     path: '/miniblock/:id',
     name: 'MiniblockDetails',
     component: () => import('../views/MiniblockDetails.vue'),
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue'),
   },
 ];
 

@@ -39,13 +39,13 @@
     </template>
 
     <template #block-nav>
-      <Tabs @selectedTab="selectedTab" />
+      <Tabs />
     </template>
   </TableInfo>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 import TableInfo from '../TableInfo.vue';
 import Tabs from '../Tabs.vue';
 
@@ -107,10 +107,11 @@ export default {
       return this.statsValidators.length;
     },
   },
+  async mounted() {
+    await this.fetchStatsValidators();
+  },
   methods: {
-    selectedTab(tab) {
-      this.$emit('selectedTab', tab);
-    },
+    ...mapActions(['fetchStatsValidators']),
   },
 };
 </script>
@@ -132,7 +133,7 @@ export default {
     gap: 15px;
   }
   &__value {
-    @include font($roboto-font, 30px, $main-black, 500);
+    @include font(30px, $main-black, 500);
     line-height: 60px;
   }
 }

@@ -260,12 +260,12 @@ export default {
     }
 
     &__subtitle {
-      @include font($inter-font, 11px, $main-blue, 500);
+      @include font(11px, $main-blue, 500);
     }
 
     &__title {
       line-height: 13px;
-      @include font($inter-font, 14px, #969696, 700);
+      @include font(14px, #969696, 700);
     }
 
     &__img {

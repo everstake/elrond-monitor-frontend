@@ -488,13 +488,13 @@ export default {
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    @include font($roboto-font, 24px, $main-blue, 800);
+    @include font(24px, $main-blue, 800);
   }
 
   &__info {
     display: flex;
     justify-content: space-between;
-    @include font($roboto-font, $fs-14, $dark-gary);
+    @include font($fs-14, $dark-gary);
   }
 }
 </style>

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Tabs',
@@ -51,10 +51,14 @@ export default {
   computed: {
     ...mapGetters(['darkModeClassFonts']),
   },
+  mounted() {
+    this.setActiveTab(this.tabs[0]);
+  },
   methods: {
+    ...mapMutations(['setActiveTab']),
     chooseTab(tab) {
       this.currentTab = tab;
-      this.$emit('selectedTab', tab);
+      this.setActiveTab(tab);
     },
   },
 };

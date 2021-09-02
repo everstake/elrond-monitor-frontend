@@ -135,7 +135,8 @@ export const tableFields = {
   validatorsFields: {
     validators: [
       {
-        key: 'name',
+        key: 'name-validator',
+        label: 'Name',
         class: ['table__cell'],
         thClass: ['table__title'],
         tdClass: ['table__cell--common'],
@@ -163,7 +164,7 @@ export const tableFields = {
     ],
     stakingProviders: [
       {
-        key: 'name',
+        key: 'name-provider',
         class: ['table__cell'],
         thClass: ['table__title'],
         tdClass: ['table__cell--common'],
@@ -247,7 +248,7 @@ export const tableFields = {
         tdClass: ['table__cell--common'],
       },
       {
-        key: 'status',
+        key: 'isActive',
         label: 'Status',
         class: ['table__cell'],
         thClass: ['table__title'],

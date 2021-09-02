@@ -36,3 +36,6 @@ export const getStakingProviders = (params) =>
   APIService.get('/staking/providers', params);
 
 export const getNodes = (params) => APIService.get('/nodes', params);
+
+export const getValidatorStats = (params) =>
+  APIService.get(`/validator/${params.identity}`);

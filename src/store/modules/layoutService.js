@@ -1,17 +1,7 @@
 const layoutService = {
   state: {
     darkModeOn: localStorage.getItem('darkMode') === 'true',
-  },
-  mutations: {
-    toggleMode(state) {
-      state.darkModeOn = !state.darkModeOn;
-      localStorage.setItem('darkMode', state.darkModeOn);
-    },
-  },
-  actions: {
-    changeMode({ commit }) {
-      commit('toggleMode');
-    },
+    activeTab: {},
   },
   getters: {
     darkModeOn: (state) => state.darkModeOn,
@@ -23,6 +13,21 @@ const layoutService = {
       state.darkModeOn ? 'white-font-main' : 'dark-font-main',
     darkModeClassBgLightBlue: (state) =>
       state.darkModeOn ? 'dark-blue-background' : 'light-blue-background',
+    activeTab: (state) => state.activeTab,
+  },
+  mutations: {
+    toggleMode(state) {
+      state.darkModeOn = !state.darkModeOn;
+      localStorage.setItem('darkMode', state.darkModeOn);
+    },
+    setActiveTab(state, tab) {
+      state.activeTab = tab;
+    },
+  },
+  actions: {
+    changeMode({ commit }) {
+      commit('toggleMode');
+    },
   },
 };
 

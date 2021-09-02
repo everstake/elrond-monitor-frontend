@@ -1,5 +1,5 @@
-@mixin font($family, $size, $color, $weight: 400) {
-  font-family: $family;
+@mixin font($size, $color, $weight: 400) {
+  font-family: $roboto-font;
   font-size: $size;
   color: $color;
   font-weight: $weight;
