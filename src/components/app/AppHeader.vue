@@ -97,9 +97,9 @@
         </button>
 
         <div
+          v-b-toggle.menu-burger-collapse
           class="burger"
           :class="{ 'burger__line--rotate': showMenu }"
-          v-b-toggle.menu-burger-collapse
         >
           <div
             class="burger__line"

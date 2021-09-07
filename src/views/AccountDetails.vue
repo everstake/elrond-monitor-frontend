@@ -1,6 +1,6 @@
 <template>
   <div class="container-lg account-details">
-    <AccountCard />
+    <AccountCard @selectedTab="selectedTab" />
 
     <keep-alive>
       <component :is="activeComponent"></component>
@@ -9,28 +9,36 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import AccountCard from '@/components/accounts/AccountCard.vue';
 import AccountTransactionsList from '@/components/accounts/AccountTransactionsList.vue';
-import StakingProvider from '../components/accounts/StakingProvider.vue';
+import AccountStakingProvider from '../components/accounts/AccountStakingProvider.vue';
 
 export default {
   components: {
-    StakingProvider,
+    AccountStakingProvider,
     AccountTransactionsList,
     AccountCard,
   },
+  data() {
+    return {
+      activeTab: '',
+    };
+  },
   computed: {
-    ...mapGetters(['activeTab']),
     activeComponent() {
       switch (this.activeTab.key) {
         case 'transactions':
           return 'AccountTransactionsList';
         case 'staking_providers':
-          return 'StakingProvider';
+          return 'AccountStakingProvider';
         default:
           return 'AccountTransactionsList';
       }
+    },
+  },
+  methods: {
+    selectedTab(tab) {
+      this.activeTab = tab;
     },
   },
 };

@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '../TableInfo.vue';
-import Tabs from '../Tabs.vue';
+import Tabs from './Tabs.vue';
 
 export default {
   name: 'ValidatorsCard',

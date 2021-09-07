@@ -33,26 +33,45 @@ const routes = [
     component: () => import('../views/TransactionDetails.vue'),
   },
   {
-    path: '',
+    path: '/validators',
     component: () => import('../views/Validators.vue'),
     children: [
       {
-        path: '/validators',
-        name: 'Validators',
-        component: () =>
-          import('../components/validators/ValidatorsTabsLists.vue'),
+        path: '',
+        name: 'Validator',
+        component: () => import('../components/validators/ValidatorsTable.vue'),
       },
       {
         path: 'validator/:identity',
         name: 'ValidatorsDetails',
         component: () =>
-          import('../components/validators/ValidatorsDetails.vue'),
+          import(
+            '../components/validators/validators-details/ValidatorsDetails.vue'
+          ),
       },
       {
-        path: 'provider/:provider',
+        path: 'staking-providers',
+        name: 'Staking-providers',
+        component: () =>
+          import('../components/validators/StakingProviders.vue'),
+      },
+      {
+        path: 'staking-providers/:provider',
         name: 'StakingProviderDetails',
         component: () =>
-          import('../components/validators/StakingProviderDetails.vue'),
+          import(
+            '../components/validators/staking-provider-details/StakingProviderDetails.vue'
+          ),
+      },
+      {
+        path: 'nodes',
+        name: 'Nodes',
+        component: () => import('../components/validators/Nodes.vue'),
+      },
+      {
+        path: 'ranking',
+        name: 'Ranking',
+        component: () => import('../components/validators/Ranking.vue'),
       },
     ],
   },
@@ -70,6 +89,11 @@ const routes = [
     path: '/miniblock/:id',
     name: 'MiniblockDetails',
     component: () => import('../views/MiniblockDetails.vue'),
+  },
+  {
+    path: '/epoch',
+    name: 'Epoch',
+    component: () => import('../views/Epoch.vue'),
   },
   {
     path: '*',

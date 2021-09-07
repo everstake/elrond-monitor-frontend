@@ -39,37 +39,51 @@
       </div>
     </div>
 
-    <Tabs :tabs="accountTabs" />
+    <div class="tabs">
+      <p
+        v-for="tab in accountTabs"
+        :key="tab.key"
+        :class="[
+          'tabs__tab',
+          darkModeClassFonts,
+          { 'tabs__tab--active': currentTab === tab },
+        ]"
+        @click="chooseTab(tab)"
+      >
+        {{ tab.label }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BtnCopy from '../BtnCopy.vue';
-import Tabs from '../Tabs.vue';
+
+const accountTabs = [
+  {
+    key: 'transactions',
+    label: 'Transactions',
+  },
+  {
+    key: 'staking_providers',
+    label: 'Staking provider',
+  },
+];
 
 export default {
   name: 'AccountCard',
   components: {
     BtnCopy,
-    Tabs,
   },
   data() {
     return {
-      accountTabs: [
-        {
-          key: 'transactions',
-          label: 'Transactions',
-        },
-        {
-          key: 'staking_providers',
-          label: 'Staking provider',
-        },
-      ],
+      accountTabs,
+      currentTab: accountTabs[0],
     };
   },
   computed: {
-    ...mapGetters(['darkModeOn', 'account']),
+    ...mapGetters(['darkModeOn', 'account', 'darkModeClassFonts']),
   },
   watch: {
     $route: {
@@ -83,6 +97,10 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAccount']),
+    chooseTab(tab) {
+      this.currentTab = tab;
+      this.$emit('selectedTab', tab);
+    },
   },
 };
 </script>

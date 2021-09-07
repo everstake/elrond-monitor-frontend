@@ -170,11 +170,11 @@
 
               <div class="doughnut__percent">
                 <img src="~@/assets/img/epochIcon.svg" alt="Elrond" />
-                <span> {{ percent || '0' }}% </span>
+                <span> {{ $_epochPercent(epochDoughnut.percent) }}% </span>
               </div>
 
               <div class="doughnut__info">
-                <span>since {{ since || '0' }}</span>
+                <span>since {{ $_since(epochDoughnut.start) }}</span>
                 <span>left {{ epochDoughnut.left | formatDuration }}</span>
               </div>
             </template>
@@ -258,6 +258,7 @@ import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
 import AppSpinner from '../components/app/AppSpinner.vue';
+import epochPercent from "../mixins/epochPercent";
 
 export default {
   name: 'Home',
@@ -267,6 +268,7 @@ export default {
     ValidatorsMap,
     AppSpinner,
   },
+  mixins: [epochPercent],
   data() {
     return {
       gradientAccount: null,
@@ -334,12 +336,6 @@ export default {
       'epochDoughnut',
       'loadingStatus',
     ]),
-    since() {
-      return moment(this.epochDoughnut.start * 1000).format('DD.MM.YYYY');
-    },
-    percent() {
-      return Math.round(this.epochDoughnut.percent);
-    },
   },
   mounted() {
     this.fetchAccountsChart();

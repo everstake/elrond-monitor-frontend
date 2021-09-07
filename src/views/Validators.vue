@@ -3,7 +3,7 @@
     <div class="validators">
       <ValidatorsCard />
 
-      <router-view></router-view>
+      <router-view />
     </div>
   </b-container>
 </template>
@@ -34,5 +34,11 @@ export default {
       width: 200px;
     }
   }
+}
+
+.details__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
 }
 </style>

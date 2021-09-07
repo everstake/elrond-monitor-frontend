@@ -48,14 +48,8 @@ export default {
           tdClass: ['table__cell--common'],
         },
         {
-          key: '',
-          class: ['table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--common'],
-        },
-        {
           key: 'validators',
-          label: 'Validated blocks',
+          label: 'Nodes',
           class: ['table__cell'],
           thClass: ['table__title'],
           tdClass: ['table__cell--common'],
@@ -68,13 +62,8 @@ export default {
           tdClass: ['table__cell--common'],
         },
         {
-          key: '',
-          class: ['table__cell'],
-          thClass: ['table__title'],
-          tdClass: ['table__cell--common'],
-        },
-        {
-          key: '',
+          key: 'avg_uptime',
+          label: 'Average uptime',
           class: ['table__cell'],
           thClass: ['table__title'],
           tdClass: ['table__cell--common'],

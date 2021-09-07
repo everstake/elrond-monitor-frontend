@@ -139,7 +139,7 @@ export const tableFields = {
         label: 'Name',
         class: ['table__cell'],
         thClass: ['table__title'],
-        tdClass: ['table__cell--common'],
+        tdClass: ['table__cell--common table__cell--blue'],
       },
       {
         key: 'stake',
@@ -167,7 +167,7 @@ export const tableFields = {
         key: 'name-provider',
         class: ['table__cell'],
         thClass: ['table__title'],
-        tdClass: ['table__cell--common'],
+        tdClass: ['table__cell--common table__cell--blue'],
       },
       {
         key: 'stake',

@@ -1,28 +1,22 @@
 <template>
-<!--  <TableCard-->
-<!--    :fields="fields"-->
-<!--    :items="nodes"-->
-<!--    :address="address"-->
-<!--    :request-name="fetchNodes"-->
-<!--  >-->
-<!--  </TableCard>-->
+  <NodesTable :request="fetchNodes" :address="identity" />
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { tableFields } from '@/constants/tables';
-// import TableCard from '@/components/TableCard.vue';
+import NodesTable from '../validators-tables/NodesTable.vue';
 
 export default {
   name: 'ValidatorDetailsTable',
-  // components: { TableCard },
+  components: { NodesTable },
   computed: {
     ...mapGetters(['nodes']),
     fields() {
       return tableFields.validatorsFields.nodesFields;
     },
-    address() {
-      return this.$route.params.identity;
+    identity() {
+      return { identity: this.$route.params.identity };
     },
   },
   methods: {

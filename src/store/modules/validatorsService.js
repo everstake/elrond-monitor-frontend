@@ -5,6 +5,7 @@ import {
   getStakingProviders,
   getNodes,
   getValidatorStats,
+  getStakingProviderStats,
 } from '../../api/services';
 
 const validatorsService = {
@@ -18,6 +19,7 @@ const validatorsService = {
     totalItems: 1,
     loading: false,
     validatorsDetails: {},
+    stakingDetails: {},
   },
   getters: {
     statsValidators: (state) => state.stats,
@@ -28,6 +30,7 @@ const validatorsService = {
     totalItems: (state) => state.totalItems,
     loadingValidators: (state) => state.loading,
     validatorDetails: (state) => state.validatorsDetails,
+    stakingProviderDetails: (state) => state.stakingDetails,
   },
   mutations: {
     setStats(state, item) {
@@ -53,6 +56,9 @@ const validatorsService = {
     },
     setValidatorStats(state, stats) {
       state.validatorsDetails = stats;
+    },
+    setStakingDetails(state, item) {
+      state.stakingDetails = item;
     },
   },
   actions: {
@@ -113,6 +119,17 @@ const validatorsService = {
         commit('setLoading', true);
         const resp = await getValidatorStats(params);
         commit('setValidatorStats', resp.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        commit('setLoading', false);
+      }
+    },
+    async fetchStakingProviderDetails({ commit }, params) {
+      try {
+        commit('setLoading', true);
+        const resp = await getStakingProviderStats(params);
+        commit('setStakingDetails', resp.data);
       } catch (e) {
         console.error(e);
       } finally {

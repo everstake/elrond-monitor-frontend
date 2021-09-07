@@ -39,3 +39,13 @@ export const getNodes = (params) => APIService.get('/nodes', params);
 
 export const getValidatorStats = (params) =>
   APIService.get(`/validator/${params.identity}`);
+
+export const getStakingProviderStats = (params) =>
+  APIService.get(`/staking/provider/${params.provider}`);
+
+export const getStakeRange = (params) => APIService.get('/stake/range', params);
+
+export const getPriceRange = (params) => APIService.get('/price/range', params);
+
+export const getDelegatorsRange = (params) =>
+  APIService.get('/delegators/range', params);

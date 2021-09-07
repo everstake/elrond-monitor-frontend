@@ -26,6 +26,9 @@ const formatTime = (val) => {
 };
 
 const formatDuration = (val) => {
+  if (!val) {
+    return '0';
+  }
   const time = val * MS;
 
   const sec = moment.duration(time).seconds();

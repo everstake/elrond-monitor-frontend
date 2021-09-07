@@ -14,7 +14,10 @@
 
     <div
       v-else-if="!items || !items.length"
-      :class="['d-flex justify-content-center mb-3', darkModeClassFonts]"
+      :class="[
+        'd-flex justify-content-center align-items-center mb-3 h-100',
+        darkModeClassFonts,
+      ]"
     >
       Not data
     </div>
@@ -83,7 +86,7 @@ export default {
       default: 1,
     },
     address: {
-      type: String,
+      type: Object,
       required: false,
     },
     loading: {
@@ -112,7 +115,7 @@ export default {
       immediate: true,
       async handler(val) {
         await this.requestName({
-          address: this.address,
+          ...this.address,
           page: val,
           limit: this.perPage,
         });
@@ -122,7 +125,7 @@ export default {
 
     async requestName(func) {
       await func({
-        address: this.address,
+        ...this.address,
         page: 1,
         limit: this.perPage,
       });
