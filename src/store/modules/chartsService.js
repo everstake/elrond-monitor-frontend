@@ -71,7 +71,7 @@ const chartsService = {
     },
     async fetchStakeRange({ commit }, params) {
       try {
-        const resp = await getStakeRange(params);
+        const resp = await getStakeRange({ params });
         commit('setStakeRange', resp.data);
       } catch (e) {
         console.error(e);
@@ -79,7 +79,7 @@ const chartsService = {
     },
     async fetchPriceRange({ commit }, params) {
       try {
-        const resp = await getPriceRange(params);
+        const resp = await getPriceRange({ params });
         commit('setPriceRange', resp.data);
       } catch (e) {
         console.error(e);
@@ -87,7 +87,7 @@ const chartsService = {
     },
     async fetchDelegatorsRange({ commit }, params) {
       try {
-        const resp = await getDelegatorsRange(params);
+        const resp = await getDelegatorsRange({ params });
         commit('setDelegatorsRange', resp.data);
       } catch (e) {
         console.error(e);

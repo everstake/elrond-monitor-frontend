@@ -1,13 +1,11 @@
 <template>
-
+  <div>Ranking</div>
 </template>
 
 <script>
 export default {
-  name: "Ranking"
+  name: 'Ranking',
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

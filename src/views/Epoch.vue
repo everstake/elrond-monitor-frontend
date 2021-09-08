@@ -34,7 +34,7 @@
         <div class="epoch__card-header">
           <span>Changes to total stake</span>
 
-          <CustomDatePicker />
+          <CustomDatePicker :request-name="fetchStakeRange" />
         </div>
         <LineChart ref="chart" :chart-data="getStakeRangeData()" />
       </div>
@@ -43,7 +43,7 @@
         <div class="epoch__card-header">
           <span>Changes to price</span>
 
-          <CustomDatePicker />
+          <CustomDatePicker :request-name="fetchPriceRange" />
         </div>
         <LineChart ref="chart" :chart-data="getPriceRangeData()" />
       </div>
@@ -52,7 +52,7 @@
         <div class="epoch__card-header">
           <span>Changes to delegators</span>
 
-          <CustomDatePicker />
+          <CustomDatePicker :request-name="fetchDelegatorsRange" />
         </div>
         <LineChart ref="chart" :chart-data="getDelegatorsRangeData()" />
       </div>
@@ -90,9 +90,6 @@ export default {
   },
   mounted() {
     this.fetchEpochDoughnut();
-    this.fetchStakeRange();
-    this.fetchPriceRange();
-    this.fetchDelegatorsRange();
 
     this.gradientStake = this.$refs.chart.$refs.canvas
       .getContext('2d')
