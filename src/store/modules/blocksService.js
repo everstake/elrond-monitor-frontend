@@ -23,10 +23,8 @@ const blocksService = {
   },
   mutations: {
     setBlocks(state, items) {
-      state.blocks = items;
-    },
-    setTotalBlocks(state, val) {
-      state.totalBlocks = val;
+      state.blocks = items.items;
+      state.totalBlocks = items.count;
     },
     setBlock(state, item) {
       state.block = item;
@@ -44,8 +42,7 @@ const blocksService = {
         commit('setLoad', true);
 
         const resp = await getBlocks({ params });
-        commit('setBlocks', resp.data.items);
-        commit('setTotalBlocks', resp.data.count);
+        commit('setBlocks', resp.data);
       } catch (e) {
         console.error(e);
       } finally {

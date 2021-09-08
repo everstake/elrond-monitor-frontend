@@ -15,10 +15,8 @@ const transactionsService = {
   },
   mutations: {
     setTransactions(state, transactions) {
-      state.transactions = transactions;
-    },
-    setTotalTransactionItems(state, val) {
-      state.totalTransactionItems = val;
+      state.transactions = transactions.items;
+      state.totalTransactionItems = transactions.count;
     },
     setTransaction(state, item) {
       state.transaction = item;
@@ -32,8 +30,8 @@ const transactionsService = {
       try {
         commit('setLoading', true);
         const transactions = await getTransactions({ params });
-        commit('setTransactions', transactions.data.items);
-        commit('setTotalTransactionItems', transactions.data.count);
+        commit('setTransactions', transactions.data);
+        commit('setLoading', false);
       } catch (err) {
         console.log(err);
       } finally {
@@ -45,6 +43,7 @@ const transactionsService = {
         commit('setLoading', true);
         const resp = await getTransaction(hash);
         commit('setTransaction', resp.data);
+        commit('setLoading', false);
       } catch (e) {
         console.error(e);
       } finally {

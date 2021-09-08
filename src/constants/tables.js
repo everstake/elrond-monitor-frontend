@@ -50,7 +50,7 @@ export const tableFields = {
       key: 'to',
       class: ['table__cell'],
       thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
+      tdClass: ['table__cell--common', 'table__cell--blue'],
     },
     {
       key: 'age',
@@ -132,32 +132,137 @@ export const tableFields = {
       tdClass: ['table__cell--common'],
     },
   ],
-  validatorsFields: [
-    {
-      key: 'name',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'stake',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'cumulativeStake',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-    {
-      key: 'nodes',
-      class: ['table__cell'],
-      thClass: ['table__title'],
-      tdClass: ['table__cell--common'],
-    },
-  ],
+  validatorsFields: {
+    validators: [
+      {
+        key: 'name-validator',
+        label: 'Name',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common table__cell--blue'],
+      },
+      {
+        key: 'stake',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'stake_percent',
+        label: 'Cumulative Stake %',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'validators',
+        label: 'Nodes',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+    ],
+    stakingProviders: [
+      {
+        key: 'name-provider',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common table__cell--blue'],
+      },
+      {
+        key: 'stake',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'num_nodes',
+        label: 'Nodes',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'apr',
+        label: 'Computed APR',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'service_fee',
+        label: 'Service Fee',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'delegation_cap',
+        label: 'Delegation cap',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: '',
+        label: 'Filled',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+    ],
+    nodesFields: [
+      {
+        key: 'publicKey',
+        label: 'Public key',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common table__cell--blue'],
+      },
+      {
+        key: 'nodeDisplayName',
+        label: 'Name',
+        class: ['table__cell', 'w-180'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'shardId',
+        label: 'Shard',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'versionNumber',
+        label: 'Version',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'upTime',
+        label: 'Uptime',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'isActive',
+        label: 'Status',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+      {
+        key: 'rating',
+        label: 'Rating',
+        class: ['table__cell'],
+        thClass: ['table__title'],
+        tdClass: ['table__cell--common'],
+      },
+    ],
+  },
   blocksFields: [
     {
       key: 'nonce',
@@ -196,128 +301,6 @@ export const tableFields = {
       class: ['table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--block'],
-    },
-  ],
-  blockFields: [
-    {
-      key: 'nonce',
-      label: 'Block Height',
-    },
-    {
-      key: 'hash',
-      label: 'Block Hash',
-    },
-    {
-      key: 'epoch',
-      label: 'Epoch',
-    },
-    {
-      key: 'timestamp',
-      label: 'Age',
-    },
-    {
-      key: 'tx_count',
-      label: 'Transaction',
-    },
-    {
-      key: 'shard',
-      label: 'Shard',
-    },
-    {
-      key: 'size',
-      label: 'Size',
-    },
-    {
-      key: 'proposer',
-      label: 'Proposer',
-    },
-    {
-      key: 'validators',
-      label: 'Consensus Group',
-    },
-    {
-      key: 'state_root_hash',
-      label: 'State Root Hash',
-    },
-    {
-      key: 'miniblocks',
-      label: 'Miniblocks',
-    },
-    {
-      key: 'prev_hash',
-      label: 'Previous Hash',
-    },
-    {
-      key: 'pub_key_bitmap',
-      label: 'Public Keys Bitmap',
-    },
-  ],
-  transactionFields: [
-    {
-      key: 'hash',
-      label: 'Transaction Hash',
-    },
-    {
-      key: 'status',
-      label: 'Status',
-    },
-    {
-      key: 'timestamp',
-      label: 'Age',
-    },
-    {
-      key: 'from',
-      label: 'From',
-    },
-    {
-      key: 'to',
-      label: 'To',
-    },
-    {
-      key: 'value',
-      label: 'Value (EGLD / $)',
-    },
-    {
-      key: 'fee',
-      label: 'Transaction Fee',
-    },
-    {
-      key: 'gas_used',
-      label: 'Gas Used',
-    },
-    {
-      key: 'gas_price',
-      label: 'Gas Price',
-    },
-    {
-      key: 'scResults',
-      label: 'Smart Contract Result',
-    },
-  ],
-  miniblockFields: [
-    {
-      key: 'hash',
-      label: 'Miniblock Hash',
-    },
-    {
-      key: 'shard_from',
-      label: 'Sender Shard',
-    },
-    {
-      key: 'shard_to',
-      label: 'Receiver Shard',
-    },
-    {
-      key: 'block_sender',
-      label: 'Sender Block',
-    },
-    {
-      key: 'block_receiver',
-      label: 'Receiver Block',
-    },
-    {
-      key: 'type',
-      label: 'Type',
     },
   ],
 };

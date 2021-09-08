@@ -25,11 +25,15 @@
     </template>
 
     <template #cell(from)="{ item: { from } }">
-      {{ from | trimHash }}
+      <router-link :to="{ name: 'AccountDetails', params: { id: from } }">
+        {{ from | trimHash }}
+      </router-link>
     </template>
 
     <template #cell(to)="{ item: { to } }">
-      {{ to | trimHash }}
+      <router-link :to="{ name: 'AccountDetails', params: { id: to } }">
+        {{ to | trimHash }}
+      </router-link>
     </template>
 
     <template #cell(valueEGLD)="{ item: { value } }">

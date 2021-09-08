@@ -2,4 +2,8 @@
   &-item:hover {
     background-color: $light-blue;
   }
+
+  &-toggle::after {
+    vertical-align: middle;
+  }
 }

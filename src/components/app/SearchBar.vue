@@ -1,11 +1,5 @@
 <template>
-  <div
-    :class="{
-      'search-bar': true,
-      'light-blue-background': !darkModeOn,
-      'dark-blue-bakcground': darkModeOn,
-    }"
-  >
+  <div :class="['search-bar', darkModeClassBgLightBlue]">
     <div class="search-bar__wrapper container-lg">
       <button class="search-bar__btn">
         <img
@@ -29,7 +23,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'SearchBar',
   computed: {
-    ...mapGetters(['darkModeOn', 'darkModeClassBackground']),
+    ...mapGetters(['darkModeClassBackground', 'darkModeClassBgLightBlue']),
   },
 };
 </script>
@@ -57,7 +51,7 @@ export default {
     outline: none;
     border-radius: 8px;
     padding: 0 50px;
-    @include font($roboto-font, 14px, #969696, 400);
+    @include font(14px, #969696, 400);
     line-height: 24px;
   }
 }

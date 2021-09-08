@@ -6,6 +6,7 @@ import transactionsService from './modules/transactionsService';
 import validatorsService from './modules/validatorsService';
 import blocksService from './modules/blocksService';
 import statsService from './modules/statsService';
+import chartsService from "./modules/chartsService";
 
 Vue.use(Vuex);
 
@@ -20,5 +21,7 @@ export default new Vuex.Store({
     validatorsService,
     blocksService,
     statsService,
+    chartsService,
+
   },
 });

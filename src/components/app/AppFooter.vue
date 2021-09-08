@@ -78,7 +78,7 @@ export default {
   padding: 26px 0px;
 
   &__copyright {
-    @include font($roboto-font, 14px, $font-black, 500);
+    @include font(14px, $font-black, 500);
   }
 
   &__top-group,
@@ -102,7 +102,7 @@ export default {
     gap: 45px;
   }
   &__link {
-    @include font($roboto-font, 14px, $font-black, 500);
+    @include font(14px, $font-black, 500);
     line-height: 24px;
 
     &:hover {

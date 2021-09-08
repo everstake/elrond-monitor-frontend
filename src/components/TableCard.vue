@@ -12,7 +12,13 @@
 
     <AppSpinner v-if="loading" :size-bool="true" />
 
-    <div v-else-if="!items.length" class="d-flex justify-content-center mb-3">
+    <div
+      v-else-if="!items || !items.length"
+      :class="[
+        'd-flex justify-content-center align-items-center mb-3 h-100',
+        darkModeClassFonts,
+      ]"
+    >
       Not data
     </div>
 
@@ -23,6 +29,7 @@
         :fields="fields"
         :per-page="perPage"
         :dark="darkModeOn"
+        responsive
       >
         <template
           v-for="key in Object.keys($scopedSlots)"
@@ -31,22 +38,30 @@
           <slot :name="key" :item="item" :index="index" />
         </template>
       </b-table>
-    </div>
 
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="totalPage"
-      :per-page="perPage"
-      align="right"
-      aria-controls="my-table"
-      :class="{ 'pagination__page-link--dark': darkModeOn }"
-    ></b-pagination>
+      <div class="nav-pagination">
+        <div :class="['nav-pagination__wrapper-input', darkModeClassFonts]">
+          <span>Go to</span>
+          <b-form-input type="number" placeholder="10" @change="choosePage" />
+          <span>page</span>
+        </div>
+
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalPage"
+          :per-page="perPage"
+          align="right"
+          aria-controls="my-table"
+          :class="{ 'pagination__page-link--dark': darkModeOn }"
+        ></b-pagination>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import AppSpinner from './AppSpinner.vue';
+import AppSpinner from './app/AppSpinner.vue';
 
 export default {
   name: 'TableCard',
@@ -71,7 +86,7 @@ export default {
       default: 1,
     },
     address: {
-      type: String,
+      type: Object,
       required: false,
     },
     loading: {
@@ -86,7 +101,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['darkModeOn', 'darkModeClassBackground']),
+    ...mapGetters([
+      'darkModeOn',
+      'darkModeClassBackground',
+      'darkModeClassFonts',
+    ]),
     totalPage() {
       return Math.ceil(this.totalItems / this.perPage);
     },
@@ -94,88 +113,38 @@ export default {
   watch: {
     currentPage: {
       immediate: true,
-      handler(val) {
-        this.requestName({
-          address: this.address,
+      async handler(val) {
+        await this.requestName({
+          ...this.address,
           page: val,
           limit: this.perPage,
         });
+        window.scrollTo(0, 0);
       },
+    },
+
+    async requestName(func) {
+      await func({
+        ...this.address,
+        page: 1,
+        limit: this.perPage,
+      });
+      this.currentPage = 1;
+    },
+  },
+  methods: {
+    choosePage(e) {
+      if (e <= 0) {
+        this.currentPage = 1;
+      } else {
+        this.currentPage = e;
+      }
     },
   },
 };
 </script>
 
 <style lang="scss">
-.table {
-  font-family: $roboto-font;
-  color: $font-black;
-
-  &__wrapper {
-    overflow-x: auto;
-    width: 100%;
-  }
-
-  & th,
-  td {
-    vertical-align: middle;
-    border-top: none;
-  }
-
-  &-dark {
-    background-color: $main-black;
-    color: $font-white;
-  }
-
-  &-card {
-    border-radius: 8px;
-    padding: 0 32px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-
-    &__title {
-      text-align: center;
-      @include font($roboto-font, 36px, $body-dark, 500);
-
-      &--position {
-        margin-top: 30px;
-      }
-    }
-  }
-
-  &__title {
-    @include font($roboto-font, 16px, $font-grey, 500);
-    line-height: 14px;
-
-    &--disable {
-      visibility: hidden;
-    }
-  }
-  &__cell {
-    border-bottom: 1px solid $gray !important;
-    line-height: 24px;
-    vertical-align: middle;
-    min-width: 155px;
-
-    & img {
-      vertical-align: middle;
-    }
-
-    &--blue {
-      color: $main-blue;
-    }
-  }
-
-  &__name,
-  &__address {
-    padding: 12px 0;
-  }
-  &__name {
-    @include font($roboto-font, 16px, $main-blue, 500);
-  }
-}
-
 .w-390 {
   width: 390px;
 }
@@ -192,6 +161,32 @@ export default {
     .page-item.disabled .page-link {
       background-color: $main-black;
       color: $font-white;
+    }
+  }
+}
+
+.nav-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__wrapper-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & input {
+      width: 64px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: transparent;
+
+      &:active,
+      &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: transparent;
+      }
     }
   }
 }

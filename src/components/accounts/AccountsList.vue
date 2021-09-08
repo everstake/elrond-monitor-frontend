@@ -17,7 +17,7 @@
     </template>
 
     <template #cell(balance)="{ item: { balance } }">
-      {{ balance }}
+      {{ balance | formatAmount }}
     </template>
 
     <template #cell(stake)="{ item: { delegated } }">

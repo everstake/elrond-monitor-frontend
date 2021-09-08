@@ -130,7 +130,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '@/components/TableInfo.vue';
-import { tableFields } from '@/constants/tables';
 import BtnCopy from '@/components/BtnCopy.vue';
 
 export default {
@@ -139,28 +138,148 @@ export default {
     TableInfo,
     BtnCopy,
   },
+  data() {
+    return {
+      fields: [
+        {
+          key: 'nonce',
+          label: 'Block Height',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'hash',
+          label: 'Block Hash',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'epoch',
+          label: 'Epoch',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'timestamp',
+          label: 'Age',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'tx_count',
+          label: 'Transaction',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'shard',
+          label: 'Shard',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'size',
+          label: 'Size',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'proposer',
+          label: 'Proposer',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'validators',
+          label: 'Consensus Group',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'state_root_hash',
+          label: 'State Root Hash',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'miniblocks',
+          label: 'Miniblocks',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'prev_hash',
+          label: 'Previous Hash',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'pub_key_bitmap',
+          label: 'Public Keys Bitmap',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+      ],
+    };
+  },
   computed: {
     ...mapGetters(['block', 'loadingBlock', 'darkModeClassFonts']),
-    fields() {
-      return tableFields.blockFields;
-    },
   },
-  created() {
-    this.fetchBlock(this.$route.params.id);
+  async created() {
+    await this.fetchBlock(this.$route.params.id);
   },
   methods: {
     ...mapActions(['fetchBlock', 'fetchBlockNonce']),
-    onNavigation(position) {
+    async onNavigation(position) {
       try {
         switch (position) {
           case 'prev':
-            this.fetchBlockNonce({
+            await this.fetchBlockNonce({
               nonce: this.block.nonce - 1,
               shard: this.block.shard,
             });
             break;
           case 'next':
-            this.fetchBlockNonce({
+            await this.fetchBlockNonce({
               nonce: this.block.nonce + 1,
               shard: this.block.shard,
             });
@@ -169,6 +288,10 @@ export default {
         }
       } catch (e) {
         console.error(e);
+      } finally {
+        if (this.$route.params.id !== this.block.hash) {
+          this.$router.push(this.block.hash);
+        }
       }
     },
   },

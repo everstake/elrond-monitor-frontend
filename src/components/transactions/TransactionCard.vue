@@ -103,7 +103,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '@/components/TableInfo.vue';
-import { tableFields } from '@/constants/tables';
 import BtnCopy from '@/components/BtnCopy.vue';
 import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 
@@ -111,11 +110,104 @@ export default {
   name: 'TransactionsCard',
   components: { TableInfo, BtnCopy },
   mixins: [exchangeTokenForUSD],
+  data() {
+    return {
+      fields: [
+        {
+          key: 'hash',
+          label: 'Transaction Hash',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'status',
+          label: 'Status',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'timestamp',
+          label: 'Age',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'from',
+          label: 'From',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'to',
+          label: 'To',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'value',
+          label: 'Value (EGLD / $)',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'fee',
+          label: 'Transaction Fee',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'gas_used',
+          label: 'Gas Used',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'gas_price',
+          label: 'Gas Price',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'scResults',
+          label: 'Smart Contract Result',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+      ],
+    };
+  },
   computed: {
     ...mapGetters(['transaction', 'loadingTx']),
-    fields() {
-      return tableFields.transactionFields;
-    },
   },
   watch: {
     $route: {

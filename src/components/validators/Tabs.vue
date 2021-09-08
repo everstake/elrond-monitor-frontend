@@ -1,59 +1,67 @@
 <template>
   <div class="tabs">
     <p
-      v-for="tab in tabsList"
-      :key="tab"
-      :class="{'tabs__tab--active': currentTab === tab}"
-      class="tabs__tab"
-      @click="choiseTab(tab)"
+      v-for="tab in tabs"
+      :key="tab.key"
+      :class="[
+        'tabs__tab',
+        darkModeClassFonts,
+        { 'tabs__tab--active': currentTab === tab },
+      ]"
+      @click="chooseTab(tab)"
     >
-      {{ tab }}
+      {{ tab.label }}
     </p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+const tabs = [
+  {
+    key: 'Validator',
+    label: 'Validators',
+  },
+  {
+    key: 'Staking-providers',
+    label: 'Staking Providers',
+  },
+  {
+    key: 'Nodes',
+    label: 'Nodes',
+  },
+  {
+    key: 'Ranking',
+    label: 'Ranking',
+  },
+];
 
 export default {
   name: 'Tabs',
-  props: {
-    tabsList: {
-      type: Array,
-      default: () => ['Validators', 'Staking Providers', 'Nodes', 'Ranking'],
-    },
-  },
   data() {
     return {
-      currentTab: this.tabsList[0],
-    }
+      tabs,
+      currentTab: tabs[0],
+    };
+  },
+  computed: {
+    ...mapGetters(['darkModeClassFonts']),
+  },
+  mounted() {
+    this.$router.replace({ name: this.currentTab.key });
   },
   methods: {
-    choiseTab(tab) {
+    chooseTab(tab) {
       this.currentTab = tab;
-      this.$emit('tabChoised', tab);
+      this.$router.replace({ name: tab.key });
     },
   },
-}
+};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .tabs {
-  width: 100%;
-  padding: 40px 50px 2px 50px;
-  display: flex;
-  gap: 45px;
-
-  &__tab {
-    padding: 0px 9px 5px;
-    @include font($inter-font, 16px, $font-black, 500);
-    cursor: pointer;
-
-    &--active {
-      color: $main-blue;
-      border-bottom: 2px solid $main-blue;
-    }
-  }
+  overflow-x: auto;
 }
-
-
 </style>

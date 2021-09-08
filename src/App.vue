@@ -18,10 +18,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppHeader from '@/components/header/AppHeader.vue';
-import AppFooter from '@/components/footer/AppFooter.vue';
-import SearchBar from '@/components/header/SearchBar.vue';
-import AppHeaderMenu from '@/components/header/AppHeaderMenu.vue';
+import AppHeader from '@/components/app/AppHeader.vue';
+import AppFooter from '@/components/app/AppFooter.vue';
+import SearchBar from '@/components/app/SearchBar.vue';
+import AppHeaderMenu from '@/components/app/AppHeaderMenu.vue';
 
 export default {
   name: 'App',

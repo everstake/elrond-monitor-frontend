@@ -65,11 +65,10 @@
         </li>
 
         <b-nav-item-dropdown
-          class="navbar__item"
+          :class="['navbar__item', darkModeClassFonts]"
           variant="link"
           toggle-class="text-decoration-none"
-          no-caret
-          :menu-class="darkModeClassBackground"
+          :menu-class="[darkModeClassBackground]"
         >
           <template #button-content>
             <a :class="['navbar__link', darkModeClassFonts]"> Deep dive </a>
@@ -98,9 +97,9 @@
         </button>
 
         <div
+          v-b-toggle.menu-burger-collapse
           class="burger"
           :class="{ 'burger__line--rotate': showMenu }"
-          v-b-toggle.menu-burger-collapse
         >
           <div
             class="burger__line"
@@ -261,12 +260,12 @@ export default {
     }
 
     &__subtitle {
-      @include font($inter-font, 11px, $main-blue, 500);
+      @include font(11px, $main-blue, 500);
     }
 
     &__title {
       line-height: 13px;
-      @include font($inter-font, 14px, #969696, 700);
+      @include font(14px, #969696, 700);
     }
 
     &__img {

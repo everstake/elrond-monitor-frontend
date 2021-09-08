@@ -1,103 +1,140 @@
 <template>
-  <div
-    class="validators-card"
-    :class="{
-      'white-background': !darkModeOn,
-      'black-background': darkModeOn,
-    }"
+  <TableInfo
+    :fields="fields"
+    :items="statsValidators"
+    :class-card="['info-line', darkModeClassBgLightBlue]"
+    :class-table-info="['p-0']"
+    :loading="loading"
   >
-    <h1
-      class="table-card__title validators-card__title"
-      :class="{
-        'white-font-main': darkModeOn,
-        'black-font-main': !darkModeOn,
-      }"
-    >
-      Validators
-    </h1>
-    <div
-      class="validators-card__info-line info-line"
-      :class="{
-        'light-blue-background': !darkModeOn,
-        'dark-blue-bakcground': darkModeOn,
-      }"
-    >
-      <div class="info-line__group">
-        <p class="info-line__text">Current leader</p>
-        <img src="~@/assets/img/avatar.svg" alt="" class="info-line__img" />
-      </div>
+    <template #header> Validators </template>
 
-      <div class="info-line__group">
-        <p class="info-line__text">Validators</p>
-        <p class="info-line__value">695</p>
-      </div>
+    <template #validators="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item }}
+      </p>
+    </template>
 
-      <div class="info-line__group">
-        <p class="info-line__text">Observer nodes</p>
-        <p class="info-line__value">407</p>
-      </div>
+    <template #observer_nodes="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item }}
+      </p>
+    </template>
 
-      <div class="info-line__group">
-        <p class="info-line__text">Staking APR</p>
-        <p class="info-line__value">60.675</p>
-      </div>
+    <template #staking_apr="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item }}
+      </p>
+    </template>
 
-      <div class="info-line__group">
-        <p class="info-line__text">Block time</p>
-        <p class="info-line__value">6</p>
-      </div>
-    </div>
-    <Tabs @tabChoised="selectedTab" />
-  </div>
+    <template #active_stake="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item | formatAmount }}
+      </p>
+    </template>
+
+    <template #queue="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item }}
+      </p>
+    </template>
+
+    <template #block-nav>
+      <Tabs />
+    </template>
+  </TableInfo>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Tabs from '@/components/validators/Tabs.vue';
+import { mapActions, mapGetters } from 'vuex';
+import TableInfo from '../TableInfo.vue';
+import Tabs from './Tabs.vue';
 
 export default {
   name: 'ValidatorsCard',
   components: {
+    TableInfo,
     Tabs,
   },
+  data() {
+    return {
+      fields: [
+        {
+          key: 'validators',
+          label: 'Validators',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+        {
+          key: 'observer_nodes',
+          label: 'Observer nodes',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+        {
+          key: 'staking_apr',
+          label: 'Staking APR',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+        {
+          key: 'active_stake',
+          label: 'Active stake',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+        {
+          key: 'queue',
+          label: 'Queue',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+      ],
+    };
+  },
   computed: {
-    ...mapGetters(['darkModeOn']),
+    ...mapGetters([
+      'darkModeOn',
+      'statsValidators',
+      'darkModeClassTitle',
+      'darkModeClassBgLightBlue',
+    ]),
+    loading() {
+      return this.statsValidators.length;
+    },
+  },
+  async mounted() {
+    await this.fetchStatsValidators();
   },
   methods: {
-    selectedTab(tab) {
-      this.$emit('selectedTab', tab);
-    },
+    ...mapActions(['fetchStatsValidators']),
   },
 };
 </script>
 
 <style lang="scss">
-.validators-card {
-  border-radius: 8px;
-  &__title {
-    text-align: center;
-    padding: 25px 0;
+.info-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+
+  @include md-down {
+    flex-direction: column;
   }
-  .info-line {
+
+  &__group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0px 50px;
-
-    &__group {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    &__text {
-      padding-top: 5px;
-      @include font($roboto-font, 16px, $font-black, 400);
-    }
-    &__value {
-      @include font($roboto-font, 30px, $main-black, 500);
-      line-height: 60px;
-    }
+    gap: 15px;
+  }
+  &__value {
+    @include font(30px, $main-black, 500);
+    line-height: 60px;
   }
 }
 </style>

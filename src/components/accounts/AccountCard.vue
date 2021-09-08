@@ -19,7 +19,7 @@
       <div class="account-card__info">
         <p class="account-card__info-item">Balance</p>
         <p class="account-card__info-item">
-          {{ account.balance }}
+          {{ account.balance | formatAmount }}
         </p>
       </div>
 
@@ -37,11 +37,21 @@
         <p class="account-card__info-item">Total rewards</p>
         <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
       </div>
+    </div>
 
-      <div class="account-card__info">
-        <p class="account-card__info-item">Staking provider</p>
-        <p class="account-card__info-item">Everstake</p>
-      </div>
+    <div class="tabs">
+      <p
+        v-for="tab in accountTabs"
+        :key="tab.key"
+        :class="[
+          'tabs__tab',
+          darkModeClassFonts,
+          { 'tabs__tab--active': currentTab === tab },
+        ]"
+        @click="chooseTab(tab)"
+      >
+        {{ tab.label }}
+      </p>
     </div>
   </div>
 </template>
@@ -50,13 +60,30 @@
 import { mapGetters, mapActions } from 'vuex';
 import BtnCopy from '../BtnCopy.vue';
 
+const accountTabs = [
+  {
+    key: 'transactions',
+    label: 'Transactions',
+  },
+  {
+    key: 'staking_providers',
+    label: 'Staking provider',
+  },
+];
+
 export default {
   name: 'AccountCard',
   components: {
     BtnCopy,
   },
+  data() {
+    return {
+      accountTabs,
+      currentTab: accountTabs[0],
+    };
+  },
   computed: {
-    ...mapGetters(['darkModeOn', 'account']),
+    ...mapGetters(['darkModeOn', 'account', 'darkModeClassFonts']),
   },
   watch: {
     $route: {
@@ -70,15 +97,19 @@ export default {
   },
   methods: {
     ...mapActions(['fetchAccount']),
+    chooseTab(tab) {
+      this.currentTab = tab;
+      this.$emit('selectedTab', tab);
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .account-card {
-  padding: 15px 40px;
-  border-radius: 8px;
-  @include font($roboto-font, 16px, $font-grey, 400);
+  padding: 15px 40px 0;
+  border-radius: $border-radius-card;
+  @include font(16px, $font-grey, 400);
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;

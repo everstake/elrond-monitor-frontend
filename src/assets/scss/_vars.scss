@@ -16,6 +16,7 @@ $body-dark: #1c1c1c;
 $font-grey: #969696;
 $red: #f00;
 $main-blue: #0085ff;
+$orange: #f98600;
 
 // fonts
 $inter-font: 'Inter';
@@ -33,10 +34,11 @@ $fs-48: 48px;
 // size
 $gap-1rem: 1rem;
 $home-card: 330px;
+$border-radius-card: 8px;
 
 $container-max-widths: (
-        sm: 540px,
-        md: 720px,
-        lg: 1024px,
-        xl: 1400px
+  sm: 540px,
+  md: 720px,
+  lg: 1024px,
+  xl: 1400px,
 ) !default;

@@ -22,7 +22,7 @@
                   'card-amount__percent--down': stats.price_change < 0,
                 }"
               >
-                {{ formatStats(stats.price_change) }}%
+                {{ stats.price_change | formatPercent }}
 
                 <b-icon v-if="stats.price_change > 0" icon="arrow-up-right" />
                 <b-icon v-else icon="arrow-down-left" />
@@ -47,7 +47,7 @@
                   'card-amount__percent--down': stats.cap_change < 0,
                 }"
               >
-                {{ formatStats(stats.cap_change) }}%
+                {{ stats.cap_change | formatPercent }}
 
                 <b-icon v-if="stats.cap_change > 0" icon="arrow-up-right" />
                 <b-icon v-else icon="arrow-down-left" />
@@ -64,7 +64,7 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.circulating_supply | formatUSD }}
+                {{ stats.circulating_supply | formatToken }}
               </div>
             </div>
           </template>
@@ -92,7 +92,49 @@
 
             <div v-else class="card-body--info">
               <div class="card-amount">
-                {{ stats.total_supply | formatUSD }}
+                {{ stats.total_supply | formatToken }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Average staking providers fee</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.avg_staking_providers_fee | formatPercent }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Average transactions fee</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.avg_tx_fee | formatToken }}
+              </div>
+            </div>
+          </template>
+        </b-card>
+
+        <b-card :class="['card-price', { 'card--dark-mode': darkModeOn }]">
+          <template #header>Staking providers</template>
+
+          <template>
+            <AppSpinner v-if="!loadingStatus" />
+
+            <div v-else class="card-body--info">
+              <div class="card-amount">
+                {{ stats.staking_providers }}
               </div>
             </div>
           </template>
@@ -128,11 +170,11 @@
 
               <div class="doughnut__percent">
                 <img src="~@/assets/img/epochIcon.svg" alt="Elrond" />
-                <span> {{ percent || '0' }}% </span>
+                <span> {{ $_epochPercent(epochDoughnut.percent) }}% </span>
               </div>
 
               <div class="doughnut__info">
-                <span>since {{ since || '0' }}</span>
+                <span>since {{ $_since(epochDoughnut.start) }}</span>
                 <span>left {{ epochDoughnut.left | formatDuration }}</span>
               </div>
             </template>
@@ -153,7 +195,7 @@
                 :chart-data="getAccountData()"
               />
               <span class="card-amount card-amount--position">
-                {{ formatStats(stats.total_accounts) }}
+                {{ stats.total_accounts | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -167,7 +209,7 @@
 
             <template>
               <span class="align-self-end card-amount mt-2">
-                {{ formatStats(stats.height) }}
+                {{ stats.height | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -187,7 +229,7 @@
                 :chart-data="getTransactionData()"
               />
               <span class="card-amount card-amount--position">
-                {{ formatStats(stats.total_txs) }}
+                {{ stats.total_txs | formatAmount }}
               </span>
             </template>
           </b-card>
@@ -211,12 +253,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import numeral from 'numeral';
 import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
-import AppSpinner from '../components/AppSpinner.vue';
+import AppSpinner from '../components/app/AppSpinner.vue';
+import epochPercent from "../mixins/epochPercent";
 
 export default {
   name: 'Home',
@@ -226,6 +268,7 @@ export default {
     ValidatorsMap,
     AppSpinner,
   },
+  mixins: [epochPercent],
   data() {
     return {
       gradientAccount: null,
@@ -293,12 +336,6 @@ export default {
       'epochDoughnut',
       'loadingStatus',
     ]),
-    since() {
-      return moment(this.epochDoughnut.start * 1000).format('DD.MM.YYYY');
-    },
-    percent() {
-      return Math.round(this.epochDoughnut.percent);
-    },
   },
   mounted() {
     this.fetchAccountsChart();
@@ -325,12 +362,6 @@ export default {
       'fetchStats',
       'fetchEpochDoughnut',
     ]),
-    formatStats(val) {
-      if (!val) {
-        return '0';
-      }
-      return numeral(val).format('0,0.[0]');
-    },
     getAccountData() {
       return {
         labels: [...this.accountsChart.map(({ time }) => time)],
@@ -398,13 +429,9 @@ export default {
 
   &-row {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     gap: $gap-1rem;
-
-    @include lg-down {
-      justify-content: center;
-    }
 
     &--width {
       flex: 0 0 calc(99% / 2);
@@ -457,13 +484,13 @@ export default {
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    @include font($roboto-font, 24px, $main-blue, 800);
+    @include font(24px, $main-blue, 800);
   }
 
   &__info {
     display: flex;
     justify-content: space-between;
-    @include font($roboto-font, $fs-14, $dark-gary);
+    @include font($fs-14, $dark-gary);
   }
 }
 </style>

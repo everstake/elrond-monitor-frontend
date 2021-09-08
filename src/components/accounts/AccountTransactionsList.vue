@@ -67,15 +67,7 @@ export default {
       return tableFields.accountsTransactionsFields;
     },
     address() {
-      return this.$route.params.id;
-    },
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler() {
-        this.fetchTransactions({ address: this.address });
-      },
+      return { address: this.$route.params.id };
     },
   },
   methods: {

@@ -1,11 +1,10 @@
 <template>
-  <div :class="['table-info', darkModeClassBackground]">
+  <div :class="['table-info', ...classTableInfo, darkModeClassBackground]">
     <h1
-      class="table-info__title table-info__title--position"
-      :class="{
-        'white-font-main': darkModeOn,
-        'black-font-main': !darkModeOn,
-      }"
+      :class="[
+        darkModeClassTitle,
+        'table-info__title table-info__title--position',
+      ]"
     >
       <slot name="header" />
     </h1>
@@ -16,18 +15,17 @@
       Not data
     </div>
 
-    <div v-else class="wrapper-table-info">
+    <div v-else :class="[...classCard, 'wrapper-table-info']">
       <div
         v-for="(item, index) in fields"
         :key="index"
-        class="wrapper-table-info__row"
+        :class="[...(item.class.wrapper || '')]"
       >
-        <div :class="['row-info', darkModeClassFonts]">
-          <div class="row-info__label">{{ item.label }}</div>
+        <div :class="[...(item.class.item || ''), darkModeClassFonts]">
+          <div :class="[...(item.class.label || '')]">{{ item.label }}</div>
 
           <slot :name="item.key" :item="items[item.key]" />
         </div>
-        <div></div>
       </div>
     </div>
 
@@ -37,7 +35,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppSpinner from './AppSpinner.vue';
+import AppSpinner from './app/AppSpinner.vue';
 
 export default {
   name: 'TableInfo',
@@ -61,12 +59,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    classCard: {
+      type: Array,
+      default: () => [],
+    },
+    classTableInfo: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     ...mapGetters([
       'darkModeOn',
       'darkModeClassBackground',
       'darkModeClassFonts',
+      'darkModeClassTitle',
     ]),
     boolItems() {
       return !Object.keys(this.items).length;
@@ -77,7 +84,7 @@ export default {
 
 <style lang="scss">
 .table-info {
-  border-radius: 8px;
+  border-radius: $border-radius-card;
   padding: 0 50px 32px;
   display: flex;
   flex-direction: column;
@@ -85,7 +92,7 @@ export default {
 
   &__title {
     text-align: center;
-    @include font($roboto-font, 36px, $body-dark, 500);
+    @include font(36px, $body-dark, 500);
 
     &--position {
       margin-top: 30px;
