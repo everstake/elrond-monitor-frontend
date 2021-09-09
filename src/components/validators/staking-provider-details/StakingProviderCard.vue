@@ -4,7 +4,10 @@
       <ul :class="[darkModeClassFonts]">
         <li>
           <span>Address</span>
-          <p>{{ stakingProviderDetails.provider | trimHashFromTo(7, -10) }}</p>
+          <p>
+            {{ stakingProviderDetails.provider | trimHash }}
+            <BtnCopy :address="stakingProviderDetails.provider" />
+          </p>
         </li>
         <li>
           <span>Stake</span>
@@ -16,7 +19,7 @@
         </li>
         <li>
           <span>APR</span>
-          <p>23</p>
+          <p>{{ stakingProviderDetails.apr | formatPercent }}</p>
         </li>
         <li>
           <span>Service fee</span>
@@ -24,11 +27,15 @@
         </li>
         <li>
           <span>Delegation cap</span>
-          <p>{{ stakingProviderDetails.delegation_cap | formatToken }}</p>
+          <p v-if="stakingProviderDetails.delegation_cap === '0'">Uncapped</p>
+
+          <p v-else>
+            {{ stakingProviderDetails.delegation_cap | formatToken }}
+          </p>
         </li>
-        <li>
+        <li v-if="!stakingProviderDetails.delegation_cap">
           <span>Filled</span>
-          <p></p>
+          <p>{{ getFilled | formatPercent }}</p>
         </li>
       </ul>
     </div>
@@ -41,7 +48,7 @@
         </li>
         <li>
           <span>Average uptime</span>
-          <p>{{ stakingProviderDetails.avg_uptime }}</p>
+          <p>{{ stakingProviderDetails.avg_uptime | formatPercent }}</p>
         </li>
         <li>
           <span>Delegators</span>
@@ -58,11 +65,24 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import BtnCopy from '../../BtnCopy.vue';
 
 export default {
   name: 'StakingProviderCard',
+  components: { BtnCopy },
   computed: {
-    ...mapGetters(['darkModeClassBackground', 'stakingProviderDetails', 'darkModeClassFonts']),
+    ...mapGetters([
+      'darkModeClassBackground',
+      'stakingProviderDetails',
+      'darkModeClassFonts',
+    ]),
+    getFilled() {
+      return (
+        (this.stakingProviderDetails.stake /
+          this.stakingProviderDetails.delegation_cap) *
+        100
+      );
+    },
   },
   async mounted() {
     await this.fetchStakingProviderDetails(this.$route.params);

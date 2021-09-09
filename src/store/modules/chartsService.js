@@ -5,6 +5,7 @@ import {
   getStakeRange,
   getPriceRange,
   getDelegatorsRange,
+  getProvidersRanking,
 } from '../../api/services';
 
 const chartsService = {
@@ -15,6 +16,7 @@ const chartsService = {
     stakeRange: [],
     priceRange: [],
     delegatorsRange: [],
+    providersRanking: [],
   },
   getters: {
     accountsChart: (state) => state.accountsChart,
@@ -23,6 +25,7 @@ const chartsService = {
     stakeRange: (state) => state.stakeRange,
     priceRange: (state) => state.priceRange,
     delegatorsRange: (state) => state.delegatorsRange,
+    providersRanking: (state) => state.providersRanking,
   },
   mutations: {
     setAccountsChart(state, item) {
@@ -42,6 +45,9 @@ const chartsService = {
     },
     setDelegatorsRange(state, item) {
       state.delegatorsRange = item;
+    },
+    setProvidersRanking(state, item) {
+      state.providersRanking = item;
     },
   },
   actions: {
@@ -89,6 +95,14 @@ const chartsService = {
       try {
         const resp = await getDelegatorsRange({ params });
         commit('setDelegatorsRange', resp.data);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async fetchProvidersRanking({ commit }) {
+      try {
+        const resp = await getProvidersRanking();
+        commit('setProvidersRanking', resp.data);
       } catch (e) {
         console.error(e);
       }

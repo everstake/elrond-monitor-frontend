@@ -23,8 +23,8 @@
       </div>
     </template>
 
-    <template #cell(stake)="{ item: { stake } }">
-      <span>{{ stake | formatToken }}</span>
+    <template #cell(locked)="{ item: { locked } }">
+      <span>{{ locked | formatToken }}</span>
     </template>
 
     <template #cell(num_nodes)="{ item: { num_nodes } }">
@@ -40,7 +40,9 @@
     </template>
 
     <template #cell(delegation_cap)="{ item: { delegation_cap } }">
-      {{ delegation_cap | formatToken }}
+      <span v-if="delegation_cap === '0'">Uncapped</span>
+
+      <span v-else>{{ delegation_cap | formatToken }}</span>
     </template>
   </TableCard>
 </template>

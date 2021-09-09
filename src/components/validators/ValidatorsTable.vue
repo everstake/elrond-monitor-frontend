@@ -23,8 +23,8 @@
       </div>
     </template>
 
-    <template #cell(stake)="{ item: { stake } }">
-      <span>{{ stake | formatToken }}</span>
+    <template #cell(locked)="{ item: { locked } }">
+      <span>{{ locked | formatToken }}</span>
     </template>
 
     <template #cell(stake_percent)="{ item: { stake_percent } }">

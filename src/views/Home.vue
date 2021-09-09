@@ -7,7 +7,7 @@
           :class="{ 'card--dark-mode': darkModeOn }"
           :header-class="{ 'card-header--dark-mode': darkModeOn }"
         >
-          <template #header> Price at the moment and All time high</template>
+          <template #header>Price at the moment</template>
 
           <template>
             <AppSpinner v-if="!loadingStatus" />
@@ -253,12 +253,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import moment from 'moment';
 import LineChart from '../components/charts/LineChart.vue';
 import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
 import AppSpinner from '../components/app/AppSpinner.vue';
-import epochPercent from "../mixins/epochPercent";
+import epochPercent from '../mixins/epochPercent';
 
 export default {
   name: 'Home',

@@ -34,6 +34,10 @@
     <template #cell(time)="{ item: { timestamp } }">
       <span>{{ timestamp | formatTime }}</span>
     </template>
+
+    <template #cell(epoch)="{ item: { epoch } }">
+      <span>{{ epoch }}</span>
+    </template>
   </TableCard>
 </template>
 
