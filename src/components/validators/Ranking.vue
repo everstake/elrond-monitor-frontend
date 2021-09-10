@@ -8,7 +8,13 @@
       >
     </div>
 
-    <div class="ranking__bar-chart">
+    <AppSpinner v-if="loadingChart" :size-bool="true" />
+
+    <div v-else-if="totalDataChart" class="d-flex justify-content-center mb-3">
+      Not data
+    </div>
+
+    <div v-else class="ranking__bar-chart">
       <BarChart :chart-data="getProviderRankingData()" style="width: 100%" />
     </div>
   </b-container>
@@ -17,20 +23,25 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import BarChart from '../charts/BarChart.vue';
+import AppSpinner from '../app/AppSpinner.vue';
 
 export default {
   name: 'Ranking',
-  components: { BarChart },
+  components: { AppSpinner, BarChart },
   computed: {
     ...mapGetters([
       'darkModeClassBackground',
       'darkModeClassTitle',
       'darkModeClassFonts',
       'providersRanking',
+      'loadingChart',
     ]),
+    totalDataChart() {
+      return !this.providersRanking && this.providersRanking.length;
+    }
   },
-  mounted() {
-    this.fetchProvidersRanking();
+  async mounted() {
+    await this.fetchProvidersRanking();
   },
   methods: {
     ...mapActions(['fetchProvidersRanking']),

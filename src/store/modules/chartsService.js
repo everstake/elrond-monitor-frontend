@@ -17,6 +17,7 @@ const chartsService = {
     priceRange: [],
     delegatorsRange: [],
     providersRanking: [],
+    loading: false,
   },
   getters: {
     accountsChart: (state) => state.accountsChart,
@@ -26,6 +27,7 @@ const chartsService = {
     priceRange: (state) => state.priceRange,
     delegatorsRange: (state) => state.delegatorsRange,
     providersRanking: (state) => state.providersRanking,
+    loadingChart: (state) => state.loading,
   },
   mutations: {
     setAccountsChart(state, item) {
@@ -48,6 +50,9 @@ const chartsService = {
     },
     setProvidersRanking(state, item) {
       state.providersRanking = item;
+    },
+    setLoading(state, bool) {
+      state.loading = bool;
     },
   },
   actions: {
@@ -101,10 +106,13 @@ const chartsService = {
     },
     async fetchProvidersRanking({ commit }) {
       try {
+        commit('setLoading', true);
         const resp = await getProvidersRanking();
         commit('setProvidersRanking', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoading', false);
       }
     },
   },
