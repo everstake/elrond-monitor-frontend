@@ -39,7 +39,9 @@
           <b-collapse id="deep-nav">
             <div class="burger-menu__collapse-list">
               <a href="#">Network</a>
-              <a href="#">APR calculator</a>
+              <router-link :to="{ name: 'Calculator' }"
+                >APR calculator</router-link
+              >
             </div>
           </b-collapse>
         </li>

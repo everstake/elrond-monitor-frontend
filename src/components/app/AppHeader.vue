@@ -73,10 +73,12 @@
           <template #button-content>
             <a :class="['navbar__link', darkModeClassFonts]"> Deep dive </a>
           </template>
-          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
+          <b-dropdown-item :link-class="darkModeClassFonts"
             >Network</b-dropdown-item
           >
-          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
+          <b-dropdown-item
+            :to="{ name: 'Calculator' }"
+            :link-class="darkModeClassFonts"
             >APR calculator</b-dropdown-item
           >
         </b-nav-item-dropdown>
