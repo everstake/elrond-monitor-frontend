@@ -31,17 +31,13 @@
           </router-link>
         </li>
 
-        <li>
-          <span v-b-toggle.deep-nav
-            >Deep dive <b-icon icon="chevron-down"
-          /></span>
-
-          <b-collapse id="deep-nav">
-            <div class="burger-menu__collapse-list">
-              <a href="#">Network</a>
-              <a href="#">APR calculator</a>
-            </div>
-          </b-collapse>
+        <li v-b-toggle.menu-burger-collapse class="navbar__item">
+          <router-link
+            to="/calculator"
+            :class="['navbar__link', darkModeClassFonts]"
+          >
+            APR calculator
+          </router-link>
         </li>
 
         <li>

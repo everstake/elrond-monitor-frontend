@@ -64,22 +64,14 @@
           </router-link>
         </li>
 
-        <b-nav-item-dropdown
-          :class="['navbar__item', darkModeClassFonts]"
-          variant="link"
-          toggle-class="text-decoration-none"
-          :menu-class="[darkModeClassBackground]"
-        >
-          <template #button-content>
-            <a :class="['navbar__link', darkModeClassFonts]"> Deep dive </a>
-          </template>
-          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
-            >Network</b-dropdown-item
+        <li class="navbar__item">
+          <router-link
+            to="/calculator"
+            :class="['navbar__link', darkModeClassFonts]"
           >
-          <b-dropdown-item href="#" :link-class="darkModeClassFonts"
-            >APR calculator</b-dropdown-item
-          >
-        </b-nav-item-dropdown>
+            APR calculator
+          </router-link>
+        </li>
       </b-nav>
 
       <div class="header__options">
@@ -290,6 +282,7 @@ export default {
       display: flex;
       width: 120px;
       height: 100%;
+      white-space: nowrap;
 
       @include xl-down {
         width: 100px;

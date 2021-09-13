@@ -123,8 +123,9 @@ export default {
   justify-content: space-between;
   padding: 0 50px;
 
-  @include md-down {
+  @include xl-down {
     flex-direction: column;
+    align-items: self-start;
   }
 
   &__group {

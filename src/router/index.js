@@ -37,7 +37,7 @@ const routes = [
     component: () => import('../views/Validators.vue'),
     children: [
       {
-        path: '',
+        path: 'validator',
         name: 'Validator',
         component: () => import('../components/validators/ValidatorsTable.vue'),
       },
@@ -94,6 +94,11 @@ const routes = [
     path: '/epoch',
     name: 'Epoch',
     component: () => import('../views/Epoch.vue'),
+  },
+  {
+    path: '/calculator',
+    name: 'Calculator',
+    component: () => import('../views/Calculator.vue'),
   },
   {
     path: '*',

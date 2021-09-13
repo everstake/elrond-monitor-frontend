@@ -2,7 +2,7 @@
   <TableCard
     :fields="fields"
     :items="transactions"
-    :total-items="totalTransactionItems"
+    :total-items="$_totalRows(totalTransactionItems)"
     :address="address"
     :request-name="fetchTransactions"
     :loading="loadingAcc"
@@ -56,11 +56,12 @@ import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
 import { mapActions, mapGetters } from 'vuex';
 import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
+import pagination from "../../mixins/pagination";
 
 export default {
   name: 'AccountTransactionsList',
   components: { TableCard },
-  mixins: [exchangeTokenForUSD],
+  mixins: [exchangeTokenForUSD, pagination],
   computed: {
     ...mapGetters(['transactions', 'totalTransactionItems', 'loadingAcc']),
     fields() {

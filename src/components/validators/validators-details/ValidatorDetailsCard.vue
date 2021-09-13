@@ -21,14 +21,27 @@
 
       <div class="validators-card__title">
         <h1 :class="[darkModeClassTitle]">{{ validatorDetails.name }}</h1>
+
         <span>{{ validatorDetails.description }} </span>
+
+        <span v-if="validatorDetails.providers">
+          Staking provider:
+          <router-link
+            :to="{
+              name: 'StakingProviderDetails',
+              params: { provider: validatorDetails.providers[0] },
+            }"
+          >
+            {{ validatorDetails.providers[0] }}
+          </router-link>
+        </span>
       </div>
     </div>
 
     <div>
       <b-table :fields="fields" :items="items">
-        <template #cell(name)="data">
-          {{ data.item.name }}
+        <template #cell(identity)="data">
+          {{ reformatName(data.item.identity) }}
         </template>
 
         <template #cell(locked)="data">{{
@@ -52,6 +65,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AppSpinner from '../../app/AppSpinner.vue';
+import { sliceStringFromTo } from '../../../helpers/slice.string.helper';
 
 export default {
   name: 'ValidatorDetailsCard',
@@ -60,8 +74,8 @@ export default {
     return {
       fields: [
         {
-          key: 'name',
-          label: 'Address',
+          key: 'identity',
+          label: 'Identity',
           class: ['table__cell'],
           thClass: ['table__title'],
           tdClass: ['table__cell--common'],
@@ -119,6 +133,16 @@ export default {
   },
   methods: {
     ...mapActions(['fetchValidator']),
+    reformatName(name) {
+      if (name.length > 15) {
+        return sliceStringFromTo(
+          name.replace(name[0], name[0].toLocaleUpperCase()),
+          5,
+          -5,
+        );
+      }
+      return name.replace(name[0], name[0].toLocaleUpperCase());
+    },
   },
 };
 </script>
@@ -130,6 +154,7 @@ export default {
   gap: 20px;
   border-radius: $border-radius-card;
   padding: 12px 30px;
+  overflow-x: scroll;
 
   &__title-wrapper {
     display: flex;
@@ -144,6 +169,10 @@ export default {
 
     & span {
       @include font($fs-14, $dark-gary);
+
+      & a {
+        color: $main-blue;
+      }
     }
   }
 }
