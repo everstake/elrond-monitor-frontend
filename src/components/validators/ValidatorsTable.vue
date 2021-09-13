@@ -17,9 +17,14 @@
         />
         <img v-else :src="avatar" alt="Avatar" width="32" height="32" />
 
-        <router-link :to="{ name: 'ValidatorsDetails', params: { identity } }">
+        <router-link
+          v-if="name"
+          :to="{ name: 'ValidatorsDetails', params: { identity } }"
+        >
           <span class="ml-2">{{ name }}</span>
         </router-link>
+
+        <span v-else class="ml-2">{{ identity | trimHash }}</span>
       </div>
     </template>
 

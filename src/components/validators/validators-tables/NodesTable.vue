@@ -6,7 +6,10 @@
     :total-items="totalItems"
     :loading="loadingValidators"
     :address="address"
+    :custom-class="'title-nodes'"
   >
+    <template #header>Nodes</template>
+
     <template #cell(publicKey)="{ item: { publicKey } }">
       <router-link :to="{ params: { id: publicKey } }">
         {{ publicKey | trimHashFromTo(7, -10) }}
@@ -75,5 +78,10 @@ export default {
   &--offline {
     color: $orange;
   }
+}
+
+.title-nodes {
+  text-align: left;
+  @include font(24px, $main-black, 400);
 }
 </style>

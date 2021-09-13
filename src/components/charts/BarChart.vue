@@ -25,6 +25,24 @@ export default {
               borderDash: [5, 10],
               borderColor: '#969696',
             },
+            ticks: {
+              display: true,
+              beginAtZero: true,
+              callback(label) {
+                if (label === 0) {
+                  return 0;
+                }
+
+                if (label > 999999) {
+                  return `${label / 1000 / 1000}M`;
+                }
+                if (label > 999) {
+                  return `${label / 1000}K`;
+                }
+
+                return label.toFixed(4);
+              },
+            },
           },
         ],
         yAxes: [
@@ -40,8 +58,8 @@ export default {
       legend: {
         display: true,
         labels: {
-          fontColor: '#969696'
-        }
+          fontColor: '#969696',
+        },
       },
     };
     const options = {

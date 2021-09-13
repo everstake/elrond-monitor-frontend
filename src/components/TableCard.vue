@@ -2,10 +2,13 @@
   <div :class="['table-card', darkModeClassBackground]">
     <h1
       class="table-card__title table-card__title--position"
-      :class="{
-        'white-font-main': darkModeOn,
-        'black-font-main': !darkModeOn,
-      }"
+      :class="[
+        {
+          'white-font-main': darkModeOn,
+          'black-font-main': !darkModeOn,
+        },
+        customClass,
+      ]"
     >
       <slot name="header" />
     </h1>
@@ -27,7 +30,7 @@
         id="my-table"
         :items="items"
         :fields="fields"
-        :per-page="perPage"
+        :per-page="totalItems"
         :dark="darkModeOn"
         responsive
       >
@@ -48,7 +51,7 @@
 
         <b-pagination
           v-model="currentPage"
-          :total-rows="totalPage"
+          :total-rows="totalItems"
           :per-page="perPage"
           align="right"
           aria-controls="my-table"
@@ -93,6 +96,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    customClass: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
@@ -106,9 +113,6 @@ export default {
       'darkModeClassBackground',
       'darkModeClassFonts',
     ]),
-    totalPage() {
-      return Math.ceil(this.totalItems / this.perPage);
-    },
   },
   watch: {
     currentPage: {

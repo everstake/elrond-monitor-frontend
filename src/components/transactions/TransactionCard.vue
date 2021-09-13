@@ -62,6 +62,10 @@
       <span>{{ item | formatAmount }}</span>
     </template>
 
+    <template #data="{ item }">
+      <span>{{ item || 'N/A' }}</span>
+    </template>
+
     <template #scResults="{ item }">
       <div v-if="Object.keys(item).length" class="row-info__item">
         <div v-for="(elem, i) in item" :key="i" class="contract-info">
@@ -188,6 +192,15 @@ export default {
         {
           key: 'gas_price',
           label: 'Gas Price',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
+          key: 'data',
+          label: 'Data',
           class: {
             label: ['row-info__label'],
             item: ['row-info'],

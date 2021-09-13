@@ -2,7 +2,7 @@
   <TableCard
     :fields="fields"
     :items="transactions"
-    :total-items="totalTransactionItems"
+    :total-items="$_totalRows(totalTransactionItems)"
     :request-name="fetchTransactions"
     :loading="loadingTx"
   >
@@ -18,6 +18,10 @@
       <span>
         {{ timestamp | formatTime }}
       </span>
+    </template>
+
+    <template #cell(fee)="{ item: { fee } }">
+      {{ fee | formatToken }}
     </template>
 
     <template #cell(shard)="{ item: { shard_from, shard_to } }">
@@ -50,6 +54,7 @@
 import TableCard from '@/components/TableCard.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { tableFields } from '@/constants/tables';
+import pagination from "../../mixins/pagination";
 import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 
 export default {
@@ -57,7 +62,7 @@ export default {
   components: {
     TableCard,
   },
-  mixins: [exchangeTokenForUSD],
+  mixins: [exchangeTokenForUSD, pagination],
   computed: {
     ...mapGetters(['transactions', 'totalTransactionItems', 'loadingTx']),
     fields() {

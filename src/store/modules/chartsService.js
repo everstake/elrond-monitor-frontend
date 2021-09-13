@@ -74,10 +74,13 @@ const chartsService = {
     },
     async fetchEpochDoughnut({ commit }) {
       try {
+        commit('setLoading', true);
         const resp = await getEpochDoughnut();
         commit('setEpochDoughnut', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoading', false);
       }
     },
     async fetchStakeRange({ commit }, params) {

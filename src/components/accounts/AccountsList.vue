@@ -2,7 +2,7 @@
   <TableCard
     :items="accounts"
     :fields="fields"
-    :total-items="totalItemsAccount"
+    :total-items="$_totalRows(totalItemsAccount)"
     :request-name="fetchAccounts"
     :loading="loadingAcc"
   >
@@ -34,12 +34,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
+import pagination from "../../mixins/pagination";
 
 export default {
   name: 'AccountsList',
   components: {
     TableCard,
   },
+  mixins: [pagination],
   computed: {
     ...mapGetters(['accounts', 'totalItemsAccount', 'loadingAcc']),
     fields() {

@@ -18,7 +18,8 @@
         <router-link
           :to="{ name: 'StakingProviderDetails', params: { provider } }"
         >
-          <span class="ml-2">{{ name }}</span>
+          <span v-if="name" class="ml-2">{{ name }}</span>
+          <span v-else class="ml-2">{{ provider | trimHash }}</span>
         </router-link>
       </div>
     </template>

@@ -62,6 +62,7 @@ export default {
     classCard: {
       type: Array,
       default: () => [],
+      required: false,
     },
     classTableInfo: {
       type: Array,

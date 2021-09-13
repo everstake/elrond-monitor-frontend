@@ -38,7 +38,7 @@ export default {
     ]),
     totalDataChart() {
       return !this.providersRanking && this.providersRanking.length;
-    }
+    },
   },
   async mounted() {
     await this.fetchProvidersRanking();
@@ -101,8 +101,8 @@ export default {
       });
 
       const configWidthBar = {
-        barPercentage: 0.5,
-        categoryPercentage: 1,
+        barPercentage: 1,
+        categoryPercentage: 0.8,
       };
 
       return {
@@ -174,8 +174,9 @@ export default {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    min-height: 2000px;
     padding: 0 60px;
+    overflow: hidden;
   }
 }
 </style>

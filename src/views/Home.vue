@@ -10,7 +10,7 @@
           <template #header>Price at the moment</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.price | formatUSD }}</div>
@@ -35,7 +35,7 @@
           <template #header>Market cap</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">{{ stats.cap | formatUSD }}</div>
@@ -60,7 +60,7 @@
           <template #header>Circulating supply</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -74,7 +74,7 @@
           <template #header>Trading volume</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -88,7 +88,7 @@
           <template #header>Total supply</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -102,7 +102,7 @@
           <template #header>Average staking providers fee</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -116,7 +116,7 @@
           <template #header>Average transactions fee</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -130,7 +130,7 @@
           <template #header>Staking providers</template>
 
           <template>
-            <AppSpinner v-if="!loadingStatus" />
+            <AppSpinner v-if="loadingStatus" />
 
             <div v-else class="card-body--info">
               <div class="card-amount">
@@ -160,7 +160,9 @@
               </div>
             </template>
 
-            <template>
+            <AppSpinner v-if="loadingChart" />
+
+            <template v-else>
               <DoughnutChart
                 ref="doughnut"
                 :props-options="optionsDoughnutChart"
@@ -208,6 +210,7 @@
             <template #header>Block height</template>
 
             <template>
+              <b-icon icon="gear" class="posit" font-scale="4" />
               <span class="align-self-end card-amount mt-2">
                 {{ stats.height | formatAmount }}
               </span>
@@ -334,6 +337,7 @@ export default {
       'stats',
       'epochDoughnut',
       'loadingStatus',
+      'loadingChart',
     ]),
   },
   mounted() {
@@ -491,5 +495,11 @@ export default {
     justify-content: space-between;
     @include font($fs-14, $dark-gary);
   }
+}
+
+.posit {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
 }
 </style>
