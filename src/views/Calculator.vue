@@ -133,7 +133,12 @@
 
         <div class="row justify-content-center mt-4">
           <div class="col-auto text-center">
-            <b-btn variant="primary">Learn More</b-btn>
+            <b-btn
+              variant="primary"
+              href="https://medium.com/everstake/elrond-how-the-platform-works-and-what-beginners-need-to-know-62030817707c"
+              target="_blank"
+              >Learn More</b-btn
+            >
           </div>
         </div>
       </b-form>
