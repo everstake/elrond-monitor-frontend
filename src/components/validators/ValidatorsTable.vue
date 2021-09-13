@@ -3,7 +3,7 @@
     :items="validators"
     :fields="fields"
     :request-name="fetchValidators"
-    :total-items="totalItems"
+    :total-items="totalItems - 1"
     :loading="loadingValidators"
   >
     <template #cell(name-validator)="{ item: { avatar, name, identity } }">
