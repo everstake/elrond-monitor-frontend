@@ -2,7 +2,7 @@
   <TableCard
     :fields="fields"
     :items="blocks"
-    :total-items="totalBlocks"
+    :total-items="$_totalRows(totalBlocks)"
     :request-name="fetchBlocks"
     :loading="loadingBlock"
   >
@@ -34,6 +34,10 @@
     <template #cell(time)="{ item: { timestamp } }">
       <span>{{ timestamp | formatTime }}</span>
     </template>
+
+    <template #cell(epoch)="{ item: { epoch } }">
+      <span>{{ epoch }}</span>
+    </template>
   </TableCard>
 </template>
 
@@ -41,10 +45,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
+import pagination from "../../mixins/pagination";
 
 export default {
   name: 'BlocksList',
   components: { TableCard },
+  mixins: [pagination],
   computed: {
     ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
     fields() {

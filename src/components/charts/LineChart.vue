@@ -31,7 +31,7 @@ export default {
             },
             ticks: {
               callback(item) {
-                return moment(item * 1000).format('MMM YY');
+                return moment(item * 1000).format('MMM DD');
               },
             },
           },

@@ -1,5 +1,6 @@
 <template>
   <section class="details__wrapper">
+    <BtnBack />
 
     <StakingProviderCard />
 
@@ -10,10 +11,11 @@
 <script>
 import StakingProviderCard from './StakingProviderCard.vue';
 import StakingProviderTable from './StakingProviderTable.vue';
+import BtnBack from '../../BtnBack.vue';
 
 export default {
   name: 'StakingProviderDetails',
-  components: { StakingProviderTable, StakingProviderCard },
+  components: { BtnBack, StakingProviderTable, StakingProviderCard },
 };
 </script>
 

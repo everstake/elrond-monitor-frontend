@@ -44,8 +44,8 @@ const validatorsService = {
       state.validatorsMap = items;
     },
     setStakingProviders(state, items) {
-      state.stakingProviders = items;
-      state.totalItems = items.langth;
+      state.stakingProviders = items.items;
+      state.totalItems = items.count;
     },
     setLoading(state, bool) {
       state.loading = bool;

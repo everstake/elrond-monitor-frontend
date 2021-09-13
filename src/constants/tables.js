@@ -142,7 +142,8 @@ export const tableFields = {
         tdClass: ['table__cell--common table__cell--blue'],
       },
       {
-        key: 'stake',
+        key: 'locked',
+        label: 'Stake',
         class: ['table__cell'],
         thClass: ['table__title'],
         tdClass: ['table__cell--common'],
@@ -165,12 +166,14 @@ export const tableFields = {
     stakingProviders: [
       {
         key: 'name-provider',
+        label: 'Name',
         class: ['table__cell'],
         thClass: ['table__title'],
         tdClass: ['table__cell--common table__cell--blue'],
       },
       {
-        key: 'stake',
+        key: 'locked',
+        label: 'Stake',
         class: ['table__cell'],
         thClass: ['table__title'],
         tdClass: ['table__cell--common'],
@@ -297,7 +300,7 @@ export const tableFields = {
       tdClass: ['table__cell--block'],
     },
     {
-      key: 'provider',
+      key: 'epoch',
       class: ['table__cell'],
       thClass: ['table__title'],
       tdClass: ['table__cell--block'],

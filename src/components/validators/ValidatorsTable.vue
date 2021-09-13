@@ -17,14 +17,19 @@
         />
         <img v-else :src="avatar" alt="Avatar" width="32" height="32" />
 
-        <router-link :to="{ name: 'ValidatorsDetails', params: { identity } }">
+        <router-link
+          v-if="name"
+          :to="{ name: 'ValidatorsDetails', params: { identity } }"
+        >
           <span class="ml-2">{{ name }}</span>
         </router-link>
+
+        <span v-else class="ml-2">{{ identity | trimHash }}</span>
       </div>
     </template>
 
-    <template #cell(stake)="{ item: { stake } }">
-      <span>{{ stake | formatToken }}</span>
+    <template #cell(locked)="{ item: { locked } }">
+      <span>{{ locked | formatToken }}</span>
     </template>
 
     <template #cell(stake_percent)="{ item: { stake_percent } }">

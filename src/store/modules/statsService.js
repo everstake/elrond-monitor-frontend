@@ -3,7 +3,7 @@ import { getStats } from '../../api/services';
 const statsService = {
   state: {
     stats: {},
-    loading: true,
+    loading: false,
   },
   getters: {
     stats: (state) => state.stats,
@@ -20,13 +20,13 @@ const statsService = {
   actions: {
     async fetchStats({ commit }) {
       try {
-        commit('setLoading', false);
+        commit('setLoading', true);
         const resp = await getStats();
         commit('setStats', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', true);
+        commit('setLoading', false);
       }
     },
   },

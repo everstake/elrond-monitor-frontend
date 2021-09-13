@@ -22,13 +22,13 @@
 
     <template #staking_apr="{ item }">
       <p class="info-line__value" :class="[darkModeClassTitle]">
-        {{ item }}
+        {{ item | formatPercent }}
       </p>
     </template>
 
     <template #active_stake="{ item }">
       <p class="info-line__value" :class="[darkModeClassTitle]">
-        {{ item | formatAmount }}
+        {{ item | formatToken }}
       </p>
     </template>
 

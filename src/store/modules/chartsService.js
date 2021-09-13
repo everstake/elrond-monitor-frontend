@@ -5,6 +5,7 @@ import {
   getStakeRange,
   getPriceRange,
   getDelegatorsRange,
+  getProvidersRanking,
 } from '../../api/services';
 
 const chartsService = {
@@ -15,6 +16,8 @@ const chartsService = {
     stakeRange: [],
     priceRange: [],
     delegatorsRange: [],
+    providersRanking: [],
+    loading: false,
   },
   getters: {
     accountsChart: (state) => state.accountsChart,
@@ -23,6 +26,8 @@ const chartsService = {
     stakeRange: (state) => state.stakeRange,
     priceRange: (state) => state.priceRange,
     delegatorsRange: (state) => state.delegatorsRange,
+    providersRanking: (state) => state.providersRanking,
+    loadingChart: (state) => state.loading,
   },
   mutations: {
     setAccountsChart(state, item) {
@@ -42,6 +47,12 @@ const chartsService = {
     },
     setDelegatorsRange(state, item) {
       state.delegatorsRange = item;
+    },
+    setProvidersRanking(state, item) {
+      state.providersRanking = item;
+    },
+    setLoading(state, bool) {
+      state.loading = bool;
     },
   },
   actions: {
@@ -63,10 +74,13 @@ const chartsService = {
     },
     async fetchEpochDoughnut({ commit }) {
       try {
+        commit('setLoading', true);
         const resp = await getEpochDoughnut();
         commit('setEpochDoughnut', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        commit('setLoading', false);
       }
     },
     async fetchStakeRange({ commit }, params) {
@@ -91,6 +105,17 @@ const chartsService = {
         commit('setDelegatorsRange', resp.data);
       } catch (e) {
         console.error(e);
+      }
+    },
+    async fetchProvidersRanking({ commit }) {
+      try {
+        commit('setLoading', true);
+        const resp = await getProvidersRanking();
+        commit('setProvidersRanking', resp.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        commit('setLoading', false);
       }
     },
   },

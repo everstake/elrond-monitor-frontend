@@ -7,10 +7,17 @@
         v-if="validatorDetails.avatar"
         :src="validatorDetails.avatar"
         width="32"
+        height="32"
         alt="Avatar"
       />
 
-      <img v-else src="~@/assets/img/elrondLogo.svg" width="32" alt="Avatar" />
+      <img
+        v-else
+        src="~@/assets/img/elrondLogo.svg"
+        width="32"
+        height="32"
+        alt="Avatar"
+      />
 
       <div class="validators-card__title">
         <h1 :class="[darkModeClassTitle]">{{ validatorDetails.name }}</h1>
@@ -19,7 +26,25 @@
     </div>
 
     <div>
-      <b-table :fields="fields" :items="items" />
+      <b-table :fields="fields" :items="items">
+        <template #cell(name)="data">
+          {{ data.item.name }}
+        </template>
+
+        <template #cell(locked)="data">{{
+          data.item.locked | formatToken
+        }}</template>
+
+        <template #cell(validators)="data">{{ data.item.validators }}</template>
+
+        <template #cell(top_up)="data">
+          {{ data.item.top_up | formatToken }}
+        </template>
+
+        <template #cell(avg_uptime)="data">
+          {{ data.item.avg_uptime | formatPercent }}
+        </template>
+      </b-table>
     </div>
   </div>
 </template>
@@ -42,7 +67,8 @@ export default {
           tdClass: ['table__cell--common'],
         },
         {
-          key: 'stake',
+          key: 'locked',
+          label: 'Stake',
           class: ['table__cell'],
           thClass: ['table__title'],
           tdClass: ['table__cell--common'],
@@ -107,6 +133,7 @@ export default {
 
   &__title-wrapper {
     display: flex;
+    align-items: center;
     gap: 18px;
   }
 

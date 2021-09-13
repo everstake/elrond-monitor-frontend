@@ -11,14 +11,14 @@
         <div class="epoch__progress-info time">
           <div class="time__info">
             <span :class="darkModeClassFonts">since</span>
-            <h1 :class="darkModeClassTitle">
+            <h1>
               {{ $_since(epochDoughnut.start) }}
             </h1>
           </div>
 
           <div class="time__info">
             <span :class="darkModeClassFonts">left</span>
-            <h1 :class="darkModeClassTitle">
+            <h1>
               {{ epochDoughnut.left | formatDuration }}
             </h1>
           </div>

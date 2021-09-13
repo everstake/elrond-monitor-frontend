@@ -49,3 +49,5 @@ export const getPriceRange = (params) => APIService.get('/price/range', params);
 
 export const getDelegatorsRange = (params) =>
   APIService.get('/delegators/range', params);
+
+export const getProvidersRanking = () => APIService.get('/providers/ranking');
