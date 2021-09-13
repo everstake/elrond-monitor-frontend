@@ -55,49 +55,11 @@ export default {
       const elem1M = [];
 
       this.providersRanking.forEach((elem) => {
-        let elronds100 = 0;
-        let elronds1k = 0;
-        let elronds10k = 0;
-        let elronds100k = 0;
-        let elronds1M = 0;
-
-        Object.values(elem.delegators).forEach((e) => {
-          const num = Number(e);
-          if (num <= 100) {
-            elronds100 += num;
-          } else if (num > 100 && num <= 1000) {
-            elronds1k += num;
-          } else if (num > 1000 && num <= 10000) {
-            elronds10k += num;
-          } else if (num > 10000 && num <= 100000) {
-            elronds100k += num;
-          } else if (num > 100000) {
-            elronds1M += num;
-          }
-        });
-
-        [elronds100, elronds1k, elronds10k, elronds100k, elronds1M].forEach(
-          (e, i) => {
-            switch (i) {
-              case 0:
-                elem100.push(e);
-                break;
-              case 1:
-                elem1k.push(e);
-                break;
-              case 2:
-                elem10k.push(e);
-                break;
-              case 3:
-                elem100k.push(e);
-                break;
-              case 4:
-                elem1M.push(e);
-                break;
-              default:
-            }
-          },
-        );
+        elem100.push(elem.t_100.amount);
+        elem1k.push(elem.f_100_t_1k.amount);
+        elem10k.push(elem.f_1k_t_10k.amount);
+        elem100k.push(elem.f_10k_t_100k.amount);
+        elem1M.push(elem.f_100k.amount);
       });
 
       const configWidthBar = {
@@ -106,7 +68,7 @@ export default {
       };
 
       return {
-        labels: [...this.providersRanking.map(({ provider }) => provider)],
+        labels: [...this.providersRanking.map(({ name }) => name)],
         datasets: [
           {
             label: '0-100 elronds',
