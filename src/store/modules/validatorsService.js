@@ -20,6 +20,9 @@ const validatorsService = {
     loading: false,
     validatorsDetails: {},
     stakingDetails: {},
+    loadStatsValid: false,
+    loadStatsProvider: false,
+    loadStatsValidDetails: false,
   },
   getters: {
     statsValidators: (state) => state.stats,
@@ -31,6 +34,9 @@ const validatorsService = {
     loadingValidators: (state) => state.loading,
     validatorDetails: (state) => state.validatorsDetails,
     stakingProviderDetails: (state) => state.stakingDetails,
+    loadStatsValid: (state) => state.loadStatsValid,
+    loadStatsProvider: (state) => state.loadStatsProvider,
+    loadStatsValidDetails: (state) => state.loadStatsValidDetails,
   },
   mutations: {
     setStats(state, item) {
@@ -60,17 +66,26 @@ const validatorsService = {
     setStakingDetails(state, item) {
       state.stakingDetails = item;
     },
+    setLoadStatsValid(state, bool) {
+      state.loadStatsValid = bool;
+    },
+    setLoadStatsProvider(state, bool) {
+      state.loadStatsProvider = bool;
+    },
+    setLoadStatsValidDetails(state, bool) {
+      state.loadStatsValidDetails = bool;
+    },
   },
   actions: {
     async fetchStatsValidators({ commit }) {
       try {
-        commit('setLoading', true);
+        commit('setLoadStatsValid', true);
         const resp = await getStatsValidators();
         commit('setStats', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoadStatsValid', false);
       }
     },
     async fetchValidators({ commit }, params) {
@@ -116,24 +131,24 @@ const validatorsService = {
     },
     async fetchValidator({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoadStatsValidDetails', true);
         const resp = await getValidatorStats(params);
         commit('setValidatorStats', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoadStatsValidDetails', false);
       }
     },
     async fetchStakingProviderDetails({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoadStatsProvider', true);
         const resp = await getStakingProviderStats(params);
         commit('setStakingDetails', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoadStatsProvider', false);
       }
     },
   },

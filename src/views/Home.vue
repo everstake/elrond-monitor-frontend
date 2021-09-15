@@ -294,11 +294,11 @@ export default {
           ],
           yAxes: [
             {
-              type: 'logarithmic',
+              // type: 'logarithmic',
               display: false,
               ticks: {
                 display: false,
-                beginAtZero: true,
+                beginAtZero: false,
               },
               gridLines: {
                 display: false,
@@ -340,7 +340,7 @@ export default {
       'loadingChart',
     ]),
   },
-  mounted() {
+  async mounted() {
     this.fetchAccountsChart();
     this.fetchTransactionsChart();
     this.fetchStats();

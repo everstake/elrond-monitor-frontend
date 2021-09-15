@@ -33,12 +33,12 @@ const routes = [
     component: () => import('../views/TransactionDetails.vue'),
   },
   {
-    path: '/validators',
+    path: '',
     component: () => import('../views/Validators.vue'),
     children: [
       {
-        path: 'validator',
-        name: 'Validator',
+        path: 'validators',
+        name: 'Validators',
         component: () => import('../components/validators/ValidatorsTable.vue'),
       },
       {

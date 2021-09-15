@@ -118,22 +118,27 @@ export default {
     currentPage: {
       immediate: true,
       async handler(val) {
-        await this.requestName({
-          ...this.address,
-          page: val,
-          limit: this.perPage,
-        });
-        window.scrollTo(0, 0);
+        if (val > 1) {
+          await this.requestName({
+            ...this.address,
+            page: val,
+            limit: this.perPage,
+          });
+          window.scrollTo(0, 0);
+        }
       },
     },
 
-    async requestName(func) {
-      await func({
-        ...this.address,
-        page: 1,
-        limit: this.perPage,
-      });
-      this.currentPage = 1;
+    address: {
+      immediate: true,
+      async handler() {
+        await this.requestName({
+          ...this.address,
+          page: 1,
+          limit: this.perPage,
+        });
+        this.currentPage = 1;
+      },
     },
   },
   methods: {

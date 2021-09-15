@@ -5,7 +5,7 @@
     :total-items="$_totalRows(totalTransactionItems)"
     :address="address"
     :request-name="fetchTransactions"
-    :loading="loadingAcc"
+    :loading="loadingTx"
   >
     <template #cell(hash)="{ item: { hash } }">
       <router-link :to="{ name: 'TransactionDetails', params: { id: hash } }">
@@ -24,9 +24,14 @@
     </template>
 
     <template #cell(from)="{ item: { from } }">
-      <router-link :to="{ name: 'AccountDetails', params: { id: from } }">
+      <router-link
+        v-if="from !== address.address"
+        :to="{ name: 'AccountDetails', params: { id: from } }"
+      >
         {{ from | trimHashFromTo(8, -10) }}
       </router-link>
+
+      <span v-else>{{ from | trimHashFromTo(8, -10) }}</span>
     </template>
 
     <template #cell(status)="{ item: { to } }">
@@ -36,9 +41,14 @@
     </template>
 
     <template #cell(to)="{ item: { to } }">
-      <router-link :to="{ name: 'AccountDetails', params: { id: to } }">
+      <router-link
+        v-if="to !== address.address"
+        :to="{ name: 'AccountDetails', params: { id: to } }"
+      >
         {{ to | trimHashFromTo(8, -10) }}
       </router-link>
+
+      <span v-else> {{ to | trimHashFromTo(8, -10) }} </span>
     </template>
 
     <template #cell(valueEGLD)="{ item: { value } }">
@@ -55,15 +65,15 @@
 import TableCard from '@/components/TableCard.vue';
 import { tableFields } from '@/constants/tables';
 import { mapActions, mapGetters } from 'vuex';
-import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
-import pagination from "../../mixins/pagination";
+import exchangeTokenForUSD from '../../../mixins/exchangeTokenForUSD';
+import pagination from '../../../mixins/pagination';
 
 export default {
   name: 'AccountTransactionsList',
   components: { TableCard },
   mixins: [exchangeTokenForUSD, pagination],
   computed: {
-    ...mapGetters(['transactions', 'totalTransactionItems', 'loadingAcc']),
+    ...mapGetters(['transactions', 'totalTransactionItems', 'loadingTx']),
     fields() {
       return tableFields.accountsTransactionsFields;
     },

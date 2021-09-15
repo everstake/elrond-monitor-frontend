@@ -1,5 +1,5 @@
 <template>
-  <AppSpinner v-if="loadingValidators" :size-bool="true" />
+  <AppSpinner v-if="loadStatsProvider" :size-bool="true" />
 
   <section v-else :class="['staking-card', darkModeClassBackground]">
     <div :class="['staking-card__address', darkModeClassFonts]">
@@ -81,7 +81,7 @@ export default {
       'darkModeClassBackground',
       'stakingProviderDetails',
       'darkModeClassFonts',
-      'loadingValidators',
+      'loadStatsProvider',
     ]),
     getFilled() {
       if (this.stakingProviderDetails.delegation_cap <= 0) {

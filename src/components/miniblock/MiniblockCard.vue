@@ -2,7 +2,10 @@
   <TableInfo :fields="fields" :items="miniblock" :loading="loadingBlock">
     <template #header>Miniblock details</template>
 
-    <template #hash="{ item }"> {{ item }} </template>
+    <template #hash="{ item }">
+      {{ item }}
+      <BtnCopy :address="item" class="ml-2" />
+    </template>
 
     <template #shard_from="{ item }">{{ item }}</template>
 
@@ -19,10 +22,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import TableInfo from '../TableInfo.vue';
+import BtnCopy from '../BtnCopy.vue';
 
 export default {
   name: 'MiniblockCard',
-  components: { TableInfo },
+  components: { TableInfo, BtnCopy },
   data() {
     return {
       fields: [

@@ -1,6 +1,10 @@
 <template>
   <div class="btn__wrapper">
-    <b-button :class="['btn-back', darkModeClassBackground]" variant="outline-primary" @click="onBack">
+    <b-button
+      :class="['btn-back', darkModeClassBackground]"
+      variant="outline-primary"
+      @click="onBack"
+    >
       <b-icon class="btn-back__icon" icon="arrow-left" />
     </b-button>
 
@@ -9,18 +13,18 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'BtnBack',
   computed: {
-    ...mapGetters(['darkModeClassFonts', 'darkModeClassBackground'])
+    ...mapGetters(['darkModeClassFonts', 'darkModeClassBackground']),
   },
   methods: {
     onBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -44,6 +48,5 @@ export default {
       border-color: $blue;
     }
   }
-
 }
 </style>

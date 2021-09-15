@@ -1,11 +1,7 @@
 <template>
-  <div
-    class="account-card"
-    :class="{
-      'white-background': !darkModeOn,
-      'black-background': darkModeOn,
-    }"
-  >
+  <AppSpinner v-if="loadingAcc" :size-bool="true" />
+
+  <div v-else class="account-card" :class="[darkModeClassBackground]">
     <h1 class="account-card__title account-card__item">Account details</h1>
     <div class="account-card__address-group account-card__item">
       <p class="account-card__address">
@@ -58,7 +54,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BtnCopy from '../BtnCopy.vue';
+import BtnCopy from '../../BtnCopy.vue';
+import AppSpinner from '../../app/AppSpinner.vue';
 
 const accountTabs = [
   {
@@ -67,13 +64,14 @@ const accountTabs = [
   },
   {
     key: 'staking_providers',
-    label: 'Staking provider',
+    label: 'Staking providers',
   },
 ];
 
 export default {
   name: 'AccountCard',
   components: {
+    AppSpinner,
     BtnCopy,
   },
   data() {
@@ -83,7 +81,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['darkModeOn', 'account', 'darkModeClassFonts']),
+    ...mapGetters([
+      'darkModeOn',
+      'account',
+      'darkModeClassFonts',
+      'darkModeClassBackground',
+      'loadingAcc',
+    ]),
   },
   watch: {
     $route: {

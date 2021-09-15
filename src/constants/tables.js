@@ -220,7 +220,7 @@ export const tableFields = {
         label: 'Public key',
         class: ['table__cell'],
         thClass: ['table__title'],
-        tdClass: ['table__cell--common table__cell--blue'],
+        tdClass: ['table__cell--common'],
       },
       {
         key: 'nodeDisplayName',
