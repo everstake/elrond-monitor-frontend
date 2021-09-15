@@ -114,6 +114,8 @@ export default {
   padding: 15px 40px 0;
   border-radius: $border-radius-card;
   @include font(16px, $font-grey, 400);
+  overflow-x: scroll;
+
   &__item {
     padding: 18px 10px;
     border-bottom: 1px solid $gray;
