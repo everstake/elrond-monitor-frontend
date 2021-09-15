@@ -4,7 +4,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import NodesTable from './validators-tables/NodesTable.vue';
+import NodesTable from './common-tables/NodesTable.vue';
 
 export default {
   name: 'Nodes',

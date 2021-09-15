@@ -35,9 +35,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import DatePicker from 'vue2-datepicker';
 import getDates from '../mixins/getDates';
-import { mapActions } from 'vuex';
 
 export default {
   name: 'CustomDatePicker',
@@ -55,7 +55,7 @@ export default {
     return {
       rangeDate: [],
       open: false,
-      switchDate: ['1d', '7d', '1m', '3m', '6m', '1y'],
+      switchDate: ['7d', '1m', '3m', '6m', '1y'],
       selectedDay: '1y',
     };
   },

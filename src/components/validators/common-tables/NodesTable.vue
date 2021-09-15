@@ -11,9 +11,7 @@
     <template #header>Nodes</template>
 
     <template #cell(publicKey)="{ item: { publicKey } }">
-      <router-link :to="{ params: { id: publicKey } }">
-        {{ publicKey | trimHashFromTo(7, -10) }}
-      </router-link>
+      {{ publicKey | trimHashFromTo(7, -10) }}
     </template>
 
     <template #cell(nodeDisplayName)="{ item: { nodeDisplayName } }">{{

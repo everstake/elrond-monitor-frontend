@@ -1,5 +1,5 @@
 <template>
-  <AppSpinner v-if="loadingValidators" :size-bool="true" />
+  <AppSpinner v-if="loadStatsValidDetails" :size-bool="true" />
 
   <div v-else :class="['validators-card', darkModeClassBackground]">
     <div class="validators-card__title-wrapper">
@@ -29,7 +29,7 @@
           <router-link
             :to="{
               name: 'StakingProviderDetails',
-              params: { provider: validatorDetails.providers[0] },
+              params: { provider: validatorDetails.providers[0] }
             }"
           >
             {{ validatorDetails.providers[0] }}
@@ -117,7 +117,7 @@ export default {
       'darkModeClassTitle',
       'validatorDetails',
       'darkModeOn',
-      'loadingValidators',
+      'loadStatsValidDetails',
     ]),
     items() {
       return [this.validatorDetails];

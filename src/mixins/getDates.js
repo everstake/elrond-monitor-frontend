@@ -1,7 +1,7 @@
 export default {
   methods: {
-    $_getDates(day, today, limit = 20) {
-      let dayAgo;
+    // eslint-disable-next-line consistent-return
+    $_getDates(day, today, limit = 30) {
       let sevenDaysAgo;
       let oneMonthAgo;
       let threeMonthAgo;
@@ -9,13 +9,6 @@ export default {
       let oneYearAgo;
 
       switch (day) {
-        case '1d':
-          dayAgo = Math.round(today - 86400);
-          return {
-            limit,
-            from: dayAgo,
-            to: today,
-          };
         case '7d':
           sevenDaysAgo = Math.round(today - 604800);
           return {

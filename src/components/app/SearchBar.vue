@@ -9,9 +9,11 @@
         />
       </button>
       <input
+        v-model.trim="isSearch"
         type="text"
         :class="['search-bar__input', darkModeClassBackground]"
-        placeholder="Search for block, accounts, transactions, programs, tokens and validators..."
+        placeholder="Search for block, accounts, transactions and validators..."
+        @change="searchBat"
       />
     </div>
   </div>
@@ -19,11 +21,63 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  getBlock,
+  getTransaction,
+  getMiniblock,
+  getValidatorStats,
+} from '../../api/services';
 
 export default {
   name: 'SearchBar',
+  data() {
+    return {
+      isSearch: '',
+    };
+  },
   computed: {
     ...mapGetters(['darkModeClassBackground', 'darkModeClassBgLightBlue']),
+  },
+  methods: {
+    async searchBat() {
+      const name = this.isSearch.toLocaleLowerCase();
+
+      switch (this.isSearch.length) {
+        case 62:
+          this.$router.replace({
+            name: 'AccountDetails',
+            params: { id: name },
+          });
+          break;
+
+        case 64:
+          Promise.any([
+            getBlock(name),
+            getTransaction(name),
+            getMiniblock(name),
+          ]).then((resp) => {
+            this.$router.replace(resp.config.url);
+          });
+          break;
+
+        default:
+          try {
+            await getValidatorStats({ identity: name });
+            this.$router.replace({
+              name: 'ValidatorsDetails',
+              params: { identity: name },
+            });
+          } catch (e) {
+            this.$bvToast.toast('Page not found!', {
+              title: 'Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+          }
+      }
+
+      this.isSearch = '';
+    },
   },
 };
 </script>

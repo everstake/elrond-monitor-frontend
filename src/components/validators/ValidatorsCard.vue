@@ -4,7 +4,7 @@
     :items="statsValidators"
     :class-card="['info-line', darkModeClassBgLightBlue]"
     :class-table-info="['p-0']"
-    :loading="loading"
+    :loading="loadStatsValid"
   >
     <template #header> Validators </template>
 
@@ -28,7 +28,7 @@
 
     <template #active_stake="{ item }">
       <p class="info-line__value" :class="[darkModeClassTitle]">
-        {{ item | formatToken }}
+        {{ reformatToken(item) }}
       </p>
     </template>
 
@@ -46,6 +46,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import numeral from 'numeral';
 import TableInfo from '../TableInfo.vue';
 import Tabs from './Tabs.vue';
 
@@ -102,16 +103,17 @@ export default {
       'statsValidators',
       'darkModeClassTitle',
       'darkModeClassBgLightBlue',
+      'loadStatsValid',
     ]),
-    loading() {
-      return this.statsValidators.length;
-    },
   },
   async mounted() {
     await this.fetchStatsValidators();
   },
   methods: {
     ...mapActions(['fetchStatsValidators']),
+    reformatToken(val) {
+      return `${numeral(val).format('0,0')} EGLD`;
+    },
   },
 };
 </script>
@@ -121,11 +123,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 0 50px;
 
-  @include xl-down {
-    flex-direction: column;
-    align-items: self-start;
+  @include md-down {
+    justify-content: center;
+    column-gap: 2rem;
   }
 
   &__group {

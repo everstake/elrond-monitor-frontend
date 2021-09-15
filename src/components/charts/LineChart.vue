@@ -41,7 +41,7 @@ export default {
             display: true,
             ticks: {
               display: true,
-              beginAtZero: true,
+              beginAtZero: false,
               callback(label) {
                 if (label === 0) {
                   return 0;

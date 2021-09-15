@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import AccountCard from '@/components/accounts/AccountCard.vue';
-import AccountTransactionsList from '@/components/accounts/AccountTransactionsList.vue';
-import AccountStakingProvider from '../components/accounts/AccountStakingProvider.vue';
+import AccountCard from '@/components/accounts/account-details/AccountCard.vue';
+import AccountTransactionsList from '@/components/accounts/account-details/AccountTransactionsList.vue';
+import AccountStakingProviders from '../components/accounts/account-details/AccountStakingProviders.vue';
 
 export default {
   components: {
-    AccountStakingProvider,
+    AccountStakingProviders,
     AccountTransactionsList,
     AccountCard,
   },
@@ -30,7 +30,7 @@ export default {
         case 'transactions':
           return 'AccountTransactionsList';
         case 'staking_providers':
-          return 'AccountStakingProvider';
+          return 'AccountStakingProviders';
         default:
           return 'AccountTransactionsList';
       }

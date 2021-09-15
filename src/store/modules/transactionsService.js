@@ -31,7 +31,6 @@ const transactionsService = {
         commit('setLoading', true);
         const transactions = await getTransactions({ params });
         commit('setTransactions', transactions.data);
-        commit('setLoading', false);
       } catch (err) {
         console.log(err);
       } finally {

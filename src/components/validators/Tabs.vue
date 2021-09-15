@@ -1,17 +1,13 @@
 <template>
   <div class="tabs">
-    <p
+    <router-link
       v-for="tab in tabs"
       :key="tab.key"
-      :class="[
-        'tabs__tab',
-        darkModeClassFonts,
-        { 'tabs__tab--active': currentTab === tab },
-      ]"
-      @click="chooseTab(tab)"
+      :to="{ name: tab.key }"
+      :class="['tabs__tab', darkModeClassFonts]"
     >
       {{ tab.label }}
-    </p>
+    </router-link>
   </div>
 </template>
 
@@ -20,7 +16,7 @@ import { mapGetters } from 'vuex';
 
 const tabs = [
   {
-    key: 'Validator',
+    key: 'Validators',
     label: 'Validators',
   },
   {
@@ -42,20 +38,10 @@ export default {
   data() {
     return {
       tabs,
-      currentTab: tabs[0],
     };
   },
   computed: {
-    ...mapGetters(['darkModeClassFonts']),
-  },
-  mounted() {
-    this.$router.replace({ name: this.currentTab.key });
-  },
-  methods: {
-    chooseTab(tab) {
-      this.currentTab = tab;
-      this.$router.replace({ name: tab.key });
-    },
+    ...mapGetters(['darkModeClassFonts', 'activeTab']),
   },
 };
 </script>

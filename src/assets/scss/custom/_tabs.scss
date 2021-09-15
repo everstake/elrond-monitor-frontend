@@ -9,6 +9,15 @@
     cursor: pointer;
     font-weight: 500;
 
+    &.router-link-exact-active {
+      color: $main-blue;
+      border-bottom: 2px solid $main-blue;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
     &--active {
       color: $main-blue;
       border-bottom: 2px solid $main-blue;
