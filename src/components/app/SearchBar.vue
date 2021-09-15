@@ -68,6 +68,7 @@ export default {
               params: { identity: name },
             });
           } catch (e) {
+            console.clear();
             this.$bvToast.toast('Page not found!', {
               title: 'Error!',
               autoHideDelay: 3000,

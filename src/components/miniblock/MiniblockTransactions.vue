@@ -49,7 +49,9 @@ export default {
   computed: {
     ...mapGetters(['miniblock', 'loadingBlock', 'darkModeClassBackground']),
     fields() {
-      return tableFields.accountsTransactionsFields;
+      return tableFields.accountsTransactionsFields.filter(
+        (elem) => elem.key !== 'status',
+      );
     },
     items() {
       return this.miniblock.txs;
