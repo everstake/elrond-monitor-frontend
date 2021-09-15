@@ -118,17 +118,16 @@ export default {
     currentPage: {
       immediate: true,
       async handler(val) {
-        if (val > 1) {
-          await this.requestName({
-            ...this.address,
-            page: val,
-            limit: this.perPage,
-          });
-          window.scrollTo(0, 0);
-        }
+        await this.requestName({
+          ...this.address,
+          page: val,
+          limit: this.perPage,
+        });
+        window.scrollTo(0, 0);
       },
     },
 
+    // TODO Refactor because dubble request
     address: {
       immediate: true,
       async handler() {
