@@ -35,7 +35,7 @@
     </template>
 
     <template #cell(status)="{ item: { to } }">
-      <img v-if="to === address" src="~@/assets/img/statusIn.svg" alt="In" />
+      <img v-if="to === address.address" src="~@/assets/img/statusIn.svg" alt="In" />
 
       <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
     </template>
