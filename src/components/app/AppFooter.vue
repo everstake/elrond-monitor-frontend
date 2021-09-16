@@ -36,19 +36,27 @@
           </router-link>
         </li>
         <li class="navbar__item">
-          <router-link to="/guides" class="navbar__link">
+          <a
+            href="https://medium.com/everstake/tagged/egld"
+            target="_blank"
+            class="navbar__link"
+          >
             Staking guides
-          </router-link>
+          </a>
         </li>
         <li class="navbar__item">
-          <router-link to="/web-wallet" class="navbar__link">
+          <a
+            href="https://wallet.elrond.com/"
+            target="_blank"
+            class="navbar__link"
+          >
             Web wallet
-          </router-link>
+          </a>
         </li>
         <li class="navbar__item">
-          <router-link to="/maiar-wallet" class="navbar__link">
+          <a href="https://maiar.com/" target="_blank" class="navbar__link">
             Maiar wallet
-          </router-link>
+          </a>
         </li>
       </ul>
     </div>
