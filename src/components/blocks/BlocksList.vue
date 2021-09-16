@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :fields="fields"
     :items="blocks"
     :total-items="$_totalRows(totalBlocks)"
@@ -38,18 +38,18 @@
     <template #cell(epoch)="{ item: { epoch } }">
       <span>{{ epoch }}</span>
     </template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import TableCard from '@/components/TableCard.vue';
+import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
 import pagination from "../../mixins/pagination";
 
 export default {
   name: 'BlocksList',
-  components: { TableCard },
+  components: { CommonTable },
   mixins: [pagination],
   computed: {
     ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),

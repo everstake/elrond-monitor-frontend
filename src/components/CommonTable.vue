@@ -67,7 +67,7 @@ import { mapGetters } from 'vuex';
 import AppSpinner from './app/AppSpinner.vue';
 
 export default {
-  name: 'TableCard',
+  name: 'CommonTable',
   components: {
     AppSpinner,
   },

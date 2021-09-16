@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :fields="fields"
     :items="transactions"
     :total-items="$_totalRows(totalTransactionItems)"
@@ -47,11 +47,11 @@
     <template #cell(valueUSD)="{ item: { value } }">
       {{ $_exchange(value) | formatUSD }}
     </template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
-import TableCard from '@/components/TableCard.vue';
+import CommonTable from '@/components/CommonTable.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { tableFields } from '@/constants/tables';
 import pagination from "../../mixins/pagination";
@@ -60,7 +60,7 @@ import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 export default {
   name: 'TransactionsList',
   components: {
-    TableCard,
+    CommonTable,
   },
   mixins: [exchangeTokenForUSD, pagination],
   computed: {

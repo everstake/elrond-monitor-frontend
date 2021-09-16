@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :items="nodes"
     :fields="fields"
     :request-name="request"
@@ -36,18 +36,18 @@
     </template>
 
     <template #cell(rating)="{ item: { rating } }">{{ rating }}</template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import TableCard from '../../TableCard.vue';
+import CommonTable from '../../CommonTable.vue';
 import { tableFields } from '../../../constants/tables';
 
 export default {
   name: 'NodesTable',
   components: {
-    TableCard,
+    CommonTable,
   },
   props: {
     request: {
