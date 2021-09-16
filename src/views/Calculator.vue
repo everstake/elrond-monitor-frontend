@@ -13,8 +13,8 @@
               type="range"
               class="col-md-6"
               min="8000000"
-              max="13000000"
-              step="500000"
+              max="14000000"
+              step="10000"
             />
 
             <span>{{ totalStake }} EGLD</span>
@@ -98,7 +98,7 @@
               <template #header>APR</template>
 
               <template>
-                <h3 id="delegator-apy">{{ toFixedNum(delegatorApy) }}%</h3>
+                <h3 id="delegator-apy">{{ toFixedNum(delegatorApr) }}%</h3>
               </template>
             </b-card>
 
@@ -150,9 +150,10 @@
 import { mapGetters } from 'vuex';
 import {
   arcstake,
-  rewardsPerEpochWithoutProtocolSustainability,
-  networkBaseStake,
-  topupRewardsLimit,
+  // rewardsPerEpochWithoutProtocolSustainability,
+  // networkBaseStake,
+  // topupRewardsLimit,
+  // rewardsPerEpoch,
   year,
   week,
   month,
@@ -176,29 +177,40 @@ export default {
       'darkModeClassTitle',
       'darkModeClassFonts',
     ]),
+
+    // Protocol Computed
+    rewardsPerEpoch() {
+      return (arcstake.genesisTokenSupply * arcstake.inflation[1]) / year;
+    },
+    topupRewardsLimit() {
+      return arcstake.topUpFactor * this.rewardsPerEpoch;
+    },
+    networkBaseStake() {
+      return arcstake.maxNetworkNodes * arcstake.stakePerNode;
+    },
     networkTopupStake() {
-      return Number(this.totalStake) - networkBaseStake;
+      return Number(this.totalStake) - this.networkBaseStake;
     },
     networkTopupRewards() {
       if (this.networkTopupStake === 0) {
         return 0;
       }
       return (
-        ((2 * topupRewardsLimit) / Math.PI) *
-        Math.atan(this.networkTopupStake / arcstake.topUpGradient)
+        ((2 * this.topupRewardsLimit) / Math.PI) *
+        Math.atan(this.networkTopupStake / arcstake.topUpGradient / 2)
       );
     },
     networkBaseRewards() {
-      return (
-        rewardsPerEpochWithoutProtocolSustainability - this.networkTopupRewards
-      );
+      return this.rewardsPerEpoch - this.networkTopupRewards;
     },
+
+    // APR
     spTotalStake() {
       return Number(this.agencyBaseStake) + Number(this.agencyTopupStake);
     },
     spBaseRewards() {
       return (
-        (Number(this.agencyBaseStake) / networkBaseStake) *
+        (Number(this.agencyBaseStake) / this.networkBaseStake) *
         this.networkBaseRewards
       );
     },
@@ -210,16 +222,18 @@ export default {
         this.networkTopupRewards
       );
     },
-    spAPY() {
+    spAPR() {
       return (
         (year * (this.spBaseRewards + this.spTopupRewards)) / this.spTotalStake
       );
     },
-    delegatorApy() {
-      return this.spAPY - (Number(this.agencyFee) / 100) * this.spAPY;
+
+    // Rewards
+    delegatorApr() {
+      return this.spAPR - (Number(this.agencyFee) / 100) * this.spAPR;
     },
     delegatorYearly() {
-      return this.delegatorApy * Number(this.userStake);
+      return this.delegatorApr * Number(this.userStake);
     },
     delegatorDaily() {
       return this.delegatorYearly / year;
@@ -228,7 +242,7 @@ export default {
       return this.delegatorDaily * week;
     },
     delegatorMonthly() {
-      return this.delegatorWeekly * month;
+      return this.delegatorDaily * month;
     },
   },
   methods: {

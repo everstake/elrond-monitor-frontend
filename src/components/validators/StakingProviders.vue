@@ -6,14 +6,14 @@
     :total-items="totalItems"
     :loading="loadingValidators"
   >
-    <template #cell(name-provider)="{ item: { avatar, name, provider } }">
+    <template #cell(name-provider)="{ item: { name, provider, validator } }">
       <div>
         <img
-          v-if="!avatar"
+          v-if="!validator.avatar"
           src="~@/assets/img/elrondLogo.svg"
           alt="Logo validator"
         />
-        <img v-else :src="avatar" alt="" width="32" height="32" />
+        <img v-else :src="validator.avatar" alt="" width="32" height="32" />
 
         <router-link
           :to="{ name: 'StakingProviderDetails', params: { provider } }"

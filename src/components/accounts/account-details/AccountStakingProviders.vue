@@ -10,6 +10,8 @@
     >
       <template #cell(provider)="data">
         {{ data.item.provider }}
+
+        <BtnCopy :address="data.item.provider" class="ml-2" />
       </template>
 
       <template #cell(stake)="data">
@@ -21,9 +23,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import BtnCopy from '../../BtnCopy.vue';
 
 export default {
   name: 'StakingProvider',
+  components: {
+    BtnCopy,
+  },
   data() {
     return {
       fields: [
