@@ -93,6 +93,7 @@ export default {
     $route: {
       handler() {
         this.fetchAccount(this.$route.params.id);
+        this.chooseTab(accountTabs[0]);
       },
     },
   },
