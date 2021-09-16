@@ -62,11 +62,7 @@
               :key="index"
               class="row-info__text--blue"
             >
-              <router-link
-                :to="{ name: 'Validators', params: { id: validator } }"
-              >
-                {{ validator | trimHashFromTo(20, -20) }}
-              </router-link>
+              {{ validator | trimHashFromTo(20, -20) }}
             </span>
           </div>
         </b-collapse>

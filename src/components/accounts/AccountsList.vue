@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :items="accounts"
     :fields="fields"
     :total-items="$_totalRows(totalItemsAccount)"
@@ -27,19 +27,19 @@
     <template #cell(unstake)="{ item: { undelegated } }">
       {{ undelegated }}
     </template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import TableCard from '@/components/TableCard.vue';
+import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
 import pagination from "../../mixins/pagination";
 
 export default {
   name: 'AccountsList',
   components: {
-    TableCard,
+    CommonTable,
   },
   mixins: [pagination],
   computed: {

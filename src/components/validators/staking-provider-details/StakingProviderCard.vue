@@ -87,11 +87,11 @@ export default {
       if (this.stakingProviderDetails.delegation_cap <= 0) {
         return '-';
       }
-      return `${
-        (this.stakingProviderDetails.stake /
+      return `${(
+        (this.stakingProviderDetails.locked /
           this.stakingProviderDetails.delegation_cap) *
         100
-      }%`;
+      ).toFixed(2)}%`;
     },
   },
   async mounted() {

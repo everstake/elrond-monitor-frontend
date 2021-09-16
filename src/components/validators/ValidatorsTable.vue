@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :items="validators"
     :fields="fields"
     :request-name="fetchValidators"
@@ -47,18 +47,18 @@
     <template #cell(num_nodes)="{ item: { num_nodes } }">
       <span>{{ num_nodes }} nodes</span>
     </template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import TableCard from '../TableCard.vue';
+import CommonTable from '../CommonTable.vue';
 import { tableFields } from '../../constants/tables';
 
 export default {
   name: 'ValidatorsTable',
   components: {
-    TableCard,
+    CommonTable,
   },
   computed: {
     ...mapGetters(['validators', 'totalItems', 'loadingValidators']),

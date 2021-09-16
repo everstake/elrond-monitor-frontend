@@ -1,5 +1,5 @@
 <template>
-  <TableCard
+  <CommonTable
     :items="stakingProviders"
     :fields="fields"
     :request-name="fetchStakingProviders"
@@ -45,18 +45,18 @@
 
       <span v-else>{{ delegation_cap | formatToken }}</span>
     </template>
-  </TableCard>
+  </CommonTable>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import TableCard from '../TableCard.vue';
+import CommonTable from '../CommonTable.vue';
 import { tableFields } from '../../constants/tables';
 
 export default {
   name: 'StakingProviders',
   components: {
-    TableCard,
+    CommonTable,
   },
   computed: {
     ...mapGetters(['stakingProviders', 'totalItems', 'loadingValidators']),
