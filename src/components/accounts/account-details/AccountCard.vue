@@ -97,8 +97,8 @@ export default {
       },
     },
   },
-  created() {
-    this.fetchAccount(this.$route.params.id);
+  async created() {
+    await this.fetchAccount(this.$route.params.id);
   },
   methods: {
     ...mapActions(['fetchAccount']),

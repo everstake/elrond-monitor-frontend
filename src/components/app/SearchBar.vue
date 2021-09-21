@@ -51,13 +51,21 @@ export default {
           break;
 
         case 64:
-          Promise.any([
-            getBlock(name),
-            getTransaction(name),
-            getMiniblock(name),
-          ]).then((resp) => {
-            this.$router.replace(resp.config.url);
-          });
+          try {
+            await Promise.any([
+              getBlock(name),
+              getTransaction(name),
+              getMiniblock(name),
+            ]).then((resp) => {
+              this.$router.replace(resp.config.url);
+            });
+          } catch(e) {
+            this.$bvToast.toast('Page not found!', {
+              title: 'Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+          }
           break;
 
         default:
@@ -68,7 +76,6 @@ export default {
               params: { identity: name },
             });
           } catch (e) {
-            console.clear();
             this.$bvToast.toast('Page not found!', {
               title: 'Error!',
               autoHideDelay: 3000,

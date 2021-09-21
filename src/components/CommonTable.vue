@@ -13,6 +13,8 @@
       <slot name="header" />
     </h1>
 
+    <slot name="filter" />
+
     <AppSpinner v-if="loading" :size-bool="true" />
 
     <div
@@ -50,12 +52,13 @@
         </div>
 
         <b-pagination
-          v-model="currentPage"
           :total-rows="totalItems"
           :per-page="perPage"
           align="right"
           aria-controls="my-table"
           :class="{ 'pagination__page-link--dark': darkModeOn }"
+          :value="currentPage"
+          @change="onChangePage"
         ></b-pagination>
       </div>
     </div>
@@ -88,10 +91,6 @@ export default {
       type: Number,
       default: 1,
     },
-    address: {
-      type: Object,
-      required: false,
-    },
     loading: {
       type: Boolean,
       default: false,
@@ -99,6 +98,11 @@ export default {
     customClass: {
       type: String,
       required: false,
+    },
+    fetchParams: {
+      type: Object,
+      required: false,
+      default: () => {},
     },
   },
   data() {
@@ -115,38 +119,43 @@ export default {
     ]),
   },
   watch: {
-    currentPage: {
-      immediate: true,
-      async handler(val) {
-        await this.requestName({
-          ...this.address,
-          page: val,
-          limit: this.perPage,
-        });
-        window.scrollTo(0, 0);
-      },
-    },
-
-    // TODO Refactor because dubble request
-    address: {
+    fetchParams: {
       immediate: true,
       async handler() {
         await this.requestName({
-          ...this.address,
+          ...this.fetchParams,
           page: 1,
           limit: this.perPage,
         });
         this.currentPage = 1;
       },
-    },
+    }
   },
   methods: {
-    choosePage(e) {
-      if (e <= 0) {
+    async choosePage(page) {
+      if (page <= 0) {
         this.currentPage = 1;
+        await this.requestName({
+          ...this.fetchParams,
+          page: 1,
+          limit: this.perPage,
+        });
       } else {
-        this.currentPage = e;
+        this.currentPage = page;
+        await this.requestName({
+          ...this.fetchParams,
+          page,
+          limit: this.perPage,
+        });
       }
+    },
+    async onChangePage(page) {
+      this.currentPage = page;
+      await this.requestName({
+        ...this.fetchParams,
+        page,
+        limit: this.perPage,
+      });
     },
   },
 };

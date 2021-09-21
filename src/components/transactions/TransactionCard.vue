@@ -230,9 +230,6 @@ export default {
       },
     },
   },
-  created() {
-    this.fetchTransaction(this.$route.params.id);
-  },
   methods: {
     ...mapActions(['fetchTransaction']),
   },

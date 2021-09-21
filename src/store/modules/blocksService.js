@@ -55,7 +55,7 @@ const blocksService = {
         const resp = await getBlock(hash);
         commit('setBlock', resp.data);
       } catch (e) {
-        console.err(e);
+        console.error(e);
       } finally {
         commit('setLoad', false);
       }

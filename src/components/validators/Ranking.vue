@@ -4,7 +4,7 @@
       <h1 :class="[darkModeClassTitle]">Staking Providers' Ranking</h1>
 
       <span :class="[darkModeClassFonts]"
-        >Amount of elrond on accounts is highlighted by color</span
+        >Amount of EGLD on accounts is highlighted by color</span
       >
     </div>
 
@@ -71,31 +71,31 @@ export default {
         labels: [...this.providersRanking.map(({ name }) => name)],
         datasets: [
           {
-            label: '0-100 elronds',
+            label: '0-100 EGLD',
             backgroundColor: '#969696',
             data: elem100,
             ...configWidthBar,
           },
           {
-            label: '100-1000 elronds',
+            label: '100-1000 EGLD',
             backgroundColor: '#00BA34',
             data: elem1k,
             ...configWidthBar,
           },
           {
-            label: '1k-10k elronds',
+            label: '1k-10k EGLD',
             backgroundColor: '#0085FF',
             data: elem10k,
             ...configWidthBar,
           },
           {
-            label: '10k-100k elronds',
+            label: '10k-100k EGLD',
             backgroundColor: '#F98600',
             data: elem100k,
             ...configWidthBar,
           },
           {
-            label: '100k-1M elronds',
+            label: '100k-1M EGLD',
             backgroundColor: '#E92C2C',
             data: elem1M,
             ...configWidthBar,
