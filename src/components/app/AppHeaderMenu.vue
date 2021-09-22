@@ -74,7 +74,7 @@
           <b-collapse id="networks">
             <div class="burger-menu__collapse-list">
               <a href="https://elrondmonitor.com/">Mainnet</a>
-              <a href="https://devnet.elrondmonitor.com/">Testnet</a>
+              <a href="https://devnet.elrondmonitor.com/">Devnet</a>
             </div>
           </b-collapse>
         </li>

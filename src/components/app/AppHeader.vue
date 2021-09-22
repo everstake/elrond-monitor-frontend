@@ -184,10 +184,10 @@
           <b-dropdown-item
             href="https://devnet.elrondmonitor.com/"
             :link-class="darkModeClassFonts"
-            :disabled="networkType === 'Testnet'"
+            :disabled="networkType === 'Devnet'"
             @click.native="hideDropDown('Mainnet')"
           >
-            <span class="mr-1">Testnet</span>
+            <span class="mr-1">Devnet</span>
             <b-icon v-if="!darkModeOn" icon="bezier" />
           </b-dropdown-item>
           <b-dropdown-item
@@ -234,7 +234,7 @@ export default {
   created() {
     // eslint-disable-next-line no-restricted-globals
     if (location.hostname === 'devnet.elrondmonitor.com') {
-      this.networkType = 'Testnet';
+      this.networkType = 'Devnet';
     }
   },
   methods: {
@@ -263,7 +263,7 @@ export default {
   &__options {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
 
     @include md-down {
       & .dropdown {
@@ -326,6 +326,10 @@ export default {
 
       @include md-down {
         display: none;
+      }
+
+      @include lg-down {
+        gap: 0.3rem;
       }
     }
 
