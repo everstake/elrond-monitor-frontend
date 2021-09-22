@@ -8,7 +8,7 @@
       >
     </div>
 
-    <AppSpinner v-if="loadingChart" :size-bool="true" />
+    <AppSpinner v-if="isLoadingProvidersRating" :size-bool="true" />
 
     <div v-else-if="totalDataChart" class="d-flex justify-content-center mb-3">
       Not data
@@ -34,7 +34,7 @@ export default {
       'darkModeClassTitle',
       'darkModeClassFonts',
       'providersRanking',
-      'loadingChart',
+      'isLoadingProvidersRating',
     ]),
     totalDataChart() {
       return !this.providersRanking && this.providersRanking.length;

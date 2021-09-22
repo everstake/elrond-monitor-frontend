@@ -1,36 +1,62 @@
 <template>
   <b-container>
     <div :class="['epoch', darkModeClassBackground]">
-      <div class="epoch__title">
-        <h1 :class="[darkModeClassTitle]">Epoch</h1>
-
-        <span>{{ epochDoughnut.epoch_number }}</span>
+      <AppSpinner v-if="isLoadingEpoch" size-bool />
+      <div
+        v-else-if="!epochDoughnut.epoch_number"
+        :class="[
+          'd-flex justify-content-center align-items-center mb-3 h-100',
+          darkModeClassFonts,
+        ]"
+      >
+        No epoch data
       </div>
-
-      <div :class="['epoch__progress', 'epoch__card']">
-        <div class="epoch__progress-info time">
-          <div class="time__info">
-            <span :class="darkModeClassFonts">since</span>
-            <h1>
-              {{ $_since(epochDoughnut.start) }}
-            </h1>
+      <template v-else>
+        <div class="epoch__title">
+          <div v-if="!epochDoughnut.epoch_number">
+            Coundn't get epoch number
           </div>
+          <h1 :class="[darkModeClassTitle]">Epoch</h1>
 
-          <div class="time__info">
-            <span :class="darkModeClassFonts">left</span>
-            <h1>
-              {{ epochDoughnut.left | formatDuration }}
-            </h1>
-          </div>
+          <span>{{ epochDoughnut.epoch_number }}</span>
         </div>
 
-        <div class="epoch__progress-bar">
-          <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
-          <b-progress :value="epochDoughnut.percent" max="100" />
-        </div>
-      </div>
+        <div :class="['epoch__progress', 'epoch__card']">
+          <div class="epoch__progress-info time">
+            <div class="time__info">
+              <span :class="darkModeClassFonts">since</span>
+              <h1>
+                {{ $_since(epochDoughnut.start) }}
+              </h1>
+            </div>
 
-      <div class="epoch__card epoch__wrapper-chart">
+            <div class="time__info">
+              <span :class="darkModeClassFonts">left</span>
+              <h1>
+                {{ epochDoughnut.left | formatDuration }}
+              </h1>
+            </div>
+          </div>
+
+          <div class="epoch__progress-bar">
+            <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
+            <b-progress :value="epochDoughnut.percent" max="100" />
+          </div>
+        </div>
+      </template>
+
+      <AppSpinner v-if="isLoadingStakeRange" size-bool />
+      <div
+        v-else-if="!stakeRange.length && !isLoadingStakeRange"
+        :class="[
+          'd-flex justify-content-center align-items-center mb-3 h-100',
+          darkModeClassFonts,
+        ]"
+      >
+      {{ stakeRange.length }}
+        No stake range data
+      </div>
+      <div v-else class="epoch__card epoch__wrapper-chart">
         <div class="epoch__card-header">
           <span>Changes to total stake</span>
 
@@ -39,6 +65,16 @@
         <LineChart ref="chart" :chart-data="getStakeRangeData()" />
       </div>
 
+      <!-- <AppSpinner v-if="isLoadingPriceChange" size-bool />
+      <div
+        v-else-if="!priceRange.length && !isLoadingPriceChange"
+        :class="[
+          'd-flex justify-content-center align-items-center mb-3 h-100',
+          darkModeClassFonts,
+        ]"
+      >
+        No price change data
+      </div> -->
       <div class="epoch__card epoch__wrapper-chart">
         <div class="epoch__card-header">
           <span>Changes to price</span>
@@ -65,10 +101,11 @@ import { mapGetters, mapActions } from 'vuex';
 import epochPercent from '../mixins/epochPercent';
 import LineChart from '../components/charts/LineChart.vue';
 import CustomDatePicker from '../components/CustomDatePicker.vue';
+import AppSpinner from '../components/app/AppSpinner.vue';
 
 export default {
   name: 'Epoch',
-  components: { LineChart, CustomDatePicker },
+  components: { LineChart, CustomDatePicker, AppSpinner },
   mixins: [epochPercent],
   data() {
     return {
@@ -86,6 +123,9 @@ export default {
       'stakeRange',
       'priceRange',
       'delegatorsRange',
+      'isLoadingEpoch',
+      'isLoadingStakeRange',
+      // 'isLoadingPriceChange',
     ]),
   },
   mounted() {

@@ -17,7 +17,9 @@ const chartsService = {
     priceRange: [],
     delegatorsRange: [],
     providersRanking: [],
-    loading: false,
+    loadingEpoch: false,
+    loadingProvidersRating: false,
+    loadingStakeRange: false,
   },
   getters: {
     accountsChart: (state) => state.accountsChart,
@@ -27,7 +29,9 @@ const chartsService = {
     priceRange: (state) => state.priceRange,
     delegatorsRange: (state) => state.delegatorsRange,
     providersRanking: (state) => state.providersRanking,
-    loadingChart: (state) => state.loading,
+    isLoadingEpoch: (state) => state.loadingEpoch,
+    isLoadingProvidersRating: (state) => state.loadingProvidersRating,
+    isLoadingStakeRange: (state) => state.loadingStakeRange,
   },
   mutations: {
     setAccountsChart(state, item) {
@@ -51,8 +55,14 @@ const chartsService = {
     setProvidersRanking(state, item) {
       state.providersRanking = item;
     },
-    setLoaderCharts(state, bool) {
-      state.loading = bool;
+    setEpochLoader(state, bool) {
+      state.loadingEpoch = bool;
+    },
+    setLoadingProvidersRating(state, bool) {
+      state.loadingProvidersRating = bool;
+    },
+    setLoadingStakingRange(state, bool) {
+      state.loadingStakeRange = bool;
     },
   },
   actions: {
@@ -74,21 +84,26 @@ const chartsService = {
     },
     async fetchEpochDoughnut({ commit }) {
       try {
-        commit('setLoaderCharts', true);
+        commit('setEpochLoader', true);
         const resp = await getEpochDoughnut();
         commit('setEpochDoughnut', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoaderCharts', false);
+        commit('setEpochLoader', false);
       }
     },
     async fetchStakeRange({ commit }, params) {
       try {
+        commit('setLoadingStakingRange', true);
         const resp = await getStakeRange({ params });
         commit('setStakeRange', resp.data);
       } catch (e) {
         console.error(e);
+      } finally {
+        setTimeout(() => {
+          commit('setLoadingStakingRange', false);
+        }, 2000);
       }
     },
     async fetchPriceRange({ commit }, params) {
@@ -109,13 +124,13 @@ const chartsService = {
     },
     async fetchProvidersRanking({ commit }) {
       try {
-        commit('setLoaderCharts', true);
+        commit('setLoadingProvidersRating', true);
         const resp = await getProvidersRanking();
         commit('setProvidersRanking', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoaderCharts', false);
+        commit('setLoadingProvidersRating', false);
       }
     },
   },
