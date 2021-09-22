@@ -169,6 +169,7 @@
         </b-dropdown>
 
         <b-dropdown
+          ref="newtworkDd"
           right
           no-caret
           variant="none"
@@ -183,6 +184,8 @@
           <b-dropdown-item
             href="https://devnet.elrondmonitor.com/"
             :link-class="darkModeClassFonts"
+            :disabled="networkType === 'Testnet'"
+            @click.native="hideDropDown('Mainnet')"
           >
             <span class="mr-1">Testnet</span>
             <b-icon v-if="!darkModeOn" icon="bezier" />
@@ -190,6 +193,8 @@
           <b-dropdown-item
             href="https://elrondmonitor.com/"
             :link-class="darkModeClassFonts"
+            :disabled="networkType === 'Mainnet'"
+            @click.native="hideDropDown('Mainnet')"
           >
             <span class="mr-1">Mainnet</span>
             <b-icon v-if="!darkModeOn" icon="bezier" />
@@ -236,6 +241,11 @@ export default {
     ...mapActions({
       changeMode: 'changeMode',
     }),
+    hideDropDown(type) {
+      if (type === this.networkType) {
+        this.$refs.newtworkDd.hide();
+      }
+    },
   },
 };
 </script>
