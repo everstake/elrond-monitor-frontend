@@ -164,7 +164,7 @@
             href="https://docs.elrond.com/"
             target="_blank"
             :link-class="darkModeClassFonts"
-            >Elrond Docs</b-dropdown-item
+            >Elrond Docs</b-dropdown-item 
           >
         </b-dropdown>
       </div>
