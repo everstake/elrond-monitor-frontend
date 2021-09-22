@@ -3,7 +3,7 @@
     :fields="fields"
     :items="transactions"
     :total-items="$_totalRows(totalTransactionItems)"
-    :address="address"
+    :fetch-params="fetchParams"
     :request-name="fetchTransactions"
     :loading="loadingTx"
   >
@@ -25,7 +25,7 @@
 
     <template #cell(from)="{ item: { from } }">
       <router-link
-        v-if="from !== address.address"
+        v-if="from !== fetchParams.address"
         :to="{ name: 'AccountDetails', params: { id: from } }"
       >
         {{ from | trimHashFromTo(8, -10) }}
@@ -35,14 +35,18 @@
     </template>
 
     <template #cell(status)="{ item: { to } }">
-      <img v-if="to === address.address" src="~@/assets/img/statusIn.svg" alt="In" />
+      <img
+        v-if="to === fetchParams.address"
+        src="~@/assets/img/statusIn.svg"
+        alt="In"
+      />
 
       <img v-else src="~@/assets/img/statusOut.svg" alt="Out" />
     </template>
 
     <template #cell(to)="{ item: { to } }">
       <router-link
-        v-if="to !== address.address"
+        v-if="to !== fetchParams.address"
         :to="{ name: 'AccountDetails', params: { id: to } }"
       >
         {{ to | trimHashFromTo(8, -10) }}
@@ -77,7 +81,7 @@ export default {
     fields() {
       return tableFields.accountsTransactionsFields;
     },
-    address() {
+    fetchParams() {
       return { address: this.$route.params.id };
     },
   },

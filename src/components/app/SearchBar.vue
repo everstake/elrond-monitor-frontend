@@ -44,31 +44,43 @@ export default {
 
       switch (this.isSearch.length) {
         case 62:
-          this.$router.replace({
-            name: 'AccountDetails',
-            params: { id: name },
-          });
+          if (this.$route.params.id !== name) {
+            this.$router.replace({
+              name: 'AccountDetails',
+              params: { id: name },
+            });
+          }
           break;
 
         case 64:
-          Promise.any([
-            getBlock(name),
-            getTransaction(name),
-            getMiniblock(name),
-          ]).then((resp) => {
-            this.$router.replace(resp.config.url);
-          });
+          try {
+            if (this.$route.params.id !== name) {
+              const resp = await Promise.any([
+                getBlock(name),
+                getTransaction(name),
+                getMiniblock(name),
+              ]);
+              this.$router.replace(resp.config.url);
+            }
+          } catch (e) {
+            this.$bvToast.toast('Page not found!', {
+              title: 'Error!',
+              autoHideDelay: 3000,
+              variant: 'danger',
+            });
+          }
           break;
 
         default:
           try {
-            await getValidatorStats({ identity: name });
-            this.$router.replace({
-              name: 'ValidatorsDetails',
-              params: { identity: name },
-            });
+            if (this.$route.params.id !== name) {
+              await getValidatorStats({ identity: name });
+              this.$router.replace({
+                name: 'ValidatorsDetails',
+                params: { identity: name },
+              });
+            }
           } catch (e) {
-            console.clear();
             this.$bvToast.toast('Page not found!', {
               title: 'Error!',
               autoHideDelay: 3000,

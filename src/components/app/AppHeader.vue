@@ -164,8 +164,36 @@
             href="https://docs.elrond.com/"
             target="_blank"
             :link-class="darkModeClassFonts"
-            >Elrond Docs</b-dropdown-item 
+            >Elrond Docs</b-dropdown-item
           >
+        </b-dropdown>
+
+        <b-dropdown
+          right
+          no-caret
+          variant="none"
+          class="network"
+          :menu-class="darkModeClassBackground"
+        >
+          <template #button-content>
+            <span :class="['network__title', darkModeClassFonts]">
+              {{ networkType }}
+            </span>
+          </template>
+          <b-dropdown-item
+            href="https://devnet.elrondmonitor.com/"
+            :link-class="darkModeClassFonts"
+          >
+            <span class="mr-1">Testnet</span>
+            <b-icon v-if="!darkModeOn" icon="bezier" />
+          </b-dropdown-item>
+          <b-dropdown-item
+            href="https://elrondmonitor.com/"
+            :link-class="darkModeClassFonts"
+          >
+            <span class="mr-1">Mainnet</span>
+            <b-icon v-if="!darkModeOn" icon="bezier" />
+          </b-dropdown-item>
         </b-dropdown>
       </div>
     </div>
@@ -180,6 +208,7 @@ export default {
   data() {
     return {
       showMenu: false,
+      networkType: 'Mainnet',
     };
   },
   computed: {
@@ -196,6 +225,12 @@ export default {
         this.$root.$emit('hide', 'links');
       }
     });
+  },
+  created() {
+    // eslint-disable-next-line no-restricted-globals
+    if (location.hostname === 'devnet.elrondmonitor.com') {
+      this.networkType = 'Testnet';
+    }
   },
   methods: {
     ...mapActions({
@@ -238,10 +273,16 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
+
   &__option-btn {
     background: none !important;
     border: none !important;
   }
+
+  &__network-btn {
+    @include font(24px, $main-blue, 500);
+  }
+
   .logo {
     display: flex;
     gap: 20px;
@@ -356,6 +397,16 @@ export default {
         transform: rotate(-45deg);
       }
     }
+  }
+}
+
+.network {
+  &__title {
+    @include font(18px, $font-black);
+  }
+
+  & .dropdown-menu {
+    min-width: 1rem;
   }
 }
 </style>
