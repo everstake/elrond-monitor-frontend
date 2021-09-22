@@ -3,10 +3,10 @@ import Vuex from 'vuex';
 import layoutService from './modules/layoutService';
 import accountService from './modules/accountService';
 import transactionsService from './modules/transactionsService';
-import validatorsService from './modules/validatorsService';
+import stakingService from './modules/stakingService';
 import blocksService from './modules/blocksService';
 import statsService from './modules/statsService';
-import chartsService from "./modules/chartsService";
+import chartsService from './modules/chartsService';
 
 Vue.use(Vuex);
 
@@ -18,10 +18,9 @@ export default new Vuex.Store({
     layoutService,
     accountService,
     transactionsService,
-    validatorsService,
+    validatorsService: stakingService,
     blocksService,
     statsService,
     chartsService,
-
   },
 });

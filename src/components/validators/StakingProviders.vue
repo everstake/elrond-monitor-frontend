@@ -4,7 +4,7 @@
     :fields="fields"
     :request-name="fetchStakingProviders"
     :total-items="totalItems"
-    :loading="loadingValidators"
+    :loading="loadingStaking"
   >
     <template #cell(name-provider)="{ item: { name, provider, validator } }">
       <div>
@@ -59,7 +59,7 @@ export default {
     CommonTable,
   },
   computed: {
-    ...mapGetters(['stakingProviders', 'totalItems', 'loadingValidators']),
+    ...mapGetters(['stakingProviders', 'totalItems', 'loadingStaking']),
     fields() {
       return tableFields.validatorsFields.stakingProviders;
     },

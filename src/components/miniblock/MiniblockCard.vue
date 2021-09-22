@@ -7,9 +7,9 @@
       <BtnCopy :address="item" class="ml-2" />
     </template>
 
-    <template #shard_from="{ item }">{{ item }}</template>
+    <template #shard_from="{ item }">{{ item | formatShard }}</template>
 
-    <template #shard_to="{ item }">{{ item }}</template>
+    <template #shard_to="{ item }">{{ item | formatShard }}</template>
 
     <template #block_sender="{ item }">{{ item }}</template>
 

@@ -51,3 +51,6 @@ export const getDelegatorsRange = (params) =>
   APIService.get('/delegators/range', params);
 
 export const getProvidersRanking = () => APIService.get('/providers/ranking');
+
+export const getStakingEvents = (params) =>
+  APIService.get('/stake/events', params);

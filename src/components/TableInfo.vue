@@ -15,21 +15,23 @@
       Not data
     </div>
 
-    <div v-else :class="[...classCard, 'wrapper-table-info']">
-      <div
-        v-for="(item, index) in fields"
-        :key="index"
-        :class="[...(item.class.wrapper || '')]"
-      >
-        <div :class="[...(item.class.item || ''), darkModeClassFonts]">
-          <div :class="[...(item.class.label || '')]">{{ item.label }}</div>
+    <div v-else class="wrapper-table-info">
+      <div :class="[...classCard]">
+        <div
+          v-for="(item, index) in fields"
+          :key="index"
+          :class="[...(item.class.wrapper || '')]"
+        >
+          <div :class="[...(item.class.item || ''), darkModeClassFonts]">
+            <div :class="[...(item.class.label || '')]">{{ item.label }}</div>
 
-          <slot :name="item.key" :item="items[item.key]" />
+            <slot :name="item.key" :item="items[item.key]" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <slot name="block-nav" />
+      <slot name="block-nav" />
+    </div>
   </div>
 </template>
 
@@ -154,6 +156,9 @@ export default {
 }
 
 .wrapper-table-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   overflow-x: auto;
   width: 100%;
 

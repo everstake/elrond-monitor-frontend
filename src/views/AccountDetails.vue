@@ -2,9 +2,7 @@
   <div class="container-lg account-details">
     <AccountCard @selectedTab="selectedTab" />
 
-    <keep-alive>
-      <component :is="activeComponent"></component>
-    </keep-alive>
+    <component :is="activeComponent"></component>
   </div>
 </template>
 
@@ -12,12 +10,14 @@
 import AccountCard from '@/components/accounts/account-details/AccountCard.vue';
 import AccountTransactionsList from '@/components/accounts/account-details/AccountTransactionsList.vue';
 import AccountStakingProviders from '../components/accounts/account-details/AccountStakingProviders.vue';
+import AccountStakingEvents from '../components/accounts/account-details/AccountStakingEvents.vue';
 
 export default {
   components: {
     AccountStakingProviders,
     AccountTransactionsList,
     AccountCard,
+    AccountStakingEvents,
   },
   data() {
     return {
@@ -31,6 +31,8 @@ export default {
           return 'AccountTransactionsList';
         case 'staking_providers':
           return 'AccountStakingProviders';
+        case 'staking_events':
+          return 'AccountStakingEvents';
         default:
           return 'AccountTransactionsList';
       }

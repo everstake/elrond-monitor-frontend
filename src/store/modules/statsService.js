@@ -13,20 +13,20 @@ const statsService = {
     setStats(state, item) {
       state.stats = item;
     },
-    setLoading(state, bol) {
-      state.loading = bol;
+    setLoaderStats(state, bool) {
+      state.loading = bool;
     },
   },
   actions: {
     async fetchStats({ commit }) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderStats', true);
         const resp = await getStats();
         commit('setStats', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderStats', false);
       }
     },
   },

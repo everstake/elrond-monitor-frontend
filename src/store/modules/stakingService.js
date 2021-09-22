@@ -6,9 +6,10 @@ import {
   getNodes,
   getValidatorStats,
   getStakingProviderStats,
+  getStakingEvents,
 } from '../../api/services';
 
-const validatorsService = {
+const stakingService = {
   state: {
     stats: {},
     stakingProviders: [],
@@ -23,6 +24,7 @@ const validatorsService = {
     loadStatsValid: false,
     loadStatsProvider: false,
     loadStatsValidDetails: false,
+    stakingEvents: [],
   },
   getters: {
     statsValidators: (state) => state.stats,
@@ -31,12 +33,13 @@ const validatorsService = {
     validatorsMap: (state) => state.validatorsMap,
     validators: (state) => state.validators,
     totalItems: (state) => state.totalItems,
-    loadingValidators: (state) => state.loading,
+    loadingStaking: (state) => state.loading,
     validatorDetails: (state) => state.validatorsDetails,
     stakingProviderDetails: (state) => state.stakingDetails,
     loadStatsValid: (state) => state.loadStatsValid,
     loadStatsProvider: (state) => state.loadStatsProvider,
     loadStatsValidDetails: (state) => state.loadStatsValidDetails,
+    stakingEvents: (state) => state.stakingEvents,
   },
   mutations: {
     setStats(state, item) {
@@ -53,7 +56,7 @@ const validatorsService = {
       state.stakingProviders = items.items;
       state.totalItems = items.count;
     },
-    setLoading(state, bool) {
+    setLoaderStaking(state, bool) {
       state.loading = bool;
     },
     setNodes(state, nodes) {
@@ -75,6 +78,10 @@ const validatorsService = {
     setLoadStatsValidDetails(state, bool) {
       state.loadStatsValidDetails = bool;
     },
+    setStakingEvents(state, items) {
+      state.stakingEvents = items.items;
+      state.totalItems = items.count;
+    },
   },
   actions: {
     async fetchStatsValidators({ commit }) {
@@ -90,13 +97,13 @@ const validatorsService = {
     },
     async fetchValidators({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderStaking', true);
         const validators = await getValidators({ params });
         commit('setValidators', validators.data);
       } catch (err) {
         console.log(err);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderStaking', false);
       }
     },
     async fetchValidatorsMap({ commit }) {
@@ -109,24 +116,24 @@ const validatorsService = {
     },
     async fetchStakingProviders({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderStaking', true);
         const resp = await getStakingProviders({ params });
         commit('setStakingProviders', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderStaking', false);
       }
     },
     async fetchNodes({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderStaking', true);
         const resp = await getNodes({ params });
         commit('setNodes', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderStaking', false);
       }
     },
     async fetchValidator({ commit }, params) {
@@ -151,7 +158,18 @@ const validatorsService = {
         commit('setLoadStatsProvider', false);
       }
     },
+    async fetchStakingEvents({ commit }, params) {
+      try {
+        commit('setLoaderStaking', true);
+        const resp = await getStakingEvents({ params });
+        commit('setStakingEvents', resp.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        commit('setLoaderStaking', false);
+      }
+    },
   },
 };
 
-export default validatorsService;
+export default stakingService;

@@ -260,8 +260,13 @@ export default {
   computed: {
     ...mapGetters(['block', 'loadingBlock', 'darkModeClassFonts']),
   },
-  async created() {
-    await this.fetchBlock(this.$route.params.id);
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.fetchBlock(this.$route.params.id);
+      },
+    },
   },
   methods: {
     ...mapActions(['fetchBlock', 'fetchBlockNonce']),
