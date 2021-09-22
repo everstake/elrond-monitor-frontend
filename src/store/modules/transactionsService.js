@@ -21,32 +21,32 @@ const transactionsService = {
     setTransaction(state, item) {
       state.transaction = item;
     },
-    setLoading(state, bol) {
-      state.loading = bol;
+    setLoaderTx(state, bool) {
+      state.loading = bool;
     },
   },
   actions: {
     async fetchTransactions({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderTx', true);
         const transactions = await getTransactions({ params });
         commit('setTransactions', transactions.data);
       } catch (err) {
         console.log(err);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderTx', false);
       }
     },
     async fetchTransaction({ commit }, hash) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderTx', true);
         const resp = await getTransaction(hash);
         commit('setTransaction', resp.data);
-        commit('setLoading', false);
+        commit('setLoaderTx', false);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderTx', false);
       }
     },
   },

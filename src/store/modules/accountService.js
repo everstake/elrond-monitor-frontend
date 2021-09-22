@@ -21,31 +21,31 @@ const accountService = {
     setAccount(state, account) {
       state.account = account;
     },
-    setLoading(state, bol) {
-      state.loading = bol;
+    setLoaderAccounts(state, bool) {
+      state.loading = bool;
     },
   },
   actions: {
     async fetchAccounts({ commit }, params) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderAccounts', true);
         const accounts = await getAccounts({ params });
         commit('setAccounts', accounts.data);
       } catch (err) {
         console.error(err);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderAccounts', false);
       }
     },
     async fetchAccount({ commit }, address) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderAccounts', true);
         const acc = await getAccount(address);
         commit('setAccount', acc.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderAccounts', false);
       }
     },
   },

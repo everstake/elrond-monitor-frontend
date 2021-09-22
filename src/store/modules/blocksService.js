@@ -29,8 +29,8 @@ const blocksService = {
     setBlock(state, item) {
       state.block = item;
     },
-    setLoad(state, bol) {
-      state.loading = bol;
+    setLoaderBlocks(state, bool) {
+      state.loading = bool;
     },
     setMiniblock(state, item) {
       state.miniblock = item;
@@ -39,47 +39,47 @@ const blocksService = {
   actions: {
     async fetchBlocks({ commit }, params) {
       try {
-        commit('setLoad', true);
+        commit('setLoaderBlocks', true);
 
         const resp = await getBlocks({ params });
         commit('setBlocks', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoad', false);
+        commit('setLoaderBlocks', false);
       }
     },
     async fetchBlock({ commit }, hash) {
       try {
-        commit('setLoad', true);
+        commit('setLoaderBlocks', true);
         const resp = await getBlock(hash);
         commit('setBlock', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoad', false);
+        commit('setLoaderBlocks', false);
       }
     },
     async fetchBlockNonce({ commit }, params) {
       try {
-        commit('setLoad', true);
+        commit('setLoaderBlocks', true);
         const resp = await getBlockNonce(params);
         commit('setBlock', resp.data);
       } catch (e) {
         handlerError(e);
       } finally {
-        commit('setLoad', false);
+        commit('setLoaderBlocks', false);
       }
     },
     async fetchMiniblock({ commit }, hash) {
       try {
-        commit('setLoad', true);
+        commit('setLoaderBlocks', true);
         const resp = await getMiniblock(hash);
         commit('setMiniblock', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoad', false);
+        commit('setLoaderBlocks', false);
       }
     },
   },

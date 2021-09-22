@@ -1,53 +1,63 @@
 <template>
-  <AppSpinner v-if="loadingAcc" :size-bool="true" />
+  <div class="account-card" :class="[darkModeClassBackground]">
+    <AppSpinner v-if="loadingAcc" :size-bool="true" />
 
-  <div v-else class="account-card" :class="[darkModeClassBackground]">
-    <h1 class="account-card__title account-card__item">Account details</h1>
-    <div class="account-card__address-group account-card__item">
-      <p class="account-card__address">
-        {{ account.address }}
-      </p>
+    <div v-else-if="!account && !account.length">Not data</div>
 
-      <BtnCopy :address="account.address" />
-    </div>
+    <div v-else>
+      <h1 class="account-card__title account-card__item">Account details</h1>
+      <div class="account-card__address-group account-card__item">
+        <p class="account-card__address">
+          {{ account.address }}
+        </p>
 
-    <div class="account-card__info-group">
-      <div class="account-card__info">
-        <p class="account-card__info-item">Balance</p>
-        <p class="account-card__info-item">
-          {{ account.balance | formatToken }}
+        <BtnCopy :address="account.address" />
+      </div>
+
+      <div class="account-card__info-group">
+        <div class="account-card__info">
+          <p class="account-card__info-item">Balance</p>
+          <p class="account-card__info-item">
+            {{ account.balance | formatToken }}
+          </p>
+        </div>
+
+        <div class="account-card__info">
+          <p class="account-card__info-item">Stake</p>
+          <p class="account-card__info-item">
+            {{ account.delegated | formatToken }}
+          </p>
+        </div>
+
+        <div class="account-card__info">
+          <p class="account-card__info-item">Unstake</p>
+          <p class="account-card__info-item">
+            {{ account.undelegated | formatToken }}
+          </p>
+        </div>
+
+        <div class="account-card__info">
+          <p class="account-card__info-item">Total rewards</p>
+          <p class="account-card__info-item">
+            {{ account.rewards_claimed | formatToken }}
+          </p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <p
+          v-for="tab in accountTabs"
+          :key="tab.key"
+          :class="[
+            'tabs__tab',
+            darkModeClassFonts,
+            { 'tabs__tab--active': currentTab === tab },
+          ]"
+          @click="chooseTab(tab)"
+        >
+          {{ tab.label }}
         </p>
       </div>
-
-      <div class="account-card__info">
-        <p class="account-card__info-item">Stake</p>
-        <p class="account-card__info-item">{{ account.delegated }}</p>
-      </div>
-
-      <div class="account-card__info">
-        <p class="account-card__info-item">Unstake</p>
-        <p class="account-card__info-item">{{ account.undelegated }}</p>
-      </div>
-
-      <div class="account-card__info">
-        <p class="account-card__info-item">Total rewards</p>
-        <p class="account-card__info-item">{{ account.rewards_claimed }}</p>
-      </div>
-    </div>
-
-    <div class="tabs">
-      <p
-        v-for="tab in accountTabs"
-        :key="tab.key"
-        :class="[
-          'tabs__tab',
-          darkModeClassFonts,
-          { 'tabs__tab--active': currentTab === tab },
-        ]"
-        @click="chooseTab(tab)"
-      >
-        {{ tab.label }}
-      </p>
     </div>
   </div>
 </template>
@@ -65,6 +75,10 @@ const accountTabs = [
   {
     key: 'staking_providers',
     label: 'Staking providers',
+  },
+  {
+    key: 'staking_events',
+    label: 'Staking events',
   },
 ];
 
@@ -91,14 +105,12 @@ export default {
   },
   watch: {
     $route: {
+      immediate: true,
       handler() {
         this.fetchAccount(this.$route.params.id);
         this.chooseTab(accountTabs[0]);
       },
     },
-  },
-  async created() {
-    await this.fetchAccount(this.$route.params.id);
   },
   methods: {
     ...mapActions(['fetchAccount']),

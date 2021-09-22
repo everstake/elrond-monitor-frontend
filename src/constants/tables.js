@@ -306,4 +306,50 @@ export const tableFields = {
       tdClass: ['table__cell--block'],
     },
   ],
+  stakingEventsFields: [
+    {
+      key: 'tx_hash',
+      label: 'Tx Hash',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block table__cell--blue'],
+    },
+    {
+      key: 'type',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block'],
+    },
+    {
+      key: 'validator',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block table__cell--blue'],
+    },
+    {
+      key: 'delegator',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block table__cell--blue'],
+    },
+    {
+      key: 'epoch',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block'],
+    },
+    {
+      key: 'amount',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block'],
+    },
+    {
+      key: 'created_at',
+      label: 'Created',
+      class: ['table__cell'],
+      thClass: ['table__title'],
+      tdClass: ['table__cell--block'],
+    },
+  ],
 };

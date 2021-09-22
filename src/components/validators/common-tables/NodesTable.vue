@@ -4,7 +4,7 @@
     :fields="fields"
     :request-name="request"
     :total-items="totalItems"
-    :loading="loadingValidators"
+    :loading="loadingStaking"
     :address="address"
     :custom-class="'title-nodes'"
     :fetch-params="fetchParams"
@@ -126,7 +126,7 @@ export default {
     ...mapGetters([
       'nodes',
       'totalItems',
-      'loadingValidators',
+      'loadingStaking',
       'darkModeClassBackground',
       'darkModeClassFonts',
     ]),

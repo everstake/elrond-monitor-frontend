@@ -51,7 +51,7 @@ const chartsService = {
     setProvidersRanking(state, item) {
       state.providersRanking = item;
     },
-    setLoading(state, bool) {
+    setLoaderCharts(state, bool) {
       state.loading = bool;
     },
   },
@@ -74,13 +74,13 @@ const chartsService = {
     },
     async fetchEpochDoughnut({ commit }) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderCharts', true);
         const resp = await getEpochDoughnut();
         commit('setEpochDoughnut', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderCharts', false);
       }
     },
     async fetchStakeRange({ commit }, params) {
@@ -109,13 +109,13 @@ const chartsService = {
     },
     async fetchProvidersRanking({ commit }) {
       try {
-        commit('setLoading', true);
+        commit('setLoaderCharts', true);
         const resp = await getProvidersRanking();
         commit('setProvidersRanking', resp.data);
       } catch (e) {
         console.error(e);
       } finally {
-        commit('setLoading', false);
+        commit('setLoaderCharts', false);
       }
     },
   },
