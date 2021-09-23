@@ -3,37 +3,46 @@
     <div :class="['epoch', darkModeClassBackground]">
       <template>
         <div class="epoch__title">
-          <div v-if="!epochDoughnut.epoch_number">
-            Coundn't get epoch number
-          </div>
           <h1 :class="[darkModeClassTitle]">Epoch</h1>
 
           <span>{{ epochDoughnut.epoch_number }}</span>
         </div>
 
         <div :class="['epoch__progress', 'epoch__card']">
-          <div class="epoch__progress-info time">
-            <div class="time__info">
-              <span :class="darkModeClassFonts">since</span>
-              <h1>
-                {{ $_since(epochDoughnut.start) }}
-              </h1>
-            </div>
-
-            <div class="time__info">
-              <span :class="darkModeClassFonts">left</span>
-              <h1>
-                {{ epochDoughnut.left | formatDuration }}
-              </h1>
-            </div>
-          </div>
-
           <AppSpinner v-if="isLoadingEpoch" size-bool />
-
-          <div v-else class="epoch__progress-bar">
-            <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
-            <b-progress :value="epochDoughnut.percent" max="100" />
+          <div
+            v-else-if="
+              Object.keys(epochDoughnut).length === 0 && !isLoadingEpoch
+            "
+            :class="[
+              'd-flex justify-content-center align-items-center mb-3 h-100',
+              darkModeClassFonts,
+            ]"
+          >
+            Not data
           </div>
+          <template v-else>
+            <div class="epoch__progress-info time">
+              <div class="time__info">
+                <span :class="darkModeClassFonts">since</span>
+                <h1>
+                  {{ $_since(epochDoughnut.start) }}
+                </h1>
+              </div>
+
+              <div class="time__info">
+                <span :class="darkModeClassFonts">left</span>
+                <h1>
+                  {{ epochDoughnut.left | formatDuration }}
+                </h1>
+              </div>
+            </div>
+
+            <div class="epoch__progress-bar">
+              <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
+              <b-progress :value="epochDoughnut.percent" max="100" />
+            </div>
+          </template>
         </div>
       </template>
 
@@ -43,28 +52,38 @@
 
           <CustomDatePicker :request-name="fetchStakeRange" />
         </div>
-        <AppSpinner v-if="isLoadingStakeRange" size-bool />
 
+        <AppSpinner v-if="isLoadingStakeRange" size-bool />
+        <div
+          v-else-if="stakeRange.length === 0 && !isLoadingStakeRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
         <LineChart v-else ref="chart" :chart-data="getStakeRangeData()" />
       </div>
 
-      <!-- <AppSpinner v-if="isLoadingPriceChange" size-bool />
-      <div
-        v-else-if="!priceRange.length && !isLoadingPriceChange"
-        :class="[
-          'd-flex justify-content-center align-items-center mb-3 h-100',
-          darkModeClassFonts,
-        ]"
-      >
-        No price change data
-      </div> -->
       <div class="epoch__card epoch__wrapper-chart">
         <div class="epoch__card-header">
           <span>Changes to price</span>
 
           <CustomDatePicker :request-name="fetchPriceRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getPriceRangeData()" />
+
+        <AppSpinner v-if="isLoadingPriceRange" size-bool />
+        <div
+          v-else-if="priceRange.length === 0 && !isLoadingPriceRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
+        <LineChart v-else ref="chart" :chart-data="getPriceRangeData()" />
       </div>
 
       <div class="epoch__card epoch__wrapper-chart">
@@ -73,7 +92,18 @@
 
           <CustomDatePicker :request-name="fetchDelegatorsRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getDelegatorsRangeData()" />
+
+        <AppSpinner v-if="isLoadingDelegatorsRange" size-bool />
+        <div
+          v-else-if="delegatorsRange.length === 0 && !isLoadingDelegatorsRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
+        <LineChart v-else ref="chart" :chart-data="getDelegatorsRangeData()" />
       </div>
     </div>
   </b-container>
@@ -108,29 +138,32 @@ export default {
       'delegatorsRange',
       'isLoadingEpoch',
       'isLoadingStakeRange',
-      // 'isLoadingPriceChange',
+      'isLoadingPriceRange',
+      'isLoadingDelegatorsRange',
     ]),
   },
-  mounted() {
-    this.fetchEpochDoughnut();
+  async mounted() {
+    await this.fetchEpochDoughnut();
 
-    this.gradientStake = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientStake.addColorStop(0, 'rgba(249, 134, 0, 1)');
-    this.gradientStake.addColorStop(1, 'rgba(249, 134, 0, 0)');
+    if (this.$refs.chart) {
+      this.gradientStake = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientStake.addColorStop(0, 'rgba(249, 134, 0, 1)');
+      this.gradientStake.addColorStop(1, 'rgba(249, 134, 0, 0)');
 
-    this.gradientPrice = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientPrice.addColorStop(0, 'rgba(0,186,52, 1)');
-    this.gradientPrice.addColorStop(1, 'rgba(0,186,52, 0)');
+      this.gradientPrice = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientPrice.addColorStop(0, 'rgba(0,186,52, 1)');
+      this.gradientPrice.addColorStop(1, 'rgba(0,186,52, 0)');
 
-    this.gradientDelegators = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientDelegators.addColorStop(0, 'rgba(233, 44, 44, 1)');
-    this.gradientDelegators.addColorStop(1, 'rgba(233, 44, 44, 0)');
+      this.gradientDelegators = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientDelegators.addColorStop(0, 'rgba(233, 44, 44, 1)');
+      this.gradientDelegators.addColorStop(1, 'rgba(233, 44, 44, 0)');
+    }
   },
   methods: {
     ...mapActions([
