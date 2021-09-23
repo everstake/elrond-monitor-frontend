@@ -167,6 +167,39 @@
             >Elrond Docs</b-dropdown-item
           >
         </b-dropdown>
+
+        <b-dropdown
+          ref="newtworkDd"
+          right
+          no-caret
+          variant="none"
+          class="network"
+          :menu-class="darkModeClassBackground"
+        >
+          <template #button-content>
+            <span :class="['network__title', darkModeClassFonts]">
+              {{ networkType }}
+            </span>
+          </template>
+          <b-dropdown-item
+            href="https://devnet.elrondmonitor.com/"
+            :link-class="darkModeClassFonts"
+            :disabled="networkType === 'Devnet'"
+            @click.native="hideDropDown('Mainnet')"
+          >
+            <span class="mr-1">Devnet</span>
+            <b-icon v-if="!darkModeOn" icon="bezier" />
+          </b-dropdown-item>
+          <b-dropdown-item
+            href="https://elrondmonitor.com/"
+            :link-class="darkModeClassFonts"
+            :disabled="networkType === 'Mainnet'"
+            @click.native="hideDropDown('Mainnet')"
+          >
+            <span class="mr-1">Mainnet</span>
+            <b-icon v-if="!darkModeOn" icon="bezier" />
+          </b-dropdown-item>
+        </b-dropdown>
       </div>
     </div>
   </div>
@@ -180,6 +213,7 @@ export default {
   data() {
     return {
       showMenu: false,
+      networkType: 'Mainnet',
     };
   },
   computed: {
@@ -197,10 +231,21 @@ export default {
       }
     });
   },
+  created() {
+    // eslint-disable-next-line no-restricted-globals
+    if (location.hostname === 'devnet.elrondmonitor.com') {
+      this.networkType = 'Devnet';
+    }
+  },
   methods: {
     ...mapActions({
       changeMode: 'changeMode',
     }),
+    hideDropDown(type) {
+      if (type === this.networkType) {
+        this.$refs.newtworkDd.hide();
+      }
+    },
   },
 };
 </script>
@@ -218,7 +263,7 @@ export default {
   &__options {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 10px;
 
     @include md-down {
       & .dropdown {
@@ -238,10 +283,16 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
+
   &__option-btn {
     background: none !important;
     border: none !important;
   }
+
+  &__network-btn {
+    @include font(24px, $main-blue, 500);
+  }
+
   .logo {
     display: flex;
     gap: 20px;
@@ -275,6 +326,10 @@ export default {
 
       @include md-down {
         display: none;
+      }
+
+      @include lg-down {
+        gap: 0.3rem;
       }
     }
 
@@ -356,6 +411,16 @@ export default {
         transform: rotate(-45deg);
       }
     }
+  }
+}
+
+.network {
+  &__title {
+    @include font(18px, $font-black);
+  }
+
+  & .dropdown-menu {
+    min-width: 1rem;
   }
 }
 </style>

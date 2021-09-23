@@ -66,6 +66,18 @@
             </div>
           </b-collapse>
         </li>
+        <li>
+          <span v-b-toggle.networks
+            >Network <b-icon icon="chevron-down"
+          /></span>
+
+          <b-collapse id="networks">
+            <div class="burger-menu__collapse-list">
+              <a href="https://elrondmonitor.com/">Mainnet</a>
+              <a href="https://devnet.elrondmonitor.com/">Devnet</a>
+            </div>
+          </b-collapse>
+        </li>
       </b-nav>
     </b-collapse>
   </div>
