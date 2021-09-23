@@ -1,17 +1,7 @@
 <template>
   <b-container>
     <div :class="['epoch', darkModeClassBackground]">
-      <AppSpinner v-if="isLoadingEpoch" size-bool />
-      <div
-        v-else-if="!epochDoughnut.epoch_number"
-        :class="[
-          'd-flex justify-content-center align-items-center mb-3 h-100',
-          darkModeClassFonts,
-        ]"
-      >
-        No epoch data
-      </div>
-      <template v-else>
+      <template>
         <div class="epoch__title">
           <div v-if="!epochDoughnut.epoch_number">
             Coundn't get epoch number
@@ -38,31 +28,24 @@
             </div>
           </div>
 
-          <div class="epoch__progress-bar">
+          <AppSpinner v-if="isLoadingEpoch" size-bool />
+
+          <div v-else class="epoch__progress-bar">
             <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
             <b-progress :value="epochDoughnut.percent" max="100" />
           </div>
         </div>
       </template>
 
-      <AppSpinner v-if="isLoadingStakeRange" size-bool />
-      <div
-        v-else-if="!stakeRange.length && !isLoadingStakeRange"
-        :class="[
-          'd-flex justify-content-center align-items-center mb-3 h-100',
-          darkModeClassFonts,
-        ]"
-      >
-      {{ stakeRange.length }}
-        No stake range data
-      </div>
-      <div v-else class="epoch__card epoch__wrapper-chart">
+      <div class="epoch__card epoch__wrapper-chart">
         <div class="epoch__card-header">
           <span>Changes to total stake</span>
 
           <CustomDatePicker :request-name="fetchStakeRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getStakeRangeData()" />
+        <AppSpinner v-if="isLoadingStakeRange" size-bool />
+
+        <LineChart v-else ref="chart" :chart-data="getStakeRangeData()" />
       </div>
 
       <!-- <AppSpinner v-if="isLoadingPriceChange" size-bool />
