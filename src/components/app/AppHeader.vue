@@ -108,10 +108,13 @@
         </div>
 
         <b-dropdown
-          variant="link"
+          variant="none"
           right
           no-caret
-          :menu-class="darkModeClassBackground"
+          :menu-class="[
+            darkModeClassBackground,
+            { 'dropdown-menu--dark-mode': darkModeOn },
+          ]"
         >
           <template #button-content>
             <button class="header__option-btn">
@@ -169,35 +172,33 @@
         </b-dropdown>
 
         <b-dropdown
-          ref="newtworkDd"
           right
           no-caret
           variant="none"
           class="network"
-          :menu-class="darkModeClassBackground"
+          :menu-class="[
+            darkModeClassBackground,
+            { 'dropdown-menu--dark-mode': darkModeOn },
+          ]"
         >
           <template #button-content>
             <span :class="['network__title', darkModeClassFonts]">
-              {{ networkType }}
+              <b-icon icon="bezier" />
+
+              <span class="ml-1">{{ isMainnet ? 'Mainnet' : 'Devnet' }}</span>
             </span>
           </template>
           <b-dropdown-item
-            href="https://devnet.elrondmonitor.com/"
+            :href="
+              isMainnet
+                ? 'https://elrondmonitor.com/'
+                : 'https://devnet.elrondmonitor.com/'
+            "
             :link-class="darkModeClassFonts"
-            :disabled="networkType === 'Devnet'"
-            @click.native="hideDropDown('Mainnet')"
           >
-            <span class="mr-1">Devnet</span>
-            <b-icon v-if="!darkModeOn" icon="bezier" />
-          </b-dropdown-item>
-          <b-dropdown-item
-            href="https://elrondmonitor.com/"
-            :link-class="darkModeClassFonts"
-            :disabled="networkType === 'Mainnet'"
-            @click.native="hideDropDown('Mainnet')"
-          >
-            <span class="mr-1">Mainnet</span>
-            <b-icon v-if="!darkModeOn" icon="bezier" />
+            <b-icon icon="bezier" />
+
+            <span class="ml-1">{{ isMainnet ? 'Devnet' : 'Mainnet' }}</span>
           </b-dropdown-item>
         </b-dropdown>
       </div>
@@ -213,7 +214,7 @@ export default {
   data() {
     return {
       showMenu: false,
-      networkType: 'Mainnet',
+      isMainnet: true,
     };
   },
   computed: {
@@ -232,20 +233,12 @@ export default {
     });
   },
   created() {
-    // eslint-disable-next-line no-restricted-globals
-    if (location.hostname === 'devnet.elrondmonitor.com') {
-      this.networkType = 'Devnet';
-    }
+    this.isMainnet = window.location.hostname === 'elrondmonitor.com';
   },
   methods: {
     ...mapActions({
       changeMode: 'changeMode',
     }),
-    hideDropDown(type) {
-      if (type === this.networkType) {
-        this.$refs.newtworkDd.hide();
-      }
-    },
   },
 };
 </script>
@@ -263,7 +256,11 @@ export default {
   &__options {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1rem;
+
+    & .btn {
+      padding: 0;
+    }
 
     @include md-down {
       & .dropdown {
@@ -273,7 +270,7 @@ export default {
 
     & .header__option-btn {
       & .b-icon.bi {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
       }
     }
   }
@@ -416,11 +413,12 @@ export default {
 
 .network {
   &__title {
-    @include font(18px, $font-black);
+    @include font(16px, $font-black);
   }
 
   & .dropdown-menu {
     min-width: 1rem;
+    @include font(14px, $font-black);
   }
 }
 </style>
