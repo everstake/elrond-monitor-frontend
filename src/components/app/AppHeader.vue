@@ -191,8 +191,8 @@
           <b-dropdown-item
             :href="
               isMainnet
-                ? 'https://elrondmonitor.com/'
-                : 'https://devnet.elrondmonitor.com/'
+                ? 'https://devnet.elrondmonitor.com/'
+                : 'https://elrondmonitor.com/'
             "
             :link-class="darkModeClassFonts"
           >
