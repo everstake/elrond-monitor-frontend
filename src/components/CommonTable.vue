@@ -104,6 +104,17 @@ export default {
       required: false,
       default: () => {},
     },
+    socketSendParams: {
+      type: Object,
+      required: false,
+      default: () => {},
+    },
+    requestWebSocket: {
+      type: Function,
+      required: false,
+      default: () => {},
+
+    },
   },
   data() {
     return {
@@ -129,7 +140,20 @@ export default {
         });
         this.currentPage = 1;
       },
-    }
+    },
+
+    currentPage: {
+      immediate: true,
+      handler() {
+        if (this.currentPage === 1 && this.socketSendParams) {
+          this.$webSocketsConnect();
+          this.$webSocketsSend(this.socketSendParams);
+          this.$webSocketMessage(this.requestWebSocket);
+        } else {
+          this.$webSocketsDisconnect();
+        }
+      },
+    },
   },
   methods: {
     async choosePage(page) {

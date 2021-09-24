@@ -5,6 +5,8 @@
     :total-items="$_totalRows(totalTransactionItems)"
     :request-name="fetchTransactions"
     :loading="loadingTx"
+    :request-web-socket="fetchWebSocketTx"
+    :socket-send-params="socketSendParams"
   >
     <template #header> Transactions </template>
 
@@ -54,7 +56,7 @@
 import CommonTable from '@/components/CommonTable.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { tableFields } from '@/constants/tables';
-import pagination from "../../mixins/pagination";
+import pagination from '../../mixins/pagination';
 import exchangeTokenForUSD from '../../mixins/exchangeTokenForUSD';
 
 export default {
@@ -68,9 +70,12 @@ export default {
     fields() {
       return tableFields.transactionsFields;
     },
+    socketSendParams() {
+      return { type: 'subscribe', channel: 'transactions' };
+    },
   },
   methods: {
-    ...mapActions(['fetchTransactions']),
+    ...mapActions(['fetchTransactions', 'fetchWebSocketTx']),
   },
 };
 </script>

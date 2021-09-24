@@ -6,9 +6,17 @@ const transactionsService = {
     totalTransactionItems: 0,
     transaction: {},
     loading: false,
+    txWebSocket: [],
+    updateTx: [],
   },
   getters: {
-    transactions: (state) => state.transactions,
+    transactions: (state) => {
+      if (state.txWebSocket) {
+        return state.updateTx;
+      }
+
+      return state.transactions;
+    },
     totalTransactionItems: (state) => state.totalTransactionItems,
     transaction: (state) => state.transaction,
     loadingTx: (state) => state.loading,
@@ -16,6 +24,7 @@ const transactionsService = {
   mutations: {
     setTransactions(state, transactions) {
       state.transactions = transactions.items;
+      state.updateTx = transactions.items;
       state.totalTransactionItems = transactions.count;
     },
     setTransaction(state, item) {
@@ -23,6 +32,9 @@ const transactionsService = {
     },
     setLoaderTx(state, bool) {
       state.loading = bool;
+    },
+    setUpdateTxSocket(state, item) {
+      state.updateTx = [...item, ...state.updateTx.slice(0, -item.length)];
     },
   },
   actions: {
@@ -32,7 +44,7 @@ const transactionsService = {
         const transactions = await getTransactions({ params });
         commit('setTransactions', transactions.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         commit('setLoaderTx', false);
       }
@@ -48,6 +60,9 @@ const transactionsService = {
       } finally {
         commit('setLoaderTx', false);
       }
+    },
+    fetchWebSocketTx({ commit }, payload) {
+      commit('setUpdateTxSocket', payload);
     },
   },
 };

@@ -11,6 +11,9 @@ import './plugins/vue-plugins';
 // Style
 import './assets/scss/main.scss';
 
+// Services
+import './services';
+
 Vue.config.productionTip = false;
 
 new Vue({
