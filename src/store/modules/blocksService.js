@@ -13,9 +13,16 @@ const blocksService = {
     block: {},
     loading: false,
     miniblock: {},
+    blocksWebSocket: [],
+    updateBlocks: [],
   },
   getters: {
-    blocks: (state) => state.blocks,
+    blocks: (state) => {
+      if (state.blocksWebSocket) {
+        return state.updateBlocks;
+      }
+      return state.blocks;
+    },
     totalBlocks: (state) => state.totalBlocks,
     block: (state) => state.block,
     loadingBlock: (state) => state.loading,
@@ -24,6 +31,7 @@ const blocksService = {
   mutations: {
     setBlocks(state, items) {
       state.blocks = items.items;
+      state.updateBlocks = items.items;
       state.totalBlocks = items.count;
     },
     setBlock(state, item) {
@@ -34,6 +42,12 @@ const blocksService = {
     },
     setMiniblock(state, item) {
       state.miniblock = item;
+    },
+    setUpdateBlocksSocket(state, item) {
+      state.updateBlocks = [
+        ...item,
+        ...state.updateBlocks.slice(0, -item.length),
+      ];
     },
   },
   actions: {
@@ -81,6 +95,9 @@ const blocksService = {
       } finally {
         commit('setLoaderBlocks', false);
       }
+    },
+    fetchWebSocketBlocks({ commit }, payload) {
+      commit('setUpdateBlocksSocket', payload);
     },
   },
 };

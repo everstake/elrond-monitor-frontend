@@ -5,6 +5,8 @@
     :total-items="$_totalRows(totalBlocks)"
     :request-name="fetchBlocks"
     :loading="loadingBlock"
+    :request-web-socket="fetchWebSocketBlocks"
+    :socket-send-params="socketSendParams"
   >
     <template #header>Blocks</template>
 
@@ -45,23 +47,30 @@
 import { mapActions, mapGetters } from 'vuex';
 import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
-import pagination from "../../mixins/pagination";
+import pagination from '../../mixins/pagination';
 
 export default {
   name: 'BlocksList',
   components: { CommonTable },
   mixins: [pagination],
+  data() {
+    return {
+      ws: null,
+    };
+  },
   computed: {
     ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
     fields() {
       return tableFields.blocksFields;
     },
+    socketSendParams() {
+      return { type: 'subscribe', channel: 'blocks' };
+    },
   },
   methods: {
-    ...mapActions(['fetchBlocks']),
+    ...mapActions(['fetchBlocks', 'fetchWebSocketBlocks']),
   },
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
