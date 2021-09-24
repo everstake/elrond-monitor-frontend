@@ -1,34 +1,50 @@
 <template>
   <b-container>
     <div :class="['epoch', darkModeClassBackground]">
-      <div class="epoch__title">
-        <h1 :class="[darkModeClassTitle]">Epoch</h1>
+      <template>
+        <div class="epoch__title">
+          <h1 :class="[darkModeClassTitle]">Epoch</h1>
 
-        <span>{{ epochDoughnut.epoch_number }}</span>
-      </div>
-
-      <div :class="['epoch__progress', 'epoch__card']">
-        <div class="epoch__progress-info time">
-          <div class="time__info">
-            <span :class="darkModeClassFonts">since</span>
-            <h1>
-              {{ $_since(epochDoughnut.start) }}
-            </h1>
-          </div>
-
-          <div class="time__info">
-            <span :class="darkModeClassFonts">left</span>
-            <h1>
-              {{ epochDoughnut.left | formatDuration }}
-            </h1>
-          </div>
+          <span>{{ epochDoughnut.epoch_number }}</span>
         </div>
 
-        <div class="epoch__progress-bar">
-          <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
-          <b-progress :value="epochDoughnut.percent" max="100" />
+        <div :class="['epoch__progress', 'epoch__card']">
+          <AppSpinner v-if="isLoadingEpoch" size-bool />
+          <div
+            v-else-if="
+              Object.keys(epochDoughnut).length === 0 && !isLoadingEpoch
+            "
+            :class="[
+              'd-flex justify-content-center align-items-center mb-3 h-100',
+              darkModeClassFonts,
+            ]"
+          >
+            Not data
+          </div>
+          <template v-else>
+            <div class="epoch__progress-info time">
+              <div class="time__info">
+                <span :class="darkModeClassFonts">since</span>
+                <h1>
+                  {{ $_since(epochDoughnut.start) }}
+                </h1>
+              </div>
+
+              <div class="time__info">
+                <span :class="darkModeClassFonts">left</span>
+                <h1>
+                  {{ epochDoughnut.left | formatDuration }}
+                </h1>
+              </div>
+            </div>
+
+            <div class="epoch__progress-bar">
+              <span>{{ $_epochPercent(epochDoughnut.percent) }}%</span>
+              <b-progress :value="epochDoughnut.percent" max="100" />
+            </div>
+          </template>
         </div>
-      </div>
+      </template>
 
       <div class="epoch__card epoch__wrapper-chart">
         <div class="epoch__card-header">
@@ -36,7 +52,18 @@
 
           <CustomDatePicker :request-name="fetchStakeRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getStakeRangeData()" />
+
+        <AppSpinner v-if="isLoadingStakeRange" size-bool />
+        <div
+          v-else-if="stakeRange.length === 0 && !isLoadingStakeRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
+        <LineChart v-else ref="chart" :chart-data="getStakeRangeData()" />
       </div>
 
       <div class="epoch__card epoch__wrapper-chart">
@@ -45,7 +72,18 @@
 
           <CustomDatePicker :request-name="fetchPriceRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getPriceRangeData()" />
+
+        <AppSpinner v-if="isLoadingPriceRange" size-bool />
+        <div
+          v-else-if="priceRange.length === 0 && !isLoadingPriceRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
+        <LineChart v-else ref="chart" :chart-data="getPriceRangeData()" />
       </div>
 
       <div class="epoch__card epoch__wrapper-chart">
@@ -54,7 +92,18 @@
 
           <CustomDatePicker :request-name="fetchDelegatorsRange" />
         </div>
-        <LineChart ref="chart" :chart-data="getDelegatorsRangeData()" />
+
+        <AppSpinner v-if="isLoadingDelegatorsRange" size-bool />
+        <div
+          v-else-if="delegatorsRange.length === 0 && !isLoadingDelegatorsRange"
+          :class="[
+            'd-flex justify-content-center align-items-center mb-3 h-100',
+            darkModeClassFonts,
+          ]"
+        >
+          Not data
+        </div>
+        <LineChart v-else ref="chart" :chart-data="getDelegatorsRangeData()" />
       </div>
     </div>
   </b-container>
@@ -65,10 +114,11 @@ import { mapGetters, mapActions } from 'vuex';
 import epochPercent from '../mixins/epochPercent';
 import LineChart from '../components/charts/LineChart.vue';
 import CustomDatePicker from '../components/CustomDatePicker.vue';
+import AppSpinner from '../components/app/AppSpinner.vue';
 
 export default {
   name: 'Epoch',
-  components: { LineChart, CustomDatePicker },
+  components: { LineChart, CustomDatePicker, AppSpinner },
   mixins: [epochPercent],
   data() {
     return {
@@ -86,28 +136,34 @@ export default {
       'stakeRange',
       'priceRange',
       'delegatorsRange',
+      'isLoadingEpoch',
+      'isLoadingStakeRange',
+      'isLoadingPriceRange',
+      'isLoadingDelegatorsRange',
     ]),
   },
-  mounted() {
-    this.fetchEpochDoughnut();
+  async mounted() {
+    await this.fetchEpochDoughnut();
 
-    this.gradientStake = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientStake.addColorStop(0, 'rgba(249, 134, 0, 1)');
-    this.gradientStake.addColorStop(1, 'rgba(249, 134, 0, 0)');
+    if (this.$refs.chart) {
+      this.gradientStake = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientStake.addColorStop(0, 'rgba(249, 134, 0, 1)');
+      this.gradientStake.addColorStop(1, 'rgba(249, 134, 0, 0)');
 
-    this.gradientPrice = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientPrice.addColorStop(0, 'rgba(0,186,52, 1)');
-    this.gradientPrice.addColorStop(1, 'rgba(0,186,52, 0)');
+      this.gradientPrice = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientPrice.addColorStop(0, 'rgba(0,186,52, 1)');
+      this.gradientPrice.addColorStop(1, 'rgba(0,186,52, 0)');
 
-    this.gradientDelegators = this.$refs.chart.$refs.canvas
-      .getContext('2d')
-      .createLinearGradient(0, 0, 0, 350);
-    this.gradientDelegators.addColorStop(0, 'rgba(233, 44, 44, 1)');
-    this.gradientDelegators.addColorStop(1, 'rgba(233, 44, 44, 0)');
+      this.gradientDelegators = this.$refs.chart.$refs.canvas
+        .getContext('2d')
+        .createLinearGradient(0, 0, 0, 350);
+      this.gradientDelegators.addColorStop(0, 'rgba(233, 44, 44, 1)');
+      this.gradientDelegators.addColorStop(1, 'rgba(233, 44, 44, 0)');
+    }
   },
   methods: {
     ...mapActions([

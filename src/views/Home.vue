@@ -160,7 +160,7 @@
               </div>
             </template>
 
-            <AppSpinner v-if="loadingChart" />
+            <AppSpinner v-if="isLoadingEpoch" />
 
             <template v-else>
               <DoughnutChart
@@ -189,7 +189,8 @@
           >
             <template #header>Accounts</template>
 
-            <template>
+            <AppSpinner v-if="isLoadingAccountInfo" />
+            <template v-else>
               <LineChart
                 ref="chart"
                 class="home__charts"
@@ -209,7 +210,8 @@
           >
             <template #header>Block height</template>
 
-            <template>
+            <AppSpinner v-if="loadingStatus" class="mx-auto" />
+            <template v-else>
               <b-icon icon="gear" class="posit" font-scale="4" />
               <span class="align-self-end card-amount mt-2">
                 {{ stats.height | formatAmount }}
@@ -224,7 +226,8 @@
           >
             <template #header>Transactions</template>
 
-            <template>
+            <AppSpinner v-if="isLoadingTransactions" />
+            <template v-else>
               <LineChart
                 ref="chart"
                 class="home__charts"
@@ -337,7 +340,9 @@ export default {
       'stats',
       'epochDoughnut',
       'loadingStatus',
-      'loadingChart',
+      'isLoadingEpoch',
+      'isLoadingAccountInfo',
+      'isLoadingTransactions',
     ]),
   },
   async mounted() {
