@@ -8,19 +8,19 @@
   >
     <template #cell(name-validator)="{ item: { avatar, name, identity } }">
       <div>
-        <img
-          v-if="!avatar"
-          src="~@/assets/img/elrondLogo.svg"
-          alt="Avatar"
-          width="32"
-          height="32"
-        />
-        <img v-else :src="avatar" alt="Avatar" width="32" height="32" />
-
         <router-link
           v-if="name"
           :to="{ name: 'ValidatorsDetails', params: { identity } }"
         >
+          <img
+            v-if="!avatar"
+            src="~@/assets/img/elrondLogo.svg"
+            alt="Avatar"
+            width="32"
+            height="32"
+          />
+          <img v-else :src="avatar" alt="Avatar" width="32" height="32" />
+
           <span class="ml-2">{{ name }}</span>
         </router-link>
 

@@ -29,7 +29,7 @@
           <router-link
             :to="{
               name: 'StakingProviderDetails',
-              params: { provider: validatorDetails.providers[0] }
+              params: { provider: validatorDetails.providers[0] },
             }"
           >
             {{ validatorDetails.providers[0] }}
