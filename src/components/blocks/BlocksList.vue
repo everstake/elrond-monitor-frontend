@@ -8,7 +8,13 @@
     :request-web-socket="fetchWebSocketBlocks"
     :socket-send-params="socketSendParams"
   >
-    <template #header>Blocks</template>
+    <template #header>
+      Blocks
+      <AppInteractiveIcon
+        :options="{ top: '3%', left: '30%', opacity: 0.2 }"
+        :size="20"
+      />
+    </template>
 
     <template #cell(nonce)="{ item: { nonce, hash } }">
       <router-link
@@ -48,10 +54,11 @@ import { mapActions, mapGetters } from 'vuex';
 import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
 import pagination from '../../mixins/pagination';
+import AppInteractiveIcon from '../AppInteractiveIcon.vue';
 
 export default {
   name: 'BlocksList',
-  components: { CommonTable },
+  components: { AppInteractiveIcon, CommonTable },
   mixins: [pagination],
   data() {
     return {

@@ -1,19 +1,32 @@
 <template>
-  <div class="container-lg account-details">
-    <AccountCard @selectedTab="selectedTab" />
+  <div class="container-lg account-details" style="position: relative">
+    <AccountCard @selectedTab="selectedTab" style="z-index: 5" />
+
+
+    <AppInteractiveIcon
+      v-if="!loadingAcc"
+      v-show="
+        account.address ===
+        'erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllst77y4l'
+      "
+      :options="{ top: '-0.4%', left: '95%', opacity: 0.1 }"
+    />
 
     <component :is="activeComponent"></component>
   </div>
 </template>
 
 <script>
-import AccountCard from '@/components/accounts/account-details/AccountCard.vue';
-import AccountTransactionsList from '@/components/accounts/account-details/AccountTransactionsList.vue';
+import { mapGetters } from 'vuex';
+import AccountCard from '../components/accounts/account-details/AccountCard.vue';
+import AccountTransactionsList from '../components/accounts/account-details/AccountTransactionsList.vue';
 import AccountStakingProviders from '../components/accounts/account-details/AccountStakingProviders.vue';
 import AccountStakingEvents from '../components/accounts/account-details/AccountStakingEvents.vue';
+import AppInteractiveIcon from '../components/AppInteractiveIcon.vue';
 
 export default {
   components: {
+    AppInteractiveIcon,
     AccountStakingProviders,
     AccountTransactionsList,
     AccountCard,
@@ -25,6 +38,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['account', 'loadingAcc']),
     activeComponent() {
       switch (this.activeTab.key) {
         case 'transactions':

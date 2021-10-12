@@ -17,8 +17,14 @@
         :disabled-date="disabledDates"
         value-type="timestamp"
         :class="[{ 'day--active': selectedDay === 'calendarRange' }]"
+        :popup-class="darkModeClassBackground"
         @change="handlerRangeDate"
       >
+        <!--        Delete interactive icon-->
+        <template #sidebar>
+          <slot name="interactive-icon" />
+        </template>
+
         <template #icon-calendar>
           <b-icon
             icon="calendar-fill"
@@ -35,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 import DatePicker from 'vue2-datepicker';
 import getDates from '../mixins/getDates';
 
@@ -58,6 +64,9 @@ export default {
       switchDate: ['7d', '1m', '3m', '6m', '1y'],
       selectedDay: '1y',
     };
+  },
+  computed: {
+    ...mapGetters(['darkModeClassBackground']),
   },
   mounted() {
     const today = Math.round(new Date().getTime() / 1000);
@@ -135,6 +144,16 @@ export default {
     &--active {
       color: $main-white;
     }
+  }
+
+  // Delete styles
+  &-sidebar {
+    width: 0;
+    padding: 0;
+  }
+
+  &-sidebar + &-content {
+    margin-left: 0;
   }
 }
 </style>
