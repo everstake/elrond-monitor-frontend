@@ -5,7 +5,7 @@
     <ValidatorDetailsCard style="z-index: 5" />
 
     <AppInteractiveIcon
-      v-if="!loadingStaking && identity.identity === 'everstake'"
+      v-if="!loadingStaking && identity.identity === 'everstake' && !darkModeOn"
       :options="{ top: '10%', left: '-0.2%', opacity: 0.3 }"
     />
 
@@ -29,7 +29,7 @@ export default {
     ValidatorDetailsCard,
   },
   computed: {
-    ...mapGetters(['loadingStaking']),
+    ...mapGetters(['loadingStaking', 'darkModeOn']),
     identity() {
       return { identity: this.$route.params.identity };
     },

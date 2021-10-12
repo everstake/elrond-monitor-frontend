@@ -173,6 +173,7 @@
 
             <!--            Delete interactive icon-->
             <AppInteractiveIcon
+              v-if="!darkModeOn"
               :options="{ top: '15%', left: '80%', opacity: 0.2 }"
               :size="20"
             />
