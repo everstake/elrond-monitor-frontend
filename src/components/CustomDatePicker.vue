@@ -1,47 +1,48 @@
 <template>
-  <div>
-    <div class="datepicker-wrapper">
-      <b-btn
-        v-for="day in switchDate"
-        :key="day"
-        :class="[{ 'day--active': day === selectedDay }]"
-        variant="link"
-        @click="selectDay(day)"
-        >{{ day }}</b-btn
-      >
+  <div :class="['datepicker-wrapper', { 'dark-mode-picker-bg': darkModeOn }]">
+    <b-btn
+      v-for="day in switchDate"
+      :key="day"
+      :class="[{ 'day--active': day === selectedDay }, darkModeClassTitle]"
+      variant="link"
+      @click="selectDay(day)"
+      >{{ day }}</b-btn
+    >
 
-      <DatePicker
-        v-model="rangeDate"
-        range
-        :clearable="false"
-        :disabled-date="disabledDates"
-        value-type="timestamp"
-        :class="[{ 'day--active': selectedDay === 'calendarRange' }]"
-        :popup-class="darkModeClassBackground"
-        @change="handlerRangeDate"
-      >
-        <!--        Delete interactive icon-->
-        <template #sidebar>
-          <slot name="interactive-icon" />
-        </template>
+    <DatePicker
+      v-model="rangeDate"
+      range
+      :clearable="false"
+      :disabled-date="disabledDates"
+      value-type="timestamp"
+      :class="[{ 'day--active': selectedDay === 'calendarRange' }]"
+      :popup-class="darkModeClassBackground"
+      @change="handlerRangeDate"
+    >
+      <!--        Delete interactive icon-->
+      <template #sidebar>
+        <slot name="interactive-icon" />
+      </template>
 
-        <template #icon-calendar>
-          <b-icon
-            icon="calendar-fill"
-            font-scale="1.3"
-            :class="{
+      <template #icon-calendar>
+        <b-icon
+          icon="calendar-fill"
+          font-scale="1.3"
+          :class="[
+            {
               'mx-icon-calendar--active': selectedDay === 'calendarRange',
-            }"
-            @click="selectDay('calendarRange')"
-          />
-        </template>
-      </DatePicker>
-    </div>
+            },
+            darkModeClassTitle,
+          ]"
+          @click="selectDay('calendarRange')"
+        />
+      </template>
+    </DatePicker>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 import DatePicker from 'vue2-datepicker';
 import getDates from '../mixins/getDates';
 
@@ -66,7 +67,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['darkModeClassBackground']),
+    ...mapGetters([
+      'darkModeClassBackground',
+      'darkModeClassFonts',
+      'darkModeClassTitle',
+      'darkModeOn',
+    ]),
   },
   mounted() {
     const today = Math.round(new Date().getTime() / 1000);
@@ -155,5 +161,9 @@ export default {
   &-sidebar + &-content {
     margin-left: 0;
   }
+}
+
+.dark-mode-picker-bg {
+  background-color: gray;
 }
 </style>

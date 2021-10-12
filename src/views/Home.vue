@@ -438,7 +438,7 @@ export default {
   }
 
   &.home--dark-mode {
-    background-color: $eerie-black;
+    background-color: $body-dark;
   }
 
   &-row {

@@ -28,7 +28,13 @@
           <span>{{ epochDoughnut.epoch_number }}</span>
         </div>
 
-        <div :class="['epoch__progress', 'epoch__card']">
+        <div
+          :class="[
+            'epoch__progress',
+            'epoch__card',
+            { 'dark-mode-bg': darkModeOn },
+          ]"
+        >
           <AppSpinner v-if="isLoadingEpoch" size-bool />
           <div
             v-else-if="
@@ -45,14 +51,14 @@
             <div class="epoch__progress-info time">
               <div class="time__info">
                 <span :class="darkModeClassFonts">since</span>
-                <h1>
+                <h1 :class="darkModeClassTitle">
                   {{ $_since(epochDoughnut.start) }}
                 </h1>
               </div>
 
               <div class="time__info">
                 <span :class="darkModeClassFonts">left</span>
-                <h1>
+                <h1 :class="darkModeClassTitle">
                   {{ epochDoughnut.left | formatDuration }}
                 </h1>
               </div>
@@ -66,9 +72,15 @@
         </div>
       </template>
 
-      <div class="epoch__card epoch__wrapper-chart">
+      <div
+        :class="[
+          'epoch__card',
+          'epoch__wrapper-chart',
+          { 'dark-mode-bg': darkModeOn },
+        ]"
+      >
         <div class="epoch__card-header">
-          <span>Changes to total stake</span>
+          <span :class="darkModeClassTitle">Changes to total stake</span>
 
           <CustomDatePicker :request-name="fetchStakeRange" />
         </div>
@@ -86,9 +98,15 @@
         <LineChart v-else ref="chart" :chart-data="getStakeRangeData()" />
       </div>
 
-      <div class="epoch__card epoch__wrapper-chart">
+      <div
+        :class="[
+          'epoch__card',
+          'epoch__wrapper-chart',
+          { 'dark-mode-bg': darkModeOn },
+        ]"
+      >
         <div class="epoch__card-header">
-          <span>Changes to price</span>
+          <span :class="darkModeClassTitle">Changes to price</span>
 
           <CustomDatePicker :request-name="fetchPriceRange" />
         </div>
@@ -106,9 +124,15 @@
         <LineChart v-else ref="chart" :chart-data="getPriceRangeData()" />
       </div>
 
-      <div class="epoch__card epoch__wrapper-chart">
+      <div
+        :class="[
+          'epoch__card',
+          'epoch__wrapper-chart',
+          { 'dark-mode-bg': darkModeOn },
+        ]"
+      >
         <div class="epoch__card-header">
-          <span>Changes to delegators</span>
+          <span :class="darkModeClassTitle">Changes to delegators</span>
 
           <CustomDatePicker :request-name="fetchDelegatorsRange">
             <!--            Delete inerective icon-->
@@ -316,5 +340,9 @@ export default {
       font-size: 24px;
     }
   }
+}
+
+.dark-mode-bg {
+  background-color: $body-dark !important;
 }
 </style>
