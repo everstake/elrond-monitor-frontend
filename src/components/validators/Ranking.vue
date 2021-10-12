@@ -2,6 +2,7 @@
   <b-container :class="['ranking ranking-card ', darkModeClassBackground]">
     <div class="ranking__title">
       <AppInteractiveIcon
+        v-if="darkModeOn"
         :options="{ top: '19.5%', left: '48.8%', opacity: 0.3 }"
         :size="20"
       />
@@ -41,6 +42,7 @@ export default {
       'darkModeClassFonts',
       'providersRanking',
       'isLoadingProvidersRating',
+      'darkModeOn',
     ]),
     totalDataChart() {
       return !this.providersRanking && this.providersRanking.length;

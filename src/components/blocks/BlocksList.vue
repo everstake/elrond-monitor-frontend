@@ -11,7 +11,8 @@
     <template #header>
       Blocks
       <AppInteractiveIcon
-        :options="{ top: '3%', left: '30%', opacity: 0.2 }"
+        v-if="darkModeOn"
+        :options="{ top: '3%', left: '30%', opacity: 0.3 }"
         :size="20"
       />
     </template>
@@ -66,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
+    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock', 'darkModeOn']),
     fields() {
       return tableFields.blocksFields;
     },

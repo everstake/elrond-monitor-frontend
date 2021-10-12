@@ -91,6 +91,7 @@
 
           <div class="card-result__wrapper" style="position: relative">
             <AppInteractiveIcon
+              v-if="!darkModeOn"
               :options="{ top: '82%', left: '20%', opacity: 0.4 }"
             />
 
@@ -182,6 +183,7 @@ export default {
       'darkModeClassBackground',
       'darkModeClassTitle',
       'darkModeClassFonts',
+      'darkModeOn',
     ]),
 
     // Protocol Computed

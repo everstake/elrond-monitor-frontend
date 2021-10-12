@@ -2,14 +2,14 @@
   <div class="container-lg account-details" style="position: relative">
     <AccountCard @selectedTab="selectedTab" style="z-index: 5" />
 
-
     <AppInteractiveIcon
-      v-if="!loadingAcc"
-      v-show="
+      v-if="
+        !loadingAcc &&
         account.address ===
-        'erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllst77y4l'
+          'erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllst77y4l' &&
+        darkModeOn
       "
-      :options="{ top: '-0.4%', left: '95%', opacity: 0.1 }"
+      :options="{ top: '-0.4%', left: '95%', opacity: 0.2 }"
     />
 
     <component :is="activeComponent"></component>
@@ -38,7 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['account', 'loadingAcc']),
+    ...mapGetters(['account', 'loadingAcc', 'darkModeOn']),
     activeComponent() {
       switch (this.activeTab.key) {
         case 'transactions':

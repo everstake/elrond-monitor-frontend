@@ -114,6 +114,7 @@
             <!--            Delete inerective icon-->
             <template #interactive-icon>
               <AppInteractiveIcon
+                v-if="!darkModeOn"
                 :options="{
                   top: '90%',
                   left: '94%',
