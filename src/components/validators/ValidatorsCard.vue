@@ -14,6 +14,12 @@
       </p>
     </template>
 
+    <template #active_nodes="{ item }">
+      <p class="info-line__value" :class="[darkModeClassTitle]">
+        {{ item }}
+      </p>
+    </template>
+
     <template #observer_nodes="{ item }">
       <p class="info-line__value" :class="[darkModeClassTitle]">
         {{ item }}
@@ -62,6 +68,13 @@ export default {
         {
           key: 'validators',
           label: 'Validators',
+          class: {
+            item: ['info-line__group'],
+          },
+        },
+        {
+          key: 'active_nodes',
+          label: 'Active nodes',
           class: {
             item: ['info-line__group'],
           },
