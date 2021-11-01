@@ -1,13 +1,8 @@
 <template>
-  <section class="details__wrapper" style="position: relative">
+  <section class="details__wrapper">
     <BtnBack />
 
-    <ValidatorDetailsCard style="z-index: 5" />
-
-    <AppInteractiveIcon
-      v-if="!loadingStaking && identity.identity === 'everstake' && !darkModeOn"
-      :options="{ top: '10%', left: '-0.2%', opacity: 0.3 }"
-    />
+    <ValidatorDetailsCard />
 
     <NodesTable :request="fetchNodes" :address="identity" />
   </section>
@@ -18,18 +13,16 @@ import { mapActions, mapGetters } from 'vuex';
 import ValidatorDetailsCard from './ValidatorDetailsCard.vue';
 import BtnBack from '../../BtnBack.vue';
 import NodesTable from '../common-tables/NodesTable.vue';
-import AppInteractiveIcon from '../../AppInteractiveIcon.vue';
 
 export default {
   name: 'ValidatorsDetails',
   components: {
-    AppInteractiveIcon,
     NodesTable,
     BtnBack,
     ValidatorDetailsCard,
   },
   computed: {
-    ...mapGetters(['loadingStaking', 'darkModeOn']),
+    ...mapGetters(['nodes']),
     identity() {
       return { identity: this.$route.params.identity };
     },

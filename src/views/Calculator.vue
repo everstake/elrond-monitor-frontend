@@ -89,12 +89,7 @@
         <div class="calculator__result">
           <h2 :class="['calculator__subtitle', darkModeClassTitle]">Results</h2>
 
-          <div class="card-result__wrapper" style="position: relative">
-            <AppInteractiveIcon
-              v-if="!darkModeOn"
-              :options="{ top: '82%', left: '20%', opacity: 0.4 }"
-            />
-
+          <div class="card-result__wrapper">
             <b-card
               class="card-result__apr"
               header-class="m-0"
@@ -164,11 +159,9 @@ import {
   month,
 } from '../constants/arcstake';
 import { toFixedNum } from '../utils/helpers';
-import AppInteractiveIcon from '../components/AppInteractiveIcon.vue';
 
 export default {
   name: 'Calculator',
-  components: { AppInteractiveIcon },
   data() {
     return {
       totalStake: 8000000,
@@ -183,7 +176,6 @@ export default {
       'darkModeClassBackground',
       'darkModeClassTitle',
       'darkModeClassFonts',
-      'darkModeOn',
     ]),
 
     // Protocol Computed

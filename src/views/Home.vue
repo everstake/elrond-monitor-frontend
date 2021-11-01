@@ -213,10 +213,6 @@
             <AppSpinner v-if="loadingStatus" class="mx-auto" />
             <template v-else>
               <b-icon icon="gear" class="posit" font-scale="4" />
-              <AppInteractiveIcon
-                v-show="!darkModeOn"
-                :options="{ top: '49.6%', left: '46.4%' }"
-              />
               <span class="align-self-end card-amount mt-2">
                 {{ stats.height | formatAmount }}
               </span>
@@ -268,12 +264,10 @@ import DoughnutChart from '../components/charts/DoughnutChart.vue';
 import ValidatorsMap from '../components/ValidatorsMap.vue';
 import AppSpinner from '../components/app/AppSpinner.vue';
 import epochPercent from '../mixins/epochPercent';
-import AppInteractiveIcon from '../components/AppInteractiveIcon.vue';
 
 export default {
   name: 'Home',
   components: {
-    AppInteractiveIcon,
     LineChart,
     DoughnutChart,
     ValidatorsMap,
@@ -480,7 +474,6 @@ export default {
 }
 
 .map-wrapper {
-  position: relative;
   height: 100% !important;
   flex: 1 0 auto;
 

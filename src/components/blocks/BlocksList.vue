@@ -8,14 +8,7 @@
     :request-web-socket="fetchWebSocketBlocks"
     :socket-send-params="socketSendParams"
   >
-    <template #header>
-      Blocks
-      <AppInteractiveIcon
-        v-if="darkModeOn"
-        :options="{ top: '3%', left: '30%', opacity: 0.3 }"
-        :size="20"
-      />
-    </template>
+    <template #header>Blocks</template>
 
     <template #cell(nonce)="{ item: { nonce, hash } }">
       <router-link
@@ -55,11 +48,10 @@ import { mapActions, mapGetters } from 'vuex';
 import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
 import pagination from '../../mixins/pagination';
-import AppInteractiveIcon from '../AppInteractiveIcon.vue';
 
 export default {
   name: 'BlocksList',
-  components: { AppInteractiveIcon, CommonTable },
+  components: { CommonTable },
   mixins: [pagination],
   data() {
     return {
@@ -67,7 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock', 'darkModeOn']),
+    ...mapGetters(['blocks', 'totalBlocks', 'loadingBlock']),
     fields() {
       return tableFields.blocksFields;
     },

@@ -172,7 +172,7 @@ export default {
 }
 
 .title-nodes {
-  align-self: start;
+  text-align: left;
   @include font(24px, $main-black, 400);
 }
 

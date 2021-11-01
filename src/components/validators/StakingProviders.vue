@@ -8,16 +8,16 @@
   >
     <template #cell(name-provider)="{ item: { name, provider, validator } }">
       <div>
+        <img
+          v-if="!validator.avatar"
+          src="~@/assets/img/elrondLogo.svg"
+          alt="Logo validator"
+        />
+        <img v-else :src="validator.avatar" alt="" width="32" height="32" />
+
         <router-link
           :to="{ name: 'StakingProviderDetails', params: { provider } }"
         >
-          <img
-            v-if="!validator.avatar"
-            src="~@/assets/img/elrondLogo.svg"
-            alt="Logo validator"
-          />
-          <img v-else :src="validator.avatar" alt="" width="32" height="32" />
-
           <span v-if="name" class="ml-2">{{ name }}</span>
           <span v-else class="ml-2">{{ provider | trimHash }}</span>
         </router-link>
