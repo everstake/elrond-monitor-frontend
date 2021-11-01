@@ -30,8 +30,6 @@
     min-height: 250px;
 
     &__title {
-      align-self: center;
-      position: relative;
       text-align: center;
       @include font(36px, $body-dark, 500);
 

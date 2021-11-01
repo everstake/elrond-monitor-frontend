@@ -1,26 +1,6 @@
 <template>
   <b-container>
-    <div :class="['epoch', darkModeClassBackground]" style="position: relative">
-      <AppInteractiveIcon
-        v-show="darkModeOn"
-        v-if="!isLoadingStakeRange"
-        :options="{
-          top: '14.5%',
-          left: '90%',
-          opacity: 0.6,
-        }"
-      />
-
-      <AppInteractiveIcon
-        v-show="darkModeOn"
-        v-if="!isLoadingDelegatorsRange"
-        :options="{
-          top: '96.25%',
-          left: '7.7%',
-          opacity: 0.6,
-        }"
-      />
-
+    <div :class="['epoch', darkModeClassBackground]">
       <template>
         <div class="epoch__title">
           <h1 :class="[darkModeClassTitle]">Epoch</h1>
@@ -134,21 +114,7 @@
         <div class="epoch__card-header">
           <span :class="darkModeClassTitle">Changes to delegators</span>
 
-          <CustomDatePicker :request-name="fetchDelegatorsRange">
-            <!--            Delete inerective icon-->
-            <template #interactive-icon>
-              <AppInteractiveIcon
-                v-if="!darkModeOn"
-                :options="{
-                  top: '90%',
-                  left: '94%',
-                  opacity: 0.2,
-                  zIndex: 100,
-                }"
-                :size="20"
-              />
-            </template>
-          </CustomDatePicker>
+          <CustomDatePicker :request-name="fetchDelegatorsRange" />
         </div>
 
         <AppSpinner v-if="isLoadingDelegatorsRange" size-bool />
@@ -173,11 +139,10 @@ import epochPercent from '../mixins/epochPercent';
 import LineChart from '../components/charts/LineChart.vue';
 import CustomDatePicker from '../components/CustomDatePicker.vue';
 import AppSpinner from '../components/app/AppSpinner.vue';
-import AppInteractiveIcon from '../components/AppInteractiveIcon.vue';
 
 export default {
   name: 'Epoch',
-  components: { LineChart, CustomDatePicker, AppSpinner, AppInteractiveIcon },
+  components: { LineChart, CustomDatePicker, AppSpinner },
   mixins: [epochPercent],
   data() {
     return {

@@ -94,7 +94,6 @@ export default {
   gap: 30px;
 
   &__title {
-    position: relative;
     text-align: center;
     @include font(36px, $body-dark, 500);
 

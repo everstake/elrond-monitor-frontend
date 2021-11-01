@@ -167,17 +167,8 @@
             href="https://docs.elrond.com/"
             target="_blank"
             :link-class="darkModeClassFonts"
-            style="position: relative"
+            >Elrond Docs</b-dropdown-item
           >
-            Elrond Docs
-
-            <!--            Delete interactive icon-->
-            <AppInteractiveIcon
-              v-if="!darkModeOn"
-              :options="{ top: '15%', left: '80%', opacity: 0.2 }"
-              :size="20"
-            />
-          </b-dropdown-item>
         </b-dropdown>
 
         <b-dropdown
@@ -217,11 +208,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import AppInteractiveIcon from '../AppInteractiveIcon.vue';
 
 export default {
   name: 'AppHeader',
-  components: { AppInteractiveIcon },
   data() {
     return {
       showMenu: false,

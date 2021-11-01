@@ -1,12 +1,6 @@
 <template>
   <b-container :class="['ranking ranking-card ', darkModeClassBackground]">
     <div class="ranking__title">
-      <AppInteractiveIcon
-        v-if="darkModeOn"
-        :options="{ top: '19.5%', left: '48.8%', opacity: 0.3 }"
-        :size="20"
-      />
-
       <h1 :class="[darkModeClassTitle]">Staking Providers' Ranking</h1>
 
       <span :class="[darkModeClassFonts]"
@@ -30,11 +24,10 @@
 import { mapGetters, mapActions } from 'vuex';
 import BarChart from '../charts/BarChart.vue';
 import AppSpinner from '../app/AppSpinner.vue';
-import AppInteractiveIcon from '../AppInteractiveIcon.vue';
 
 export default {
   name: 'Ranking',
-  components: { AppInteractiveIcon, AppSpinner, BarChart },
+  components: { AppSpinner, BarChart },
   computed: {
     ...mapGetters([
       'darkModeClassBackground',
@@ -42,7 +35,6 @@ export default {
       'darkModeClassFonts',
       'providersRanking',
       'isLoadingProvidersRating',
-      'darkModeOn',
     ]),
     totalDataChart() {
       return !this.providersRanking && this.providersRanking.length;

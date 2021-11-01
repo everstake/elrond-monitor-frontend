@@ -19,11 +19,6 @@
       :popup-class="darkModeClassBackground"
       @change="handlerRangeDate"
     >
-      <!--        Delete interactive icon-->
-      <template #sidebar>
-        <slot name="interactive-icon" />
-      </template>
-
       <template #icon-calendar>
         <b-icon
           icon="calendar-fill"
@@ -150,16 +145,6 @@ export default {
     &--active {
       color: $main-white;
     }
-  }
-
-  // Delete styles
-  &-sidebar {
-    width: 0;
-    padding: 0;
-  }
-
-  &-sidebar + &-content {
-    margin-left: 0;
   }
 }
 
