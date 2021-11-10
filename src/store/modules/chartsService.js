@@ -39,7 +39,7 @@ const chartsService = {
     isLoadingAccountInfo: (state) => state.loadingAccountInfo,
     isLoadingTransactions: (state) => state.loadingTransactions,
     isLoadingPriceRange: (state) => state.loadingPriceRange,
-    isLoadingDelegatorsRange: (state) => state.loadingPriceRange,
+    isLoadingDelegatorsRange: (state) => state.loadingDelegatorsRange,
   },
   mutations: {
     setAccountsChart(state, item) {

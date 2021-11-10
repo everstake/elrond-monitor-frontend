@@ -22,6 +22,7 @@ import AppHeader from '@/components/app/AppHeader.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
 import SearchBar from '@/components/app/SearchBar.vue';
 import AppHeaderMenu from '@/components/app/AppHeaderMenu.vue';
+import getValidators from './mixins/getValidators';
 
 export default {
   name: 'App',
@@ -31,6 +32,7 @@ export default {
     AppFooter,
     SearchBar,
   },
+  mixins: [getValidators],
   computed: {
     ...mapGetters(['darkModeOn']),
   },

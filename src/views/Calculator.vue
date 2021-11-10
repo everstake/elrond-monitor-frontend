@@ -4,7 +4,7 @@
       <h1 :class="['calculator__title', darkModeClassTitle]">APR Calculator</h1>
 
       <b-form :class="['calculator__form form', darkModeClassFonts]">
-        <div class="w-100">
+        <div class="form__header">
           <b-input-group class="form__input-group">
             <label>Network Total Stake:</label>
 
@@ -17,7 +17,9 @@
               step="10000"
             />
 
-            <span>{{ totalStake }} EGLD</span>
+            <span class="d-flex align-items-center col-6 col-md-3"
+              >{{ totalStake }} EGLD</span
+            >
           </b-input-group>
 
           <b-input-group class="form__input-group">
@@ -32,7 +34,7 @@
               step="1"
             />
 
-            <div class="d-flex align-items-center w-25">
+            <div class="d-flex align-items-center col-7 col-xl-3 col-md-3">
               <b-form-input
                 id="userStakeVal"
                 v-model="userStake"
@@ -51,36 +53,36 @@
           </h2>
 
           <div class="calculator__agency-wrapper">
-            <div>
+            <div class="col-12 col-md-12 col-xl-3">
               <label for="agencyBaseStake">Base Stake (EGLD):</label>
 
               <b-form-input
                 id="agencyBaseStake"
                 v-model="agencyBaseStake"
                 type="number"
-                class="form-control apy-variable"
+                class="form-control apy-variable col col-md-8"
               />
             </div>
 
-            <div>
+            <div class="col-12 col-md-12 col-xl-3">
               <label for="agencyTopupStake">TopUp (EGLD):</label>
 
               <b-form-input
                 id="agencyTopupStake"
                 v-model="agencyTopupStake"
                 type="number"
-                class="form-control apy-variable"
+                class="form-control apy-variable col col-md-8"
               />
             </div>
 
-            <div>
+            <div class="col-12 col-md-12 col-xl-3">
               <label for="agencyFee">Fee (%):</label>
 
               <b-form-input
                 id="agencyFee"
                 v-model="agencyFee"
                 type="number"
-                class="form-control apy-variable"
+                class="form-control apy-variable col col-md-8"
               />
             </div>
           </div>
@@ -258,6 +260,10 @@ export default {
   border-radius: $border-radius-card;
   padding: 20px 50px 45px;
 
+  @include md-down {
+    padding: 20px 10px;
+  }
+
   &__title {
     margin-bottom: 38px;
     @include font(36px, $main-black, 500);
@@ -273,11 +279,21 @@ export default {
   &__agency {
     display: flex;
     flex-direction: column;
+    width: 100%;
     margin-top: 90px;
 
     &-wrapper {
       display: flex;
-      gap: 4rem;
+      justify-content: space-evenly;
+      row-gap: 2rem;
+
+      & label {
+        white-space: nowrap;
+
+        @include md-down {
+          width: 170px;
+        }
+      }
 
       & > div {
         display: flex;
@@ -285,15 +301,15 @@ export default {
         column-gap: 0.5rem;
 
         & .form-control {
-          width: auto;
+          width: 100%;
         }
 
-        @include md-down {
+        @include lg-down {
           justify-content: space-between;
         }
       }
 
-      @include md-down {
+      @include lg-down {
         flex-direction: column;
       }
     }
@@ -366,11 +382,23 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: 0 auto;
+
+  &__header {
+    @include sm-down {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+    }
+  }
 
   & .custom-range {
     border: none;
     background-color: transparent;
+
+    @include sm-down {
+      width: 100%;
+    }
 
     &:focus {
       box-shadow: none;
@@ -382,8 +410,13 @@ export default {
     align-items: center;
     gap: 1rem;
 
+    @include sm-down {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
     & label {
-      width: 200px;
+      width: 170px;
     }
   }
 }

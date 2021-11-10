@@ -8,18 +8,27 @@
   >
     <div class="footer__top-group">
       <h2 class="footer__copyright">
-        Copyright {{ currentYear }} - everstake.com
+        Copyright {{ currentYear }} -
+        <a href="https://everstake.one/" target="_blank">everstake.one</a>
       </h2>
 
       <div class="footer__media">
-        <a href="#" class="footer__icon-link">
+        <a
+          href="https://www.facebook.com/everstake.one/"
+          class="footer__icon-link"
+          target="_blank"
+        >
           <img
             src="~@/assets/img/media/facebook.svg"
             alt="facebook"
             class="footer__icon"
           />
         </a>
-        <a href="#" class="footer__icon-link">
+        <a
+          href="https://twitter.com/Everstake_pool/"
+          class="footer__icon-link"
+          target="_blank"
+        >
           <img
             src="~@/assets/img/media/twitter.svg"
             alt="twitter"
@@ -84,6 +93,14 @@ export default {
   align-items: center;
   gap: 30px;
   padding: 26px 0px;
+
+  &__icon {
+    transition: all 0.2s linear;
+
+    &:hover {
+      transform: scale(1.3);
+    }
+  }
 
   &__copyright {
     @include font(14px, $font-black, 500);

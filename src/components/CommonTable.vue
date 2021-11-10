@@ -211,6 +211,11 @@ export default {
   justify-content: space-between;
   align-items: center;
 
+  @include sm-down {
+    flex-direction: column;
+    gap: 15px;
+  }
+
   &__wrapper-input {
     display: flex;
     align-items: center;
