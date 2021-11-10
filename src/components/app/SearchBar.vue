@@ -163,6 +163,10 @@ export default {
     padding: 0 50px;
     @include font(14px, #969696, 400);
     line-height: 24px;
+
+    @include sm-down {
+      padding: 0 35px;
+    }
   }
 }
 

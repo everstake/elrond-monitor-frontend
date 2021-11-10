@@ -245,6 +245,10 @@ export default {
   padding: 19px 54px 54px;
   border-radius: $border-radius-card;
 
+  @include sm-down {
+    padding: 10px;
+  }
+
   &__card {
     border-radius: $border-radius-card;
     background-color: $gray;
@@ -257,6 +261,11 @@ export default {
 
       & span {
         @include font(24px, $font-black, 500);
+      }
+
+      @include sm-down {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   }
@@ -273,7 +282,14 @@ export default {
   }
 
   &__progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 41px 55px;
+
+    @include sm-down {
+      padding: 20px 10px;
+    }
 
     &-info {
       display: flex;
@@ -290,9 +306,14 @@ export default {
 
   &__wrapper-chart {
     position: relative;
+    min-height: 540px;
     height: 100%;
     width: 100%;
     padding: 30px 54px 30px 20px;
+
+    @include sm-down {
+      padding: 5px;
+    }
   }
 }
 .progress {
