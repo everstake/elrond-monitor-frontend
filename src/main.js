@@ -14,6 +14,9 @@ import './assets/scss/main.scss';
 // Services
 import './services';
 
+// Directive
+// import './directive';
+
 Vue.config.productionTip = false;
 
 new Vue({
