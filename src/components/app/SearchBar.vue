@@ -7,10 +7,11 @@
         </button>
 
         <input
-          v-model.trim="isSearch"
           type="text"
           :class="['search-bar__input', darkModeClassBackground]"
           placeholder="Search for block, accounts, transactions and validators..."
+          :value="isSearch"
+          @input="isSearch = $event.target.value.trim()"
         />
 
         <button
@@ -99,7 +100,7 @@ export default {
 
         default:
           try {
-            if (this.$route.params.id !== name) {
+            if (this.$route.params.identity !== name) {
               await getValidatorStats({ identity: name });
               this.$router.replace({
                 name: 'ValidatorsDetails',
