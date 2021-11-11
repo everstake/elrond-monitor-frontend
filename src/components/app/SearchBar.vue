@@ -41,8 +41,9 @@
 import { mapGetters } from 'vuex';
 import {
   getBlock,
-  getTransaction,
   getMiniblock,
+  getTransaction,
+  getValidators,
   getValidatorStats,
 } from '../../api/services';
 
@@ -50,18 +51,30 @@ export default {
   name: 'SearchBar',
   data() {
     return {
+      validators: [],
       isSearch: '',
     };
   },
   computed: {
     ...mapGetters(['darkModeClassBackground', 'darkModeClassBgLightBlue']),
     validatorList() {
-      const validators = JSON.parse(localStorage.getItem('Validators'));
-
-      return validators.filter((item) => {
+      return this.validators.filter((item) => {
         return item.name.indexOf(this.isSearch.toLocaleLowerCase()) !== -1;
       });
     },
+  },
+  async created() {
+    try {
+      const resp = await getValidators({ params: { limit: 1000 } });
+
+      this.validators = resp.data.items.map((elem) => {
+        const { identity, name } = { ...elem };
+
+        return { name: name.toLocaleLowerCase(), identity };
+      });
+    } catch (e) {
+      console.error(e);
+    }
   },
   methods: {
     async searchBat(validator) {
