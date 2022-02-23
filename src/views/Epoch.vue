@@ -199,7 +199,7 @@ export default {
     ]),
     getStakeRangeData() {
       return {
-        labels: [...this.stakeRange.map(({ time }) => time)],
+        labels: [...this.stakeRange.map(({ time }) => time * 1000)],
         datasets: [
           {
             borderColor: '#F98600',
@@ -211,7 +211,7 @@ export default {
     },
     getPriceRangeData() {
       return {
-        labels: [...this.priceRange.map(({ time }) => time)],
+        labels: [...this.priceRange.map(({ time }) => time * 1000)],
         datasets: [
           {
             borderColor: '#00ba34',
@@ -223,7 +223,7 @@ export default {
     },
     getDelegatorsRangeData() {
       return {
-        labels: [...this.delegatorsRange.map(({ time }) => time)],
+        labels: [...this.delegatorsRange.map(({ time }) => time * 1000)],
         datasets: [
           {
             borderColor: '#E92C2C',
