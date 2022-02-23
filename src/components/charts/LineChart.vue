@@ -30,8 +30,11 @@ export default {
               display: false,
             },
             ticks: {
-              callback(item) {
-                return moment(item * 1000).format('MMM DD');
+              callback(item, index, arr) {
+                if (arr.length <= 7) return moment(item).format('ll');
+                if (arr.length <= 31)
+                  return index % 2 === 0 ? moment(item).format('ll') : '';
+                return index % 4 === 0 ? moment(item).format('ll') : '';
               },
             },
           },
@@ -83,7 +86,7 @@ export default {
         cornerRadius: 4,
         callbacks: {
           title(item) {
-            return `${moment(item[0].xLabel * 1000).format('dddd, LL')}`;
+            return `${moment(item[0].xLabel).format('LL')}`;
           },
           label(e) {
             return `Vol: ${numeral(e.yLabel).format('0,0.[0000]')}`;
