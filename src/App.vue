@@ -4,6 +4,7 @@
       <AppHeader />
       <AppHeaderMenu />
       <SearchBar />
+      <Banner />
     </header>
 
     <main class="page-body" :class="{ 'black-body-background': darkModeOn }">
@@ -22,10 +23,12 @@ import AppHeader from '@/components/app/AppHeader.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
 import SearchBar from '@/components/app/SearchBar.vue';
 import AppHeaderMenu from '@/components/app/AppHeaderMenu.vue';
+import Banner from './components/Banner.vue';
 
 export default {
   name: 'App',
   components: {
+    Banner,
     AppHeaderMenu,
     AppHeader,
     AppFooter,
