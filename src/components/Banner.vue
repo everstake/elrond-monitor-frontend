@@ -1,7 +1,11 @@
 <template>
   <div :class="['banner']">
     <b-container>
-      <a href="https://nation.io/dao/ukraine" target="_blank" rel="noreferrer">
+      <a
+        href="https://donate.thedigital.gov.ua/"
+        target="_blank"
+        rel="noreferrer"
+      >
         <img src="~@/assets/img/banner.jpg" :class="['image', 'img-war']" />
         <img
           src="~@/assets/img/banner-mobile.jpg"
