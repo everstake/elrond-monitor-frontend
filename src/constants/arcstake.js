@@ -17,9 +17,4 @@ const arcstake = {
   ],
 };
 
-export {
-  arcstake,
-  week,
-  month,
-  year,
-};
+export { arcstake, week, month, year };

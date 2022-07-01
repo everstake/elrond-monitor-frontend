@@ -32,7 +32,8 @@
   }
 
   &.card--dark-mode {
-    background-color: $black;
+    // background-color: $black;
+    background: linear-gradient(45deg, $main-black 50%, transparent);
     color: white;
   }
 
@@ -68,14 +69,12 @@
       &--down {
         color: $red;
         background: linear-gradient(
-                        0deg,
-                        rgba(255, 0, 0, 0.1),
-                        rgba(255, 0, 0, 0.1)
-        ),
-        $main-white;
+            0deg,
+            rgba(255, 0, 0, 0.1),
+            rgba(255, 0, 0, 0.1)
+          ),
+          $main-white;
       }
     }
   }
 }
-
-

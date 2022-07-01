@@ -5,7 +5,17 @@
       :class="['burger-menu', darkModeClassBackground, darkModeClassFonts]"
     >
       <b-nav class="burger-menu__nav">
-        <li v-b-toggle.menu-burger-collapse>
+        <li
+          v-for="(item, index) in navItems"
+          :key="index"
+          v-b-toggle.menu-burger-collapse
+        >
+          <router-link :to="item.path" :class="['navbar__link']">
+            {{ item.name }}
+          </router-link>
+        </li>
+
+        <!-- <li v-b-toggle.menu-burger-collapse>
           <router-link to="/blocks" :class="['navbar__link']">
             Blocks
           </router-link>
@@ -38,7 +48,7 @@
           >
             APR calculator
           </router-link>
-        </li>
+        </li> -->
 
         <li>
           <span v-b-toggle.links>Links <b-icon icon="chevron-down" /></span>
@@ -85,9 +95,15 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import router from './router';
 
 export default {
   name: 'AppHeaderMenu',
+  data() {
+    return {
+      navItems: router,
+    };
+  },
   computed: {
     ...mapGetters(['darkModeClassBackground', 'darkModeClassFonts']),
   },

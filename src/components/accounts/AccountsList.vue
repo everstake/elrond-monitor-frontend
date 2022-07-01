@@ -34,7 +34,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import CommonTable from '@/components/CommonTable.vue';
 import { tableFields } from '@/constants/tables';
-import pagination from "../../mixins/pagination";
+import pagination from '../../mixins/pagination';
 
 export default {
   name: 'AccountsList',

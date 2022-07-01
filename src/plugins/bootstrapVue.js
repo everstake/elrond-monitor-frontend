@@ -11,6 +11,8 @@ import {
   BIconChevronLeft,
   CollapsePlugin,
   TablePlugin,
+  TooltipPlugin,
+  BIconBox,
 } from 'bootstrap-vue';
 
 Vue.use(BootstrapVue);
@@ -21,6 +23,8 @@ Vue.use(ToastPlugin);
 Vue.use(SpinnerPlugin);
 Vue.use(CollapsePlugin);
 Vue.use(TablePlugin);
+Vue.use(TooltipPlugin);
 Vue.component('BIcon', BIcon);
+Vue.component('BIconBox', BIconBox);
 Vue.component('BIconChevronRight', BIconChevronRight);
 Vue.component('BIconChevronLeft', BIconChevronLeft);

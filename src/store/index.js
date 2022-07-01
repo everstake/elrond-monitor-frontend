@@ -7,6 +7,8 @@ import stakingService from './modules/stakingService';
 import blocksService from './modules/blocksService';
 import statsService from './modules/statsService';
 import chartsService from './modules/chartsService';
+import tokensService from './modules/tokensService';
+import nftService from './modules/nftsService';
 
 Vue.use(Vuex);
 
@@ -22,5 +24,7 @@ export default new Vuex.Store({
     blocksService,
     statsService,
     chartsService,
+    tokensService,
+    nftService,
   },
 });

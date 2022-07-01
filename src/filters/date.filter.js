@@ -3,7 +3,11 @@ import moment from 'moment';
 
 const MS = 1000;
 
-const formatMsToDate = (val) => moment(val * MS).format('lll');
+const formatMsToDate = (val) => {
+  if (val === 0) return '0';
+
+  return moment(val * MS).format('lll');
+};
 
 const formatTime = (val) => {
   const time = val * MS;

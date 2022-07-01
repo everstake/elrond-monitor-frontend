@@ -1,5 +1,5 @@
 <template>
-  <TableInfo
+  <table-info
     :fields="fields"
     :items="block"
     :request-name="fetchBlockNonce"
@@ -51,7 +51,7 @@
 
     <template #validators="{ item }">
       <div class="row-info__text-wrapper">
-        <b-btn variant="link" v-b-toggle.collapse-validators class="p-0">
+        <b-btn v-b-toggle.collapse-validators variant="link" class="p-0">
           {{ item.length }} validators (See all)
         </b-btn>
 
@@ -120,7 +120,7 @@
         </b-btn>
       </div>
     </template>
-  </TableInfo>
+  </table-info>
 </template>
 
 <script>

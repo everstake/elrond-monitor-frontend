@@ -23,54 +23,12 @@
       </router-link>
 
       <b-nav class="navbar__list">
-        <li class="navbar__item">
+        <li v-for="(item, index) in navItems" :key="index" class="navbar__item">
           <router-link
-            to="/blocks"
+            :to="item.path"
             :class="['navbar__link', darkModeClassFonts]"
+            >{{ item.name }}</router-link
           >
-            Blocks
-          </router-link>
-        </li>
-        <li class="navbar__item">
-          <router-link
-            to="/epoch"
-            :class="['navbar__link', darkModeClassFonts]"
-          >
-            Epoch
-          </router-link>
-        </li>
-        <li class="navbar__item">
-          <router-link
-            to="/transactions"
-            :class="['navbar__link', darkModeClassFonts]"
-          >
-            Transactions
-          </router-link>
-        </li>
-        <li class="navbar__item">
-          <router-link
-            to="/accounts"
-            :class="['navbar__link', darkModeClassFonts]"
-          >
-            Accounts
-          </router-link>
-        </li>
-        <li class="navbar__item">
-          <router-link
-            to="/validators"
-            :class="['navbar__link', darkModeClassFonts]"
-          >
-            Validators
-          </router-link>
-        </li>
-
-        <li class="navbar__item">
-          <router-link
-            to="/calculator"
-            :class="['navbar__link', darkModeClassFonts]"
-          >
-            APR calculator
-          </router-link>
         </li>
       </b-nav>
 
@@ -208,6 +166,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import router from './router';
 
 export default {
   name: 'AppHeader',
@@ -215,6 +174,7 @@ export default {
     return {
       showMenu: false,
       isMainnet: true,
+      navItems: router,
     };
   },
   computed: {
@@ -319,7 +279,7 @@ export default {
       display: flex;
       align-items: center;
       height: 100%;
-      gap: 1rem;
+      gap: 10px;
 
       @include md-down {
         display: none;

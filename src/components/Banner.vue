@@ -29,6 +29,7 @@ export default {
 
 .image {
   width: 100%;
+  vertical-align: middle;
 }
 
 @media (max-width: 767px) {

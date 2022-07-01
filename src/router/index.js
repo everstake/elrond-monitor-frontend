@@ -101,6 +101,31 @@ const routes = [
     component: () => import('../views/Calculator.vue'),
   },
   {
+    path: '/tokens',
+    name: 'Tokens',
+    component: () => import('../views/Tokens.vue'),
+  },
+  {
+    path: '/token/:id',
+    name: 'TokenDetails',
+    component: () => import('../views/TokenDetails.vue'),
+  },
+  {
+    path: '/collections',
+    name: 'NftCollections',
+    component: () => import('../views/NFTS.vue'),
+  },
+  {
+    path: '/collection/:id',
+    name: 'NftCollection',
+    component: () => import('../views/NFTCollection.vue'),
+  },
+  {
+    path: '/nfts/:id',
+    name: 'NftDetails',
+    component: () => import('../views/NFTDetails.vue'),
+  },
+  {
     path: '*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue'),

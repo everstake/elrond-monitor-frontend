@@ -4,3 +4,4 @@ import './trim.hash.filter';
 import './amount.filter';
 import './size.filter';
 import './percent.filter';
+import './splitWord.filter';

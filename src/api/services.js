@@ -1,4 +1,4 @@
-import { APIService } from './index';
+import APIService from './index';
 
 export const getStats = () => APIService.get('/stats');
 
@@ -54,3 +54,23 @@ export const getProvidersRanking = () => APIService.get('/providers/ranking');
 
 export const getStakingEvents = (params) =>
   APIService.get('/stake/events', params);
+
+export const getTokens = (params) => APIService.get('/tokens', params);
+
+export const getToken = (identity) => APIService.get(`/token/${identity}`);
+
+export const getTokensAccounts = (params) =>
+  APIService.get('/esdt/accounts', params);
+
+export const getTokensTransactions = (params) =>
+  APIService.get('/operations', params);
+
+export const getAllNFTCollections = (params) =>
+  APIService.get('/nft/collections', params);
+
+export const getNFTCollection = (collection) =>
+  APIService.get(`/nft/collection/${collection}`);
+
+export const getNFTCollections = (params) => APIService.get(`/nfts`, params);
+
+export const getNFTDetails = (identity) => APIService.get(`/nft/${identity}`);

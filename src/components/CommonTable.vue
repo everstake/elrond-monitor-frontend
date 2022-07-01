@@ -113,7 +113,6 @@ export default {
       type: Function,
       required: false,
       default: () => {},
-
     },
   },
   data() {
@@ -174,6 +173,9 @@ export default {
       }
     },
     async onChangePage(page) {
+      // this.$router.push({ query: { page: page - 1 } });
+      // console.log(this.$route.query.page);
+
       this.currentPage = page;
       await this.requestName({
         ...this.fetchParams,
