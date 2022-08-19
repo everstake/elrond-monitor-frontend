@@ -50,6 +50,62 @@
       >
     </template>
 
+    <template #tokenOperations>
+      <div
+        v-if="tokenOperations.length"
+        class="row-info__text-wrapper"
+        style="width: 100%"
+      >
+        <b-btn v-b-toggle.collapse-tokens variant="link" class="p-0">
+          Operations (See all)
+        </b-btn>
+
+        <b-collapse id="collapse-tokens">
+          <div v-for="(item, i) in tokenOperations" :key="i">
+            <div v-if="item.tokens_details !== null">
+              <div
+                v-for="(token, index) in item.tokens_details"
+                :key="index"
+                class="tokens"
+              >
+                <div class="tokens_wrap">
+                  From: {{ item.sender | trimHash }}
+                  <BtnCopy :address="item.sender" class="pl-1" />
+                </div>
+
+                <div class="tokens_wrap">
+                  To: {{ item.receiver | trimHash }}
+                  <BtnCopy :address="item.receiver" class="pl-1" />
+                </div>
+
+                <div class="tokens_wrap">{{ item.operation }}</div>
+
+                <div>
+                  {{ token.value | fromatTokenWithDecimals(token.decimal) }}
+                  {{ token.name | splitTokenName }}
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="tokens">
+              <div class="tokens_wrap">
+                From: {{ item.sender | trimHash }}
+                <BtnCopy :address="item.sender" class="pl-1" />
+              </div>
+
+              <div class="tokens_wrap">
+                To: {{ item.receiver | trimHash }}
+                <BtnCopy :address="item.receiver" class="pl-1" />
+              </div>
+
+              <div>{{ item.operation }}</div>
+            </div>
+          </div>
+        </b-collapse>
+      </div>
+      <span v-else>N/A</span>
+    </template>
+
     <template #fee="{ item }">
       <span>{{ item }}</span>
     </template>
@@ -63,40 +119,46 @@
     </template>
 
     <template #data="{ item }">
-      <span>{{ item || 'N/A' }}</span>
+      <span class="data-word-wrap">{{ item || 'N/A' }}</span>
     </template>
 
     <template #scResults="{ item }">
-      <div v-if="Object.keys(item).length" class="row-info__item">
-        <div v-for="(elem, i) in item" :key="i" class="contract-info">
-          <div class="contract-info__item">
-            <span>From</span>
+      <div v-if="Object.keys(item).length" class="row-info__text-wrapper">
+        <b-btn v-b-toggle.collapse-contracts variant="link" class="p-0">
+          {{ item.length }} validators (See all)
+        </b-btn>
 
-            <span>
-              {{ elem.from }}
-              <BtnCopy :address="elem.from" class="pl-1" />
-            </span>
+        <b-collapse id="collapse-contracts">
+          <div v-for="(elem, i) in item" :key="i" class="contract-info">
+            <div class="contract-info__item">
+              <span>From</span>
+
+              <span>
+                {{ elem.from }}
+                <BtnCopy :address="elem.from" class="pl-1" />
+              </span>
+            </div>
+
+            <div class="contract-info__item">
+              <span>To</span>
+              <span>
+                {{ elem.to }}
+                <BtnCopy :address="elem.to" class="pl-1" />
+              </span>
+            </div>
+
+            <div class="contract-info__item">
+              <span>Value</span>
+              <span>{{ elem.value }}</span>
+            </div>
+
+            <div class="contract-info__item">
+              <span>Data</span>
+
+              <span>{{ elem.data }}</span>
+            </div>
           </div>
-
-          <div class="contract-info__item">
-            <span>To</span>
-            <span>
-              {{ elem.to }}
-              <BtnCopy :address="elem.to" class="pl-1" />
-            </span>
-          </div>
-
-          <div class="contract-info__item">
-            <span>Value</span>
-            <span>{{ elem.value }}</span>
-          </div>
-
-          <div class="contract-info__item">
-            <span>Data</span>
-
-            <span>{{ elem.data }}</span>
-          </div>
-        </div>
+        </b-collapse>
       </div>
 
       <span v-else>N/A</span>
@@ -172,6 +234,15 @@ export default {
           },
         },
         {
+          key: 'tokenOperations',
+          label: 'Token Operations',
+          class: {
+            label: ['row-info__label'],
+            item: ['row-info'],
+            wrapper: ['wrapper-table-info__row'],
+          },
+        },
+        {
           key: 'fee',
           label: 'Transaction Fee',
           class: {
@@ -203,7 +274,7 @@ export default {
           label: 'Data',
           class: {
             label: ['row-info__label'],
-            item: ['row-info'],
+            item: ['row-info', 'wrp'],
             wrapper: ['wrapper-table-info__row'],
           },
         },
@@ -220,7 +291,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['transaction', 'loadingTx']),
+    ...mapGetters([
+      'transaction',
+      'loadingTx',
+      'tokensCount',
+      'tokenOperations',
+    ]),
   },
   watch: {
     $route: {
@@ -261,6 +337,20 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+}
+.data-word-wrap {
+  word-break: break-all;
+  padding: 10px 0;
+}
+
+.tokens {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+
+  &_wrap {
+    width: 25%;
   }
 }
 </style>

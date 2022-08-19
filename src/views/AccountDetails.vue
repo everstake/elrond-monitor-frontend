@@ -9,8 +9,9 @@
 <script>
 import AccountCard from '@/components/accounts/account-details/AccountCard.vue';
 import AccountTransactionsList from '@/components/accounts/account-details/AccountTransactionsList.vue';
-import AccountStakingProviders from '../components/accounts/account-details/AccountStakingProviders.vue';
-import AccountStakingEvents from '../components/accounts/account-details/AccountStakingEvents.vue';
+import AccountESDTTokens from '@/components/accounts/account-details/AccountESDTTokens.vue';
+import AccountStakingProviders from '@/components/accounts/account-details/AccountStakingProviders.vue';
+import AccountStakingEvents from '@/components/accounts/account-details/AccountStakingEvents.vue';
 
 export default {
   components: {
@@ -18,6 +19,7 @@ export default {
     AccountTransactionsList,
     AccountCard,
     AccountStakingEvents,
+    AccountESDTTokens,
   },
   data() {
     return {
@@ -29,6 +31,8 @@ export default {
       switch (this.activeTab.key) {
         case 'transactions':
           return 'AccountTransactionsList';
+        case 'esdt_tokens':
+          return 'AccountESDTTokens';
         case 'staking_providers':
           return 'AccountStakingProviders';
         case 'staking_events':

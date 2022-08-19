@@ -1,4 +1,4 @@
-import { getAccounts, getAccount } from '@/api/services';
+import { getAccounts, getAccount, getAccountESDT } from '@/api/services';
 
 const accountService = {
   state: {
@@ -6,12 +6,18 @@ const accountService = {
     account: {},
     totalItemsAccount: 1,
     loading: false,
+    accountESDTTokens: [],
+    totalItemsToken: 1,
+    esdtLoading: false,
   },
   getters: {
     accounts: (state) => state.accounts,
     account: (state) => state.account,
     totalItemsAccount: (state) => state.totalItemsAccount,
     loadingAcc: (state) => state.loading,
+    accountESDTTokens: (state) => state.accountESDTTokens,
+    totalItemsToken: (state) => state.totalItemsToken,
+    loadingAccESDTTokens: (state) => state.esdtLoading,
   },
   mutations: {
     setAccounts(state, accounts) {
@@ -23,6 +29,13 @@ const accountService = {
     },
     setLoaderAccounts(state, bool) {
       state.loading = bool;
+    },
+    setAccountESDTTokens(state, tokens) {
+      state.accountESDTTokens = tokens.items;
+      state.totalItemsToken = tokens.count;
+    },
+    setLoadingAccESDTTokens(state, bool) {
+      state.esdtLoading = bool;
     },
   },
   actions: {
@@ -46,6 +59,17 @@ const accountService = {
         console.error(e);
       } finally {
         commit('setLoaderAccounts', false);
+      }
+    },
+    async fetchAccountESDT({ commit }, params) {
+      try {
+        commit('setLoadingAccESDTTokens', true);
+        const resp = await getAccountESDT({ params });
+        commit('setAccountESDTTokens', resp.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        commit('setLoadingAccESDTTokens', false);
       }
     },
   },

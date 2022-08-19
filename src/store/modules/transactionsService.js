@@ -1,4 +1,8 @@
-import { getTransaction, getTransactions } from '../../api/services';
+import {
+  getTokensTransactions,
+  getTransaction,
+  getTransactions,
+} from '../../api/services';
 
 const transactionsService = {
   state: {
@@ -8,6 +12,8 @@ const transactionsService = {
     loading: false,
     txWebSocket: [],
     updateTx: [],
+    tokenOperations: [],
+    tokensCount: 0,
   },
   getters: {
     transactions: (state) => {
@@ -20,6 +26,8 @@ const transactionsService = {
     totalTransactionItems: (state) => state.totalTransactionItems,
     transaction: (state) => state.transaction,
     loadingTx: (state) => state.loading,
+    tokenOperations: (state) => state.tokenOperations,
+    tokensCount: (state) => state.tokensCount,
   },
   mutations: {
     setTransactions(state, transactions) {
@@ -35,6 +43,10 @@ const transactionsService = {
     },
     setUpdateTxSocket(state, item) {
       state.updateTx = [...item, ...state.updateTx.slice(0, -item.length)];
+    },
+    setTokenOperations(state, tokens) {
+      state.tokenOperations = tokens.data.items;
+      state.tokensCount = tokens.count;
     },
   },
   actions: {
@@ -53,8 +65,14 @@ const transactionsService = {
       try {
         commit('setLoaderTx', true);
         const resp = await getTransaction(hash);
+        const tokens = await getTokensTransactions({
+          params: {
+            tx_hash: hash,
+          },
+        });
         commit('setTransaction', resp.data);
         commit('setLoaderTx', false);
+        commit('setTokenOperations', tokens);
       } catch (e) {
         console.error(e);
       } finally {

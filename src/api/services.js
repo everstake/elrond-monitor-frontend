@@ -74,3 +74,6 @@ export const getNFTCollection = (collection) =>
 export const getNFTCollections = (params) => APIService.get(`/nfts`, params);
 
 export const getNFTDetails = (identity) => APIService.get(`/nft/${identity}`);
+
+export const getAccountESDT = (params) =>
+  APIService.get(`/esdt/accounts`, params);

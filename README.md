@@ -1,6 +1,6 @@
 # elrond-monitor
 
-Use node version 14.16.0 to run the project.
+Use node version 14.19.0 to run the project.
 
 ## Project setup
 

@@ -24,18 +24,16 @@ const formatToken = (val) => {
   return `${numeral(val).format('0,0.[000000]')} EGLD`;
 };
 
-const fromatTokenWithDecimals = (val, decimals, type, mainType) => {
-  if (+val === 0) {
-    return '0';
-  }
-  if (+val < 10) {
-    return formatAmount(val);
-  }
-  if (type !== mainType) {
-    return formatAmount(val);
+const fromatTokenWithDecimals = (val, decimals) => {
+  if (+val === 0 || decimals === 0) {
+    return '';
   }
 
   const dec = +val / 10 ** decimals;
+
+  if (dec < 0.000001) {
+    return '0';
+  }
 
   return formatAmount(dec);
 };

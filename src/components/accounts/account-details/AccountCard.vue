@@ -73,6 +73,10 @@ const accountTabs = [
     label: 'Transactions',
   },
   {
+    key: 'esdt_tokens',
+    label: 'ESDT tokens',
+  },
+  {
     key: 'staking_providers',
     label: 'Staking providers',
   },

@@ -1,7 +1,10 @@
 <template>
   <div :class="['search-bar', darkModeClassBgLightBlue]">
     <div class="container-lg">
-      <b-form class="search-bar__wrapper" @submit.prevent="searchBat(isSearch)">
+      <b-form
+        class="search-bar__wrapper"
+        @submit.prevent="handleSearch(isSearch)"
+      >
         <button class="search-bar__btn search-bar__btn--search" type="submit">
           <b-icon icon="search" class="search-bar__img" />
         </button>
@@ -9,7 +12,7 @@
         <input
           type="text"
           :class="['search-bar__input', darkModeClassBackground]"
-          placeholder="Search for block, accounts, transactions and validators..."
+          placeholder="Search for block, accounts, token id, transactions and validators..."
           :value="isSearch"
           @input="isSearch = $event.target.value.trim()"
         />
@@ -27,7 +30,7 @@
             v-for="{ name, identity } in validatorList"
             :key="identity"
             class="list__item"
-            @click.prevent="searchBat(identity)"
+            @click.prevent="handleSearch(identity)"
           >
             {{ name }}
           </span>
@@ -45,6 +48,7 @@ import {
   getTransaction,
   getValidators,
   getValidatorStats,
+  getToken,
 } from '../../api/services';
 
 export default {
@@ -77,10 +81,10 @@ export default {
     }
   },
   methods: {
-    async searchBat(validator) {
+    async handleSearch(id) {
       if (!this.isSearch || !this.isSearch.length) return;
 
-      const name = validator.toLocaleLowerCase();
+      const name = id.toLocaleLowerCase();
 
       switch (this.isSearch.length) {
         case 62:
@@ -114,11 +118,12 @@ export default {
         default:
           try {
             if (this.$route.params.identity !== name) {
-              await getValidatorStats({ identity: name });
-              this.$router.replace({
-                name: 'ValidatorsDetails',
-                params: { identity: name },
-              });
+              const resp = await Promise.any([
+                getValidatorStats({ identity: name }),
+                getToken(id),
+              ]);
+
+              this.$router.replace(resp.config.url);
             }
           } catch (e) {
             this.$bvToast.toast('Page not found!', {

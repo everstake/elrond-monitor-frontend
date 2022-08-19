@@ -5,6 +5,7 @@ const splitWord = (elem) => {
 };
 
 const splitTokenName = (str) => {
+  if (!str) return str;
   return str.split('-')[0];
 };
 

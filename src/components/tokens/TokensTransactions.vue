@@ -36,16 +36,17 @@
       </router-link>
     </template>
 
-    <template #cell(esdt_values)="{ item: { esdt_values, tokens }, index }">
+    <template
+      #cell(esdt_values)="{
+        item: { esdt_values, tokens, tokens_details },
+        index,
+      }"
+    >
       <div>
         <span
           >{{
             esdt_values[tokens.indexOf(typeToken)]
-              | fromatTokenWithDecimals(
-                decimals,
-                tokens[tokens.indexOf(typeToken)],
-                typeToken,
-              )
+              | fromatTokenWithDecimals(decimals)
           }}
           {{ tokens[tokens.indexOf(typeToken)] | splitTokenName }}</span
         >
@@ -57,14 +58,14 @@
         />
 
         <b-tooltip
-          v-if="esdt_values.length > 1"
+          v-if="tokens_details.length > 1"
           :target="`tooltip-target-${index}`"
           triggers="hover"
           placement="left"
         >
-          <div v-for="(item, i) in esdt_values" :key="i">
-            {{ item | fromatTokenWithDecimals(decimals, tokens[i], typeToken) }}
-            {{ tokens[i] | splitTokenName }}
+          <div v-for="(item, i) in tokens_details" :key="i">
+            {{ item.value | fromatTokenWithDecimals(item.decimal) }}
+            {{ item.name | splitTokenName }}
           </div>
         </b-tooltip>
       </div>
